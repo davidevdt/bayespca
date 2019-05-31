@@ -1,0 +1,28 @@
+Package: bayespca
+Title: A package for estimating PCA with a Variational Bayes algorithm
+Version: 0.0.1
+Authors@R: person("Davide", "Vidotto", email = "d.vidotto@uvt.nl", role = c("aut", "cre"))
+Description: `bayespca` performs Bayesian estimation of weight vectors in PCA.
+    To achieve regularization, the method allows specifying fixed variances
+    in the prior distributions of the weights; alternatively, it is possible
+    to implement Jeffrey's and  Inverse Gamma priors on such parameters.
+    In turn, the Inverse Gamma's can have fixed shape hyperparameter; and
+    fixed or random scale hyperparameter. Last, the method allows performing
+    component-specific Stochastic Variable Selection (`spike-and-slab` prior).
+Depends:
+    R (>= 3.3.3)
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+LinkingTo: Rcpp,
+    RcppArmadillo
+Imports:
+    Rcpp,
+    ggplot2
+RoxygenNote: 5.0.1
+Suggests: knitr,
+    rmarkdown,
+    testthat,
+	RColorBrewer,
+	fields
+VignetteBuilder: knitr
