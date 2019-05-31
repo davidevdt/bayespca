@@ -11,8 +11,7 @@ Davide Vidotto <d.vidotto@uvt.nl>
     to implement Jeffrey's and  Inverse Gamma priors on such parameters.
     In turn, the Inverse Gamma's can have fixed shape hyperparameter; and
     fixed or random scale hyperparameter. Last, the method allows performing
-    component-specific Stochastic Variable Selection (`spike-and-slab` prior).
-    
+    component-specific Stochastic Variable Selection ('spike-and-slab' prior).
     Check the ```vignettes``` and package documentation for further details. 
 
 ## Functions
