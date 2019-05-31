@@ -17,10 +17,13 @@ Davide Vidotto <d.vidotto@uvt.nl>
 
 ## Functions
 
-* ```vbpca``` for model estimation;
-* ```vbpca_control``` for settings of control parameters; 
-* ```is.vbpca``` for testing the class; 
-* ```plothpdi``` for plotting high probability density intervals. 
+* ```vbpca``` for model estimation
+* ```vbpca_control``` for settings of control parameters
+* ```is.vbpca``` for testing the class
+* ```plothpdi``` for plotting high probability density intervals
+
+## Install
+devtools::install_github("davidevdt/bayespca")
 
 ## Version
 0.0.1
