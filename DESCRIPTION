@@ -26,3 +26,4 @@ Suggests: knitr,
 	RColorBrewer,
 	fields
 VignetteBuilder: knitr
+URL: http://github.com/davidevdt/bayespca 
