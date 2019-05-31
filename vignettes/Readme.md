@@ -1,8 +1,6 @@
 ---
 title: "bayespca Package"
 author: "Davide Vidotto <d.vidotto@uvt.nl>"
-date: "2019-05-31"
-output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{bayespca Package}
   %\VignetteEngine{knitr::rmarkdown}
