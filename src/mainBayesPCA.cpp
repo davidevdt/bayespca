@@ -1,3 +1,21 @@
+/* 
+
+	mainBayesPCA: estimate Variational Bayes PCA with C++. 
+	The routine uses the RcppArmadillo library to build and
+	compute its linear algebra functions. 
+	
+	The vbalgorithm() function is called for the implementation
+	of the proper algorithm. In turn, vbalgorithm() is mainly 
+	composed of two steps: (a) updateExpected(), which updates 
+	the expected values of the latent variables (muW) and 
+	the point estimates of the other model parameters (muP,
+	sigma2, tau, and so on ); (b) updateElbo, which computes 
+	the evidence lower bound (ELBO) given the current parameter 
+	estimates. 
+
+
+*/
+
 #include <RcppArmadillo.h>
 #include "vbalgorithm.h"
 #include "aux_functions.h"
@@ -5,8 +23,7 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 // [[Rcpp::export]]
-Rcpp::List mainBayesPCA( 
-						const arma::mat& X, int D, int I, int J, int nstart, int maxIter, 
+Rcpp::List mainBayesPCA(	const arma::mat& X, int D, int I, int J, int nstart, int maxIter, 
                         double tolerance, bool svdStart, bool verbose,
                         bool updatetau, std::string priorvar,
                         arma::vec alphatau, arma::vec betatau, 
