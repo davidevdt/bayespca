@@ -1,6 +1,8 @@
 #include <RcppArmadillo.h>
 #include "aux_functions.h"
 
+#define MAX_FLOAT 1E+37
+
 // [[Rcpp::depends(RcppArmadillo)]]
 
 
@@ -8,7 +10,7 @@
 ***	Update W, P, sigma2 	***
 ****************************/
 void updateWPXsigma( arma::mat &muW, arma::mat &W2, double &sigma2, arma::mat &muP, int D, 
-                     int J, int I, double &hW, arma::mat X, arma::mat XTX, arma::mat invTau, 
+                     int J, int I, double &hW, const arma::mat& X, const arma::mat& XTX, arma::mat invTau, 
                      std::string priorvar, bool hpdi, Rcpp::List &hpdis, double qz, 
                      bool scaleprior, double &EWtauW, double v0, 
                      arma::mat incProbs, double SVS, double &denomX, 
@@ -17,6 +19,7 @@ void updateWPXsigma( arma::mat &muW, arma::mat &W2, double &sigma2, arma::mat &m
 	
 	int d; 
 	double Det; 
+	double tmpDet; 
 	double invSigma2 = 1.0 / sigma2; 
 	double invsigma = sqrt(1 / sigma2);
 
@@ -56,8 +59,10 @@ void updateWPXsigma( arma::mat &muW, arma::mat &W2, double &sigma2, arma::mat &m
 		muW.col( d ) = invSigma2 * ( sigmaWd * XTX * muP.col(d) ); 
 		W2.col( d ) = ( arma::square( muW.col( d ) ) + sigmaWd.diag() );	
 
+
 		// Entropy for W 
-		Det = arma::det( sigmaWd );
+		tmpDet = arma::det(sigmaWd); 
+		Det = (tmpDet > MAX_FLOAT) ? MAX_FLOAT : tmpDet ; 
 		if( Det != 0.0 ){
 			hW += 0.5 * log( ( Det ) ) + ((double(J) / 2.0) * ( 1.0 + log( 2.0 * PI ) )) ;
 		}else{
@@ -83,16 +88,15 @@ void updateWPXsigma( arma::mat &muW, arma::mat &W2, double &sigma2, arma::mat &m
 	EWWT += muW * muW.t(); 
 
 	//	Update P 
-	arma::mat U; 
-	arma::vec DG; 
-	arma::mat V; 	
+	arma::mat U(J, D); 
+	arma::vec DG(D); 
+	arma::mat V(J, D); 	
 
-	arma::svd(U, DG, V, ( XTX * muW ));
-	U = U.cols(0, ( D-1 )); 			
+	SVD( XTX * muW, U, DG, V, D, D );			
 	muP = U * V.t();	
 
 	// Update sigma2 
-	denomX = normX - 2 * arma::trace( muW.t() * X.t() * X * muP ) + arma::trace( XTX * EWWT ); 
+	denomX = normX - 2 * arma::trace( muW.t() * XTX * muP ) + arma::trace( XTX * EWWT ); 
 	double bPostSigma = denomX; 
 
 	if( scaleprior ){

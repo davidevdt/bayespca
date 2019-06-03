@@ -4,3 +4,4 @@ bayespca.Rproj
 .RData
 inst/doc
 R/bayespca.R
+vignettes/bayespca.Rmd

@@ -2,7 +2,8 @@
 title: "bayespca Package"
 author: "Davide Vidotto <d.vidotto@uvt.nl>"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+        html_vignette
 vignette: >
   %\VignetteIndexEntry{bayespca Package}
   %\VignetteEngine{knitr::rmarkdown}
@@ -76,7 +77,7 @@ With fixed tau, it is possible to specify the model as follows:
 
 
 
-```{r}
+```{r, warning = FALSE}
 # Install and load package 
 # devtools::install_github("davidevdt/bayespca")
 library(bayespca)
@@ -128,7 +129,7 @@ mod1$time
 The prior variances $\tau_{dj}$ can also be updated via Type-II Maximum Likelihood (empirical Bayes updates): 
 
 
-```{r}
+```{r, warning = FALSE}
 mod2 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'fixed',
               updatetau = TRUE, control = ctrl, verbose = FALSE )
 
@@ -153,7 +154,7 @@ $$ p(\tau_{d,j}) \propto \frac{1}{\tau_{d,j}}.  $$
 The following code runs the algorithm with Jeffrey's priors on ```tau```: 
 
 
-```{r}
+```{r, warning = FALSE}
 mod3 <- vbpca(X, D = 3, maxIter = 1e+03, 
               priorvar = 'jeffrey', control = ctrl, verbose = FALSE )
 			  
@@ -173,7 +174,7 @@ $$ \tau_{d,j} \sim IG(\alpha, \beta) $$
 with $\alpha$ shape parameter and $\beta$ scale parameter. The following code implements an IG(2, .5) prior on the variances: 
 
 
-```{r}
+```{r, warning = FALSE}
 # Set hyperparameter values 
 ctrl2 <- vbpca_control(center = FALSE, scalecorrection = -1,
                        plot.lowerbound = FALSE, 
@@ -200,7 +201,7 @@ mod4$invTau
 $$ \tau_{d,j} \sim IG(\alpha_d, \beta_d) $$. 
 
 
-```{r}
+```{r, warning = FALSE}
 # Set hyperparameter values 
 ctrl3 <- vbpca_control(center = FALSE, scalecorrection = -1,
                        plot.lowerbound = FALSE, 
@@ -228,7 +229,7 @@ $$ \beta \sim Ga(\gamma, \delta). $$
 This is achievable by setting ```gammatau``` (and ```deltatau```) larger than 0 in the control parameters: 
 
 
-```{r} 
+```{r, warning = FALSE} 
 # Specify component-specific Gamma(.01, 10) hyperpriors on betatau 
 ctrl4 <- vbpca_control(center = FALSE, scalecorrection = -1, 
                        plot.lowerbound = FALSE, 
@@ -276,7 +277,7 @@ that is, component-specific variances (called 'global variances' in ```vbpca```)
 
 
 
-```{r, fig.cap = "Prior variances for the first 3 components."}
+```{r, fig.cap = "Prior variances for the first 3 components.", warning = FALSE}
 # Fixed prior global variances, updated via Type-II maximum likelihood: 
 mod7 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'fixed',
               updatetau = TRUE, control = ctrl, verbose = FALSE, 
@@ -295,7 +296,7 @@ Notice the plot of the prior variances (inverse precisions) that appears in this
 the number of components supported by the data is uncertain (elbow method): 
 
 
-```{r, fig.cap = "Prior variances for 10 components. "}
+```{r, fig.cap = "Prior variances for 10 components.", warning = FALSE}
 mod8 <- vbpca(X, D = 10, maxIter = 1e+03, priorvar = 'fixed',
               updatetau = TRUE, global.var = TRUE, 
 			  control = ctrl, verbose = FALSE )
@@ -326,7 +327,7 @@ In ```vbpca```, $\beta1$ can be controlled with the ```beta1pi``` argument and $
 
 
 
-```{r}
+```{r, warning = FALSE}
 # SVS, fixed priorInclusion and InverseGamma(5, 1) for tau, v0 = .005
 ctrl5 <- vbpca_control(center = FALSE, scalecorrection = -1, 
 					   plot.lowerbound = FALSE, 
@@ -419,7 +420,7 @@ For ```mod10``` and ```mod11``` we can observe the estimated prior inclusion pro
 
 
 
-```{r}
+```{r, warning = FALSE}
 
 mod10$priorInclusion
 
@@ -430,7 +431,7 @@ Similar to the hyperparameters of the Inverse Gamma priors on $\tau$, ```priorIn
 
 
 
-```{r}
+```{r, warning = FALSE}
 # Type-II maximum likelihood (component-specific) updates 
 ctrl8 <- vbpca_control(center = FALSE, scalecorrection = -1, 
                        plot.lowerbound = FALSE, 
@@ -479,7 +480,7 @@ mod13$inclusionProbabilities
 ## High posterior density intervals 
 It is also possible to require the computation of high probability density intervals for the elements of $W$, which can then be plotted with the ```plothpdi``` function, which internally calls ```ggplot2``` functionalities. 
 
-```{r, fig.show='hold', fig.cap = "High posterior density intervals. "}
+```{r, fig.show='hold', fig.cap = "High posterior density intervals.", warning = FALSE}
 # Set hyperparameter values and require 50% probability density intervals 
 ctrl10 <- vbpca_control(center = FALSE, scalecorrection = -1, 
                         plot.lowerbound = FALSE, 
@@ -488,7 +489,7 @@ ctrl10 <- vbpca_control(center = FALSE, scalecorrection = -1,
 
 # Estimate the model 
 mod14 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'invgamma',
-              control = ctrl10, verbose = TRUE )
+              control = ctrl10, verbose = FALSE )
 
 # Plot HPD intervals for variables 1:10 component 1 
 plothpdi(mod14, d = 1, X, vars = 1:10)
@@ -496,10 +497,11 @@ plothpdi(mod14, d = 1, X, vars = 1:10)
 
 
 ## Retrieve Principal Components 
-To compute the estimated components, simpy call: 
+To obtain the component scores, simpy call: 
 
 
 ```{r}
+# Example with model mod1 
 PCs <- X %*% mod1$muW
 head(PCs, 15)
 ```

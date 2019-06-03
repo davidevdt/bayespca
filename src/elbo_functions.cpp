@@ -11,7 +11,7 @@
 *		Observed Data Log-Likelihood	      *
 ***********************************************/
 void loglikelihood( double &loglik, double sigma2, int J, int I, double denomX ){	
-	loglik = (0.5 * (double(J) * double(I)) * (- log( 2.0 * PI * sigma2 ) )) - ( 0.5 * (1/sigma2) * denomX );			
+	loglik = (0.5 * (double(J) * double(I)) * ( -log(2.0 * PI * sigma2) ) ) - ( 0.5 * (1/sigma2) * denomX );
 }
 
 
@@ -34,6 +34,7 @@ void logPriorW( double &logW, arma::mat invTau, int JD, arma::mat W2, int J,
 	logvar -= log( invsigma ); 	
 
 	logW = arma::accu( -(0.5 * logvar) - (0.5 * tmpExp)) - double(JD) * 0.5 * log( 2.0 * PI ) ; 
+
 }
 
 

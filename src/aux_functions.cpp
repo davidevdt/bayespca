@@ -7,6 +7,25 @@
 #define PI M_PI 
 
 
+
+/********************************************************
+* 		Compute SVD Decomposition of a matrix M 		******
+********************************************************/
+Rcpp::Function svdExt("svd"); 
+
+void SVD( const arma::mat&M, arma::mat& U, arma::vec& D, arma::mat& V, int nu, int nv ){
+	
+	Rcpp::List svdList = svdExt(M, Rcpp::Named("nu") = nu, Rcpp::Named("nv") = nv, Rcpp::Named("LINPACK") = false ); 
+	
+	U = Rcpp::as<arma::mat>(svdList["u"]); 
+	D = Rcpp::as<arma::vec>(svdList["d"]); 
+	V = Rcpp::as<arma::mat>(svdList["v"]); 
+	
+	
+}
+
+
+
 /******************************************************
 *		Gamma, logGamma, Digamma Functions, Beta	  *
 ******************************************************/
@@ -54,7 +73,7 @@ arma::mat invSMW( arma::mat D, arma::mat X, int I ){
 /********************************
 *	Extract trace of X	 	*
 ********************************/
-void funcX( arma::mat X, arma::mat &XTX,  double &trXTX ){
+void funcX( const arma::mat& X, arma::mat &XTX,  double &trXTX ){
 	XTX = X.t() * X; 
 	trXTX = arma::trace( XTX ); 	
 }

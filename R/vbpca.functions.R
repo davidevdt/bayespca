@@ -8,11 +8,11 @@
 #'
 #' vbpca(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = FALSE, tau = 1,
 #'      updatetau = FALSE, priorvar = 'invgamma', SVS = FALSE, priorInclusion = 0.5,
-#'      global.var = FALSE, control = list())
+#'      global.var = FALSE, control = list(), suppressWarnings = FALSE)
 #'
 #' \method{vbpca}{default}(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = FALSE, tau = 1, 
 #'      updatetau = FALSE, priorvar = 'invgamma', SVS = FALSE, priorInclusion = 0.5,
-#'      global.var = FALSE, control = list())
+#'      global.var = FALSE, control = list(), suppressWarnings = FALSE)
 #'
 #' \method{print}{vbpca}(x, ...)
 #'
@@ -113,6 +113,9 @@
 #'
 #' @param control list; \cr 
 #'                other control parameters. See \code{\link{vbpca_control}} for further details. 
+#'
+#' @param suppressWarnings bool; \cr 
+#'                         boolean argument which hides function warnings when \code{TRUE}. 
 #'
 #' @param x,object vbpca oject; \cr 
 #'                  an object of class \code{vbpca}, used as arguments for the \code{print}, \code{is.bayespca} and 
@@ -242,7 +245,7 @@
 
 #' @export 
 vbpca <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = FALSE, tau = 1, updatetau = FALSE, priorvar = "invgamma", SVS = FALSE, priorInclusion = 0.5, global.var = FALSE, 
-    control = list()) {
+    control = list(), suppressWarnings = FALSE) {
     
     UseMethod("vbpca")
     

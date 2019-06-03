@@ -1,6 +1,6 @@
 # bayespca 0.0.2
 
-* improved various computation aspects of the VB algorithm
+* improved various computational aspects of the VB algorithm
     * more efficient SVD decomposition for large matrices	implemented 
 	* bugs related to the computation of XTX fixed 
 	* added print-screen iteration info 

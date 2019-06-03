@@ -1,6 +1,6 @@
 #' @export 
 vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = FALSE, tau = 1, updatetau = FALSE, priorvar = "invgamma", SVS = FALSE, priorInclusion = 0.5, global.var = FALSE, 
-    control = list()) {
+    control = list(), suppressWarnings = FALSE) {
     
     
     
@@ -134,7 +134,7 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
             
             
             if (any(c(length(alphatau), length(betatau)) != D)) {
-                stop("The length of <alphatau> and <betatau> must be either 1 or D.")
+                stop("The size of <alphatau> and <betatau> must be either 1 or D.")
             }
             
             
@@ -161,7 +161,7 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
                 }
                 
                 if (any(c(length(gammatau), length(deltatau)) != D)) {
-                  stop("The length of <alphatau>, <betatau>, <gammatau>, <deltatau> must be either 1 or D.")
+                  stop("The size of <alphatau>, <betatau>, <gammatau>, <deltatau> must be either 1 or D.")
                 }
             }
         }
@@ -221,7 +221,7 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
             }
             
             if (any(c(length(alphatau), length(betatau)) != D)) {
-                stop("The length of <alphatau> and <betatau> must be either 1 or D.")
+                stop("The size of <alphatau> and <betatau> must be either 1 or D.")
             }
             
             if (all(gammatau > 0)) {
@@ -237,7 +237,7 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
                   deltatau <- rep(deltatau, D)
                 }
                 if (any(c(length(gammatau), length(deltatau)) != D)) {
-                  stop("The length of <alphatau>, <betatau>, <gammatau>, and <deltatau> must be either 1 or D.")
+                  stop("The size of <alphatau>, <betatau>, <gammatau>, and <deltatau> must be either 1 or D.")
                 }
                 
             }
@@ -313,7 +313,7 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
             }
             
             if (any(c(length(beta1pi), length(beta2pi)) != D)) {
-                stop("The length of <beta1pi> and <beta2pi> must be either 1 or D.")
+                stop("The size of <beta1pi> and <beta2pi> must be either 1 or D.")
             }
         }
         
@@ -372,10 +372,18 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
     }
     
     if (scalecorrection >= 0) {
+	
         sdX <- apply(X, 2, function(y) sqrt(sum(y^2, na.rm = TRUE)/(I - scalecorrection)))
         X <- t(t(X)/sdX)
         rm(sdX)
-    }
+		
+    }else{
+	
+		if( !suppressWarnings ){
+			warning( "unscaled data - ELBO values might be positive.", call. = FALSE, immediate. = TRUE, noBreaks. = FALSE, domain = NULL )	
+		}
+		
+	}
     
     # Inverse variances
     JD <- J * D
@@ -400,21 +408,23 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
     
     
     ##################################### Results evaluation
-    try(if (!retList$globalConverged) 
-        warning("bayesSca has not converged. Please re-run by increasing <maxIter> or the convergence criterion <tolerance>.", call. = FALSE, immediate. = FALSE, noBreaks. = FALSE, 
-            domain = NULL))
+    if( !suppressWarnings ){
+		try(if (!retList$globalConverged) 
+			warning("vbpca has not converged. Please re-run by increasing <maxIter> or the convergence criterion <tolerance>.", call. = FALSE, immediate. = FALSE, noBreaks. = FALSE, 
+				domain = NULL))
 
-	if( retList$globalConverged ){		
+		if( retList$globalConverged ){		
 
-		MX <- max(retList$elbovals[-1])
-		try(if (retList$elbovals[length(retList$elbovals)] != MX) 
-			warning("decreasing ELBO.", call. = FALSE, immediate. = FALSE, noBreaks. = FALSE, domain = NULL))
-		rm(MX)
+			MX <- max(retList$elbovals[-1])
+			try(if (retList$elbovals[length(retList$elbovals)] != MX) 
+				warning("decreasing ELBO.", call. = FALSE, immediate. = FALSE, noBreaks. = FALSE, domain = NULL))
+			rm(MX)
+		}
 	}
     
     
     if (normalise) {
-        retList$globalMuW = apply(retList$globalMuW, 2, function(x) x/sqrt(sum(x^2)))
+        retList$globalMuW = apply( retList$globalMuW, 2, function(x) x/sqrt(sum(x^2)) )
     }
     
     
@@ -456,8 +466,7 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
         if (plot.lowerbound & (global.var)) {
             
             par(mfrow = c(2, 1))
-            plot(retList$elbovals[-1], type = "l", col = "blue", lwd = 2, main = "ELBO", ylab = "f(X)", xlab = "Iteration")
-            #plot(retList$globaltau, type = "b", col = "blue", lwd = 2, main = "Prior Precisions", ylab = expression(1/tau), xlab = "Component")
+            plot(retList$elbovals[-1], type = "l", col = "blue", lwd = 2, main = "Evidence Lower Bound", ylab = "ELBO", xlab = "Iteration")
             plot(1/retList$globaltau, type = "b", col = "blue", lwd = 2, main = "Prior Variances", ylab = expression(tau), xlab = "Component")
     
 			pl <- recordPlot()
@@ -467,13 +476,12 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
             
         } else if (plot.lowerbound & !(global.var)) {
             
-            plot(retList$elbovals[-1], type = "l", col = "blue", lwd = 2, main = "ELBO", ylab = "logf(X)", xlab = "Iteration")
+            plot(retList$elbovals[-1], type = "l", col = "blue", lwd = 2, main = "Evidence Lower Bound", ylab = "ELBO", xlab = "Iteration")
 			
 			pl <- recordPlot()
             
         } else if (!plot.lowerbound & (global.var)) {
             
-           # plot(retList$globaltau, type = "b", col = "blue", lwd = 2, main = "Prior Precisions", ylab = expression(1/tau), xlab = "Component")
 		   plot(1/retList$globaltau, type = "b", col = "blue", lwd = 2, main = "Prior Variances", ylab =expression(tau), xlab = "Component")
 			
 		   pl <- recordPlot()

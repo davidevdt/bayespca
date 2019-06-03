@@ -65,5 +65,5 @@ void updateElbo( double &elbo, double sigma2, bool globalvar, std::string priorv
 	}	
 	
 	elbo = loglik + logW + logtau + priorb + logPriorIncProbs + logPriorGlobalProb + hW + hTau + hb + hPriorIncProbs + hPriorGlobalProb; 
-	
+		
 }

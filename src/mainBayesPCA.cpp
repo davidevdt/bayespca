@@ -6,7 +6,7 @@
 
 // [[Rcpp::export]]
 Rcpp::List mainBayesPCA( 
-						arma::mat X, int D, int I, int J, int nstart, int maxIter, 
+						const arma::mat& X, int D, int I, int J, int nstart, int maxIter, 
                         double tolerance, bool svdStart, bool verbose,
                         bool updatetau, std::string priorvar,
                         arma::vec alphatau, arma::vec betatau, 
@@ -38,7 +38,7 @@ Rcpp::List mainBayesPCA(
 	double sigma2 = 1.0 ; 
 	double aPostSigma; 
   
-	aPostSigma = ( double(J) * double(I)); 
+	aPostSigma = ( double(J) * double(I)) - double(J); 
   
 	if( scaleprior ){
 		aPostSigma += double(JD);
@@ -59,8 +59,8 @@ Rcpp::List mainBayesPCA(
 	arma::vec betastar2;  
 
 	// Initializations : Matrices
-	arma::mat muW;
-	arma::mat muP; 
+	arma::mat muW(J, D);
+	arma::mat muP(J, D); 
 	arma::mat W2(J, D);
 	arma::mat XTX(J, J); 
 	arma::mat incProbs; 
@@ -124,23 +124,19 @@ Rcpp::List mainBayesPCA(
 		betastar2.set_size(1);  
 	}
 
-  
 	// Calculate XTX and norm(X)
 	funcX( X, XTX, normX ); 
-  
 	// Initializations: muW and muP 
 	if( svdStart ){
-		arma::mat U1;
-		arma::vec d1;
-		svd( U1, d1, muW, X );
-		muW = muW.cols( 0, (D - 1) );
+		arma::mat U1(I, D);
+		arma::vec d1(D);
+		SVD( X, U1, d1, muW, D, D );
+		//muP = Rcpp::clone(muW) ; 
 		muP = muW ; 
 	}else{  
 		muW = arma::randu(J, D); 
 		muP = arma::randu(J, D); 
 	}	
-  
-
     //Initializations: Outputs 
 	double globalElbo = - ( arma::datum::inf ); 
 	arma::mat globalMuW( J , D, arma::fill::zeros );  
@@ -180,7 +176,7 @@ Rcpp::List mainBayesPCA(
 					finalElbo, EWtauW, converged, betastar1, betastar2, muW, muP, W2, XTX, 	incProbs, deltataupost, globalElbo, globalMuW, globalMuP, globaltau, 
 					globalSigma2, globalbetatau, globalconverged, elbovals, 
 					globalhpdi, globalPriorInc, globalIncPr, 
-					globalvar, hpdi );			 
+					globalvar, hpdi, verbose );			 
     
 		
 		if( verbose ){ 

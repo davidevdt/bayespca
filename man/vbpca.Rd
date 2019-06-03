@@ -11,11 +11,11 @@
 \usage{
 vbpca(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = FALSE, tau = 1,
      updatetau = FALSE, priorvar = 'invgamma', SVS = FALSE, priorInclusion = 0.5,
-     global.var = FALSE, control = list())
+     global.var = FALSE, control = list(), suppressWarnings = FALSE)
 
 \method{vbpca}{default}(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = FALSE, tau = 1, 
      updatetau = FALSE, priorvar = 'invgamma', SVS = FALSE, priorInclusion = 0.5,
-     global.var = FALSE, control = list())
+     global.var = FALSE, control = list(), suppressWarnings = FALSE)
 
 \method{print}{vbpca}(x, ...)
 
@@ -76,6 +76,9 @@ updates) or locally (element-specific updates).}
 
 \item{control}{list; \cr 
 other control parameters. See \code{\link{vbpca_control}} for further details.}
+
+\item{suppressWarnings}{bool; \cr 
+boolean argument which hides function warnings when \code{TRUE}.}
 
 \item{x, object}{vbpca oject; \cr 
 an object of class \code{vbpca}, used as arguments for the \code{print}, \code{is.bayespca} and 
