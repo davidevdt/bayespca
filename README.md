@@ -1,4 +1,4 @@
-# bayespca: Regularized Principal Component Analysis via Variational Bayes inference.   
+# bayespca: Regularized Principal Component Analysis via Variational Bayes inference   
 A package for regularized Principal Component Analysis via Variational Bayes methods. 
 
 ## Author
