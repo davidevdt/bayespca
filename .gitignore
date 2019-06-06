@@ -2,6 +2,5 @@
 bayespca.Rproj
 .Rhistory
 .RData
-inst/doc
 R/bayespca.R
-vignettes/bayespca.Rmd
+

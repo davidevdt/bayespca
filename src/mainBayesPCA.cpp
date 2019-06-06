@@ -198,9 +198,9 @@ Rcpp::List mainBayesPCA(	const arma::mat& X, int D, int I, int J, int nstart, in
 		
 		if( verbose ){ 
 			if( converged ){
-				Rcpp::Rcout << "Start # " << st + 1 << " has converged in " << (it-1) << " iterations; lower bound = " << finalElbo << "\n" ; 
+				Rcpp::Rcout << "Start # " << st + 1 << " has converged in " << (it-1) << " iterations; lower bound = " << finalElbo << std::endl; 
 			}else{
-				Rcpp::Rcout << "Start # " << st + 1 << " has not converged after " << (it-1) << " iterations. \n" ; 
+				Rcpp::Rcout << "Start # " << st + 1 << " has not converged after " << (it-1) << " iterations." << std::endl; 
 			}
 		}
 	
@@ -221,4 +221,4 @@ Rcpp::List mainBayesPCA(	const arma::mat& X, int D, int I, int J, int nstart, in
   
 	return ret; 
   
-}
+} 

@@ -1,0 +1,511 @@
+---
+title: "bayespca Package"
+author: "Davide Vidotto <d.vidotto@uvt.nl>"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{bayespca Package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# bayespca: A package for Variational Bayes PCA 
+
+## Theoretical background
+Principal Components Analysis (PCA) allows performing dimensionality reduction via matrix factorization.
+While there are several ways to express a PCA model, in 
+what follows will we consider the formulation 
+$$ X = X W P^T + E, $$
+where X is a $I \times J$ data matrix ($I$ is the number of units; $J$ the number of 
+continuous variables); $W$ is a $J \times D$ weight matrix ($D \leq J$ is the rank of the reduced matrix);
+$P$ is the orthogonal loading matrix, such that $P^T P = I_{D \times D}$; and $E$ is an $I \times J$ error matrix. The $D$ principal components can be retrieved with $Z = X W$. 
+In this context, the focus of the inference is typically on $W$. In particular, when $J$ is large and the main inferential goal is components' interpretation, it is important for the analyst to obtain
+simple and interpretable components. 
+
+The `bayespca` package allows performing the following operations: 
+
+1. estimation of the PCA model, with a Variational Bayes algorithm;   
+1. regularization of the elements of $W$ by means of its prior variances; 
+1. variable selection, via a Stochastic Search Variable Selection method (a form of "spike-and-slab" prior).
+
+
+The Variational Bayes algorithm sees the columns of $W$ as latent variables, and $P$ as a fixed parameter. Furthermore, the residuals $E$ are assumed to be distributed according to a Normal distribution with mean 0 and variance $\sigma^2$. The following prior is assumed for the $d$-th column of $W$: 
+
+$$ w_d \sim MVN(0, T_d)  $$
+
+where $MVN()$ denotes the density of the Multivariate Normal Matrix, and T_d denotes the prior (diagonal) covariance matrix of the $d$-th component. The $j$-th element of the diagonal of $T_d$ will be denoted $\tau_{dj}$.  
+where $MVN()$ denotes the density of the Multivariate Normal Matrix, and T_d denotes the prior (diagonal) covariance matrix of the $d$-th component. The $j$-th element of the diagonal of $T_d$ will be denoted $\tau_j$.  
+
+## The `bayespca` package 
+Variational Bayes PCA is implemented through the ```vbpca``` function, which takes the following arguments as inputs: 
+
+* ```X``` the input matrix; 
+* ```D``` the number of components to be estimated; 
+* ```maxIter``` the maximum number of iterations for the Variational Bayes algorithm; 
+* ```tolerance``` convergence criterion of the algorithm (relative difference between ELBO values); 
+* ```verbose``` logical parameter which prints estimation information on screen when ```TRUE```; 
+* ```tau``` value of the prior variances; starting value when ```updatetau=TRUE``` or ```priorvar!='fixed' ``` 
+* ```updatetau``` logical parameter denoting whether the prior variances should be updated when ```priorvar='fixed'```; 
+* ```priorvar``` character argument denoting whether the prior variances should be ```'fixed'```, or random with ```'jeffrey'``` or ```'invgamma'``` priors;  
+* ```SVS``` logical argument which activates Stochastic Variable Selection when set to ```TRUE```; 
+* ```priorInclusion``` prior inclusion probabilities for the elements of $W$ in the model; 
+* ```global.var``` logical parameter which activates component-specific prior variances when set to ```TRUE```; 
+* ```control```  other control parameters, such as Inverse Gamma hyperparameters (see ```?vbpca_control``` for more information). 
+
+```vbpca``` returns a vbpca object, which is a list containing various aspect of the model results. See ```?vbpca``` for further information. Internally, ```vbpca``` calls a C++ function (written with Rcpp) to estimate the model. 
+
+In what follows, the various estimation modalities allowed by ```vbpca``` will be introduced. For presentation purposes, a synthetic data matrix with $I = 100$ rows and $J = 20$ columns genereted from three components will be used: 
+
+```{r}
+set.seed(141)
+I <- 100
+J <- 20 
+V1 <- rnorm(I, 0, 50)
+V2 <- rnorm(I, 0, 30)
+V3 <- rnorm(I, 0, 10)
+X <- matrix(c(rep(V1, 7), rep(V2, 7), rep(V3, 6)), I, J)
+X <- X + matrix(rnorm(I * J, 0, 1), I, J)
+```
+
+
+I will now proceed with the estimation of the PCA model. 
+
+## Levels of regularization on the W matrix 
+### Fixed ```tau``` 
+With fixed tau, it is possible to specify the model as follows: 
+
+
+
+```{r}
+# Install and load package 
+# devtools::install_github("davidevdt/bayespca")
+library(bayespca)
+
+
+# De-activate data center and scaling;
+ctrl <- vbpca_control(center = FALSE, scalecorrection = -1, 
+                      plot.lowerbound = FALSE)
+
+
+# Estimate vbpca with fixed prior variances (equal to 1) 
+# for the elements of W 
+mod1 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'fixed', 
+              control = ctrl, verbose = FALSE )
+
+
+# Test the class of mod1: 
+is.vbpca(mod1)
+
+
+```
+
+The estimate posterior means of the  $W$ matrix can be viewed with: 
+
+
+```{r}
+mod1$muW 
+```
+
+and the $P$ matrix: 
+
+
+```{r}
+mod1$P 
+```
+
+
+Among other things, the function returns also the model evidence lower bound (ELBO) and the estimation time: 
+
+
+```{r}
+mod1$elbo 
+
+mod1$time 
+```
+
+
+### Fixed, updatable ```tau``` 
+The prior variances $\tau_{dj}$ can also be updated via Type-II Maximum Likelihood (empirical Bayes updates): 
+
+
+```{r}
+mod2 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'fixed',
+              updatetau = TRUE, control = ctrl, verbose = FALSE )
+
+mod2$muW
+```
+
+
+The matrix of the inverse prior variances can be called with 
+
+
+```{r}
+mod2$invTau
+```
+
+
+
+### Random ```tau```: Jeffrey's prior
+By assuming Jeffrey's hyperpriors on $\tau_{d,j}$ we set:  
+
+$$ p(\tau_{d,j}) \propto \frac{1}{\tau_{d,j}}.  $$ 
+
+The following code runs the algorithm with Jeffrey's priors on ```tau```: 
+
+
+```{r}
+mod3 <- vbpca(X, D = 3, maxIter = 1e+03, 
+              priorvar = 'jeffrey', control = ctrl, verbose = FALSE )
+			  
+			  
+mod3$muW
+
+
+mod3$invTau 
+```
+
+
+### Random ```tau```: Inverse Gamma prior 
+It is possible to specify an inverse gamma prior on $\tau_{d,j}$: 
+
+$$ \tau_{d,j} \sim IG(\alpha, \beta) $$
+
+with $\alpha$ shape parameter and $\beta$ scale parameter. The following code implements an IG(2, .5) prior on the variances: 
+
+
+```{r}
+# Set hyperparameter values 
+ctrl2 <- vbpca_control(center = FALSE, scalecorrection = -1,
+                       plot.lowerbound = FALSE, 
+					   alphatau = 2, betatau = .5)
+					   
+					   
+					   
+# Estimate the model 
+mod4 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'invgamma', 
+              control = ctrl2, verbose = FALSE )
+			  
+			  
+mod4$muW 
+
+
+mod4$invTau
+
+ 
+```
+
+
+
+```alphatau``` and ```betatau``` can also be specified as $D$-dimensional array, in which case the Inverse Gamma will have component-specific hyperparameters: 
+$$ \tau_{d,j} \sim IG(\alpha_d, \beta_d) $$. 
+
+
+```{r}
+# Set hyperparameter values 
+ctrl3 <- vbpca_control(center = FALSE, scalecorrection = -1,
+                       plot.lowerbound = FALSE, 
+					   alphatau = c(.5, 50, 3), betatau = c(.5, .01, 10), 
+					   hypertype = 'component')
+					   
+					   
+# Estimate the model 
+mod5 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'invgamma', 
+              control = ctrl3, verbose = FALSE )
+
+			  
+mod5$muW 
+
+
+
+mod5$invTau 
+```
+Notice the different level of regularization obtained across the different components. In order to activate these 'component-specific' hyperpriors, ```hypertype = 'component'``` was specified.  
+
+
+### Random ```tau```, random ```betatau```
+It is also possible to specify a Gamma hyperprior on $\beta$ (while $\alpha$ remains fixed): 
+$$ \beta \sim Ga(\gamma, \delta). $$
+This is achievable by setting ```gammatau``` (and ```deltatau```) larger than 0 in the control parameters: 
+
+
+```{r} 
+# Specify component-specific Gamma(.01, 10) hyperpriors on betatau 
+ctrl4 <- vbpca_control(center = FALSE, scalecorrection = -1, 
+                       plot.lowerbound = FALSE, 
+					   alphatau = 1, betatau = 1,
+					   gammatau = .01, deltatau = 10, 
+					   hypertype = 'component')
+
+					   
+# Estimate the model 
+mod6 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'invgamma', 
+              control = ctrl4, verbose = FALSE )
+			  
+			  
+mod6$muW 
+
+
+mod6$invTau 
+```
+
+
+The posterior means of $\beta$ can be accessed via 
+
+
+```{r}
+mod6$priorBeta 
+```
+
+
+
+```hypertype``` specify the type of hyperprior for ```beta```: 
+
+* ```'common'``` implies $\beta \sim Ga(\alpha, \beta)$;
+* ```'component'``` implies $\beta_d \sim Ga(\alpha_d, \beta_d)$;
+* ```'local'``` implies $\beta_{dj} \sim Ga(\alpha_{dj}, \beta_{dj})$.
+
+
+Similar to ```alphatau``` and ```betatau```, ```gammatau``` and ```deltatau``` can also be $D$-dimensional arrays for component-specific hyperpriors on $\beta$. 
+
+### Global prior variances 
+So far, the parameter ```global.var``` has always ben set to ```FALSE```, implying 
+$$ w_{j,d} \sim N(0, \tau_{j,d}). $$
+Setting ```global.var = TRUE``` will modify this formulation, which will switch to 
+$$ w_{j,d} \sim N(0, \tau_{d}) $$
+that is, component-specific variances (called 'global variances' in ```vbpca```) will be estimated instead: 
+
+
+
+```{r, fig.cap = "Prior variances for the first 3 components."}
+# Fixed prior global variances, updated via Type-II maximum likelihood: 
+mod7 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'fixed',
+              updatetau = TRUE, control = ctrl, verbose = FALSE, 
+			  global.var = TRUE)
+			  
+			  
+mod7$muW 
+
+
+mod7$invTau 
+```
+
+
+
+Notice the plot of the prior variances (inverse precisions) that appears in this case. This is useful when 
+the number of components supported by the data is uncertain (elbow method): 
+
+
+```{r, fig.cap = "Prior variances for 10 components. "}
+mod8 <- vbpca(X, D = 10, maxIter = 1e+03, priorvar = 'fixed',
+              updatetau = TRUE, global.var = TRUE, 
+			  control = ctrl, verbose = FALSE )
+```
+
+
+
+## Stochastic Search Variable Selection 
+By requiring ```SVS = TRUE```, the model activates stochastic-search-variable-selection, a method described by George ad McCulloch (1993) for the Gibbs Sampler. The method has been adapted in *bayespca* for the Variational Bayes algorithm. The assumed 'spike-and-slab' prior for the $(j,d)$-th element of $W$ becomes: 
+
+$$ w_{j,d} \sim N(0, \pi \tau + (1 - \pi) \tau v_0)  $$
+
+where $v_0$ is a scalar which rescales the spike variance to a value close to 0. For this reason, $v_0$ should be a number included in $(0, 1)$, as close as possible to 0. $\pi$ represents the prior probability of inclusion of the $j$-th variable in the $d$-th component of the model. ```vbpca``` estimates the posterior probabilities of inclusion, conditional on $X$ and the values in $W$. 
+
+While $v_0$ should be a small value close to 0, too small values of such parameter will shrink the variances $\tau$ too much, and no variable will eventually be included in the model. On the other hand, using a too large value for $v_0$ will not shrink the variances enough, and all posterior inclusion probabilities will be close to 1. $v_0$ should then be set with a grain of salt. Preliminary results from partial simulation studies have shown that values between 0.0001 and 0.005 lead to acceptable results, but adequate values of $v_0$ can be dataset-specific. Preliminary simulation studies have also shown that the method works better when Inverse Gamma priors are specified for $\tau$, with ```betatau``` equal to 1 and larger values of ```alphatau```. However, the technique has just been devised and further studies must be carried out to further test the functioning of Stochastic Variable Selection in this context. 
+
+In ```vbpca```, the parameter $v_0$ is called ```v0``` in the control parameters of ```vbpca_control```, while the prior inclusion probability is called ```priorInclusion```. ```priorInclusion``` can be fixed, updated via Type-II maximum likelihood, or assigned to a Beta hyperprior: 
+
+* among the control parameters of ```vbpca_control```, set ```beta1pi``` smaller than 0 for fixed $\pi$; 
+* set ```beta1pi = 0``` instead for Type-II ML updates; 
+* last, set ```beta1pi``` larger than 0 for Beta specifications. 
+
+When ```beta1pi``` is larger than 0, a Beta prior is assumed for $\pi$: 
+
+$$ \pi \sim Beta(\beta_1, \beta_2).$$
+
+In ```vbpca```, $\beta1$ can be controlled with the ```beta1pi``` argument and $\beta2$ with the ```beta2pi``` argument in ```vbpca_control```.
+
+
+
+```{r}
+# SVS, fixed priorInclusion and InverseGamma(5, 1) for tau, v0 = .005
+ctrl5 <- vbpca_control(center = FALSE, scalecorrection = -1, 
+					   plot.lowerbound = FALSE, 
+					   alphatau = 5, betatau = 1,
+					   beta1pi = -1, v0 = 5e-03)
+
+# Estimate the model with priorInclusion = 0.5
+mod9 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'invgamma',
+              SVS = TRUE, priorInclusion = 0.5, control = ctrl5,
+			  verbose = FALSE )					   
+
+mod9$muW 
+
+
+
+
+# SVS, priorInclusion update via Type-II ML and InverseGamma(5, 1) for tau, v0 = .005
+ctrl6 <- vbpca_control(center = FALSE, scalecorrection = -1, 
+                       plot.lowerbound = FALSE, 
+					   alphatau = 5, betatau = 1,
+					   beta1pi = 0, v0 = 5e-03)
+
+
+# Estimate the model 
+mod10 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'invgamma',
+               SVS = TRUE, control = ctrl6, verbose = FALSE )
+
+mod10$muW
+
+
+			  
+# SVS, priorInclusion with Beta(1,1) priors and InverseGamma(5, 1) for tau, v0 = .005
+ctrl7 <- vbpca_control(center = FALSE, scalecorrection = -1,
+                       plot.lowerbound = FALSE, alphatau = 5,
+					   betatau = 1, beta1pi = 1, beta2pi = 1, 
+					   v0 = 1e-03)
+
+					   
+# Estimate the model
+mod11 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'invgamma', 
+              SVS = TRUE, priorInclusion = 0.5, control = ctrl7,
+			  verbose = FALSE )	
+
+			  
+mod11$muW 			  
+```
+
+
+The estimated posterior inclusion probabilities for the three  models: 
+
+```{r}
+mod9$inclusionProbabilities
+mod10$inclusionProbabilities
+mod11$inclusionProbabilities
+```
+
+It is also possible to compare the (known) variable inclusion matrix vs. the estimated ones graphically. Let's plot a heatmap of such probabilities for model ```mod9```: 
+
+
+```{r, fig.show='hold', fig.cap = "True and Estimated inclusion probabilities.", fig.width=6, fig.height=4}
+trueInclusions <- matrix(0, J, 3)
+trueInclusions[1:7, 1] <- 1
+trueInclusions[8:14, 2] <- 1 
+trueInclusions[15:20, 3] <- 1
+
+par(mfrow=c(1,2))
+image(1:ncol(trueInclusions), 1:nrow(trueInclusions),  
+      t(trueInclusions[J:1, ]), ylab = "", axes = FALSE, 
+	  main = "True Inclusions", xlab = "",
+	  col =  RColorBrewer::brewer.pal(9, "Blues"))
+axis(side = 1, at = 1:3, labels = paste("Component ", 1:3 ))	  
+axis(side = 2, at = 1:20, labels = paste("Var ", J:1 ))	
+
+fields::image.plot(1:ncol(trueInclusions), 1:nrow(trueInclusions),  
+      t(mod9$inclusionProbabilities[J:1, ]), ylab = "", axes = FALSE, 
+	  main = "Estimated Inclusions", xlab = "",
+	  col = RColorBrewer::brewer.pal(9, "Blues"))  
+axis(side = 1, at = 1:3, labels = paste("Component ", 1:3 ))	  	  
+```
+
+
+
+
+
+
+
+
+
+For ```mod10``` and ```mod11``` we can observe the estimated prior inclusion probabilities: 
+
+
+
+```{r}
+
+mod10$priorInclusion
+
+mod11$priorInclusion
+```
+
+Similar to the hyperparameters of the Inverse Gamma priors on $\tau$, ```priorInclusion```, ```beta1pi``` and ```beta2pi```can also be specified as $D$-dimensional arrays. This will allow estimating the inclusion probabilities with different degrees of 'sparsity' for each component. For Type-II maximum likelihood updates of ```priorInclusion```, all elements of ```beta1pi``` must be equal to 0. For Beta priors, all elements of ```beta1pi``` must be larger than 0.  Let us look at two examples: 
+
+
+
+```{r}
+# Type-II maximum likelihood (component-specific) updates 
+ctrl8 <- vbpca_control(center = FALSE, scalecorrection = -1, 
+                       plot.lowerbound = FALSE, 
+					   alphatau = 5, betatau = 1,
+					   beta1pi = rep(0, 3), v0 = 5e-03)
+
+# Estimate the model 
+mod12 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'invgamma', 
+               SVS = TRUE, priorInclusion = rep(0.5, 3),
+			   control = ctrl8, verbose = FALSE )
+
+
+mod12$muW
+
+
+mod12$priorInclusion
+
+
+mod12$inclusionProbabilities 
+
+
+
+			  
+# Beta priors with different degrees of sparsity for each component 
+ctrl9 <- vbpca_control(center = FALSE, scalecorrection = -1,
+                       plot.lowerbound = FALSE, 
+					   alphatau = 5, betatau = 1,
+					   beta1pi = c(0.01, 1, 10), beta2pi = 1,
+ 					   v0 = 5e-03)
+
+					   
+# Estimate the model
+mod13 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'invgamma', SVS = TRUE,
+			  priorInclusion = rep(0.5, 3), control = ctrl9, verbose = FALSE )	
+
+mod13$muW
+
+
+mod13$priorInclusion
+
+
+mod13$inclusionProbabilities 	
+```
+
+
+## High posterior density intervals 
+It is also possible to require the computation of high probability density intervals for the elements of $W$, which can then be plotted with the ```plothpdi``` function, which internally calls ```ggplot2``` functionalities. 
+
+```{r, fig.show='hold', fig.cap = "High posterior density intervals. "}
+# Set hyperparameter values and require 50% probability density intervals 
+ctrl10 <- vbpca_control(center = FALSE, scalecorrection = -1, 
+                        plot.lowerbound = FALSE, 
+					    alphatau = 2, betatau = .5, 
+					    hpdi = TRUE, probHPDI = 0.5)
+
+# Estimate the model 
+mod14 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'invgamma',
+              control = ctrl10, verbose = TRUE )
+
+# Plot HPD intervals for variables 1:10 component 1 
+plothpdi(mod14, d = 1, X, vars = 1:10)
+```
+
+
+## Retrieve Principal Components 
+To compute the estimated components, simpy call: 
+
+
+```{r}
+PCs <- X %*% mod1$muW
+head(PCs, 15)
+```
+
+
+### References 
+ 
+ 1. C. M. Bishop. 'Variational PCA'. In Proc. Ninth Int. Conf. on Artificial Neural Networks. ICANN, 1999.
+ 1. E. I. George, R. E. McCulloch (1993). 'Variable Selection via Gibbs Sampling'. Journal of the American Statistical Association (88), 881-889.
