@@ -10,3 +10,9 @@
 * updatetd line endings of source files to ```LF```
 * added ```BugReports``` filed in description 
 	
+
+
+# bayespca 0.1.0
+* removed Type-II-Maximum-Likelihood estimation for SVS inclusion probabilities, as it was causing the algorithm to be too unstable 
+* updated vignettes 
+* added variable names to the model output 

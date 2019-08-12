@@ -121,16 +121,16 @@ Rcpp::List mainBayesPCA(	const arma::mat& X, int D, int I, int J, int nstart, in
 		if( commonpi ){
 			incProbs.fill( priorInclusion(0) );
 
-			betastar1.fill( beta1pi(0) + arma::accu( incProbs ) ); 
-			betastar2.fill( beta2pi(0) + arma::accu( 1.0 - incProbs ) ); 
-			
+			if( all(beta1pi > 0.0) ){
+				betastar1.fill( beta1pi(0) + arma::accu( incProbs ) ); 
+				betastar2.fill( beta2pi(0) + arma::accu( 1.0 - incProbs ) ); 
+			}			
 			
 		}else{
 
 			incProbs.each_row() = priorInclusion.t(); 
 			
 			if( all(beta1pi > 0.0) ){
-
 				betastar1 = beta1pi + arma::sum( incProbs, 0 ).t(); 
 				betastar2 = beta2pi + arma::sum( 1.0 - incProbs, 0 ).t();
 			}

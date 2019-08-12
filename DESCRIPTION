@@ -1,7 +1,7 @@
 Package: bayespca
 Title: A Package for Estimating PCA with Variational Bayes Inference
-Version: 0.0.2
-Authors: Davide Vidotto 
+Version: 0.1.0
+Author: Davide Vidotto 
 Maintainer: Davide Vidotto <d.vidotto@uvt.nl>
 Description: Methods for Bayesian estimation of weight vectors in PCA.
     To achieve regularization, the method allows specifying fixed variances
@@ -20,7 +20,7 @@ LinkingTo: Rcpp,
 Imports:
     Rcpp,
     ggplot2
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Suggests:
     knitr,
     rmarkdown,

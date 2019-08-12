@@ -4,7 +4,7 @@
 \alias{plothpdi}
 \title{Plot high posterior density intervals of vbpca objects.}
 \usage{
-plothpdi(obj, d = 1, X, vars = NULL)
+plothpdi(obj, d = 1, vars = NULL)
 }
 \arguments{
 \item{obj}{list; \cr 
@@ -12,9 +12,6 @@ a \code{vbpca} object.}
 
 \item{d}{integer; \cr 
 component number for which the intervals must be plotted.}
-
-\item{X}{array_like; \cr 
-the data matrix used to estimate the \code{vbpca} object.}
 
 \item{vars}{array_like; \cr 
 an array containing the variable numbers (column numbers) for which the intervals must be plotted. 
@@ -29,19 +26,30 @@ Graphical visualization of the HPDI's of the weight matrix computed during the e
              \code{control} argument.
 }
 \examples{
-\dontrun{
 
-# mod is a vbpca object estimated on the X matrix; 
-# to plot the intervals of elements (1, 2, 3) of the second column of the W matrix: 
-plothpdi(mod, d = 2, X, vars = 1:3)
-}
+# Create a synthetic dataset 
+I <- 1e+3 
+X1 <- rnorm(I, 0, 50)
+X2 <- rnorm(I, 0, 30)
+X3 <- rnorm(I, 0, 10)
+
+X <- cbind(X1, X1, X1, X2, X2, X2, X3, X3 )
+X <- X + matrix(rnorm(length(X), 0, 1), ncol = ncol(X), nrow = I )
+colnames(X) <- paste('X', 1:8, sep='')
+# Estimate the Bayesian PCA model, with Inverse Gamma priors for tau
+# and SVS with Beta priors for priorInclusion, and compute 90\% HPD intervals
+ctrl <- vbpca_control( alphatau = 1., betatau = 1e-02, beta1pi = 1., beta2pi = 1.,
+                       hpdi = TRUE, probHPDI = 0.9, plot.lowerbound = FALSE  )
+mod <- vbpca(X, D = 3, priorvar = 'invgamma', SVS = TRUE, control = ctrl )
+
+# Plot the intervals of variables (1, 2, 3) of the second column of the W matrix: 
+plothpdi(mod, d = 2, vars = 1:3)
 
 
-}
-\author{
-D. Vidotto <d.vidotto@uvt.nl>
 }
 \seealso{
 \code{\link{vbpca}}
 }
-
+\author{
+D. Vidotto <d.vidotto@uvt.nl>
+}

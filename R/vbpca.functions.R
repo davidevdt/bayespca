@@ -54,10 +54,10 @@
 #' controls the proportions of such prior. Variables not included in the model are assumed to be 
 #' more likely to come from a Normal distributions with variance \code{tau} scaled by a factor 
 #' \code{v0} (see \code{\link{vbpca_control}} for the specification of the factor).
-#' Similar to \code{tau}, \code{priorInclusion} can be fixed, updated via Type-II maximum likelihood, 
-#' or treated as a random variable with Beta priors (the type of update can be specified via the 
-#' \code{control} argument). Furthermore, \code{priorInclusion} can refer to prior probabilities
-#' of the whole model (across all components) when specified as  a scalar, or to component-specific 
+#' Similar to \code{tau}, \code{priorInclusion} can be fixed, or 
+#' or treated as a random variable with Beta priors. Furthermore, \code{priorInclusion} can 
+#' refer to prior probabilities  of the whole model (across all components) when specified as 
+#' a scalar, or to component-specific 
 #' prior probabilties when specified as a D-dimensional array. 
 #'   
 #'
@@ -100,8 +100,8 @@
 #'
 #' @param priorInclusion float or array_like; \cr 
 #'                       in SVS, the prior inclusion probabilities; these can be fixed, 
-#'                       updated via Type-II Maximum likelihood, or random variables
-#'                       with Beta priors (see \code{\link{vbpca_control}} for further information).
+#'                       or random variables with Beta priors (see \code{\link{vbpca_control}}
+#'                       for further information).
 #'                       When not fixed, the value denotes the starting values
 #'                       of the prior probabilities. The argument can be specified as a scalar, or as a 
 #'                       D-dimensional array, in which case the prior inclusion probabilities 
@@ -218,7 +218,6 @@
 #'
 #'
 #' @examples 
-#' \dontrun{
 #'
 #' # Create a synthetic dataset 
 #' I <- 1e+3 
@@ -231,12 +230,11 @@
 #' 
 #' # Estimate the Bayesian PCA model, with Inverse Gamma priors for tau
 #' # and SVS with Beta priors for priorInclusion
-#' ctrl <- vbpca_control( alphatau = 1., betatau = 1e-2., beta1pi = 1., beta2pi = 1.  )
+#' ctrl <- vbpca_control( alphatau = 1., betatau = 1e-2, beta1pi = 1., beta2pi = 1.  )
 #' mod <- vbpca(X, D = 3, priorvar = 'invgamma', SVS = TRUE, control = ctrl )
 #' summary(mod)
 #' mod 
 #' 
-#' }
 #'
 #'
 #'
@@ -244,8 +242,7 @@
 
 
 #' @export 
-vbpca <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = FALSE, tau = 1, updatetau = FALSE, priorvar = "invgamma", SVS = FALSE, priorInclusion = 0.5, global.var = FALSE, 
-    control = list(), suppressWarnings = FALSE) {
+vbpca <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = FALSE, tau = 1, updatetau = FALSE, priorvar = "invgamma", SVS = FALSE, priorInclusion = 0.5, global.var = FALSE, control = list(), suppressWarnings = FALSE) {
     
     UseMethod("vbpca")
     
@@ -256,7 +253,7 @@ vbpca <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = FALSE, t
 
 
 #' @export 
-is.vbpca <- function(object){
+is.vbpca <- function(object) {
     
     class(object) == "vbpca"
     

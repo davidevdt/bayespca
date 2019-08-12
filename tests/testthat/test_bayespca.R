@@ -21,7 +21,7 @@ X <- X + matrix(rnorm(I * 8, 0, 1), I, 8)
 ##################### bayespca vs. Ordinary PCA - With and without scaling 
 pca_mod <- prcomp(X, center = TRUE, scale. = FALSE)
 vbpca_ctrl <- vbpca_control(center = TRUE, scalecorrection = -1, plot.lowerbound = FALSE)
-vbpca_mod <- vbpca(X, D = 3, tau = 1e+05, priorvar = "fixed", updatetau = FALSE, control = vbpca_ctrl)
+vbpca_mod <- vbpca(X, D = 3, tau = 1e+05, priorvar = "fixed", updatetau = FALSE, control = vbpca_ctrl, suppressWarnings = TRUE)
 
 # Test 1: VBPCA recovers PCA for low regularization (large tau)
 testthat::test_that("Test 1: vbpca vs. pca, no scaling", {
@@ -34,7 +34,7 @@ testthat::test_that("Test 1: vbpca vs. pca, no scaling", {
 
 pca_mod <- prcomp(X, center = TRUE, scale. = TRUE)
 vbpca_ctrl <- vbpca_control(center = TRUE, scalecorrection = 1, plot.lowerbound = FALSE)
-vbpca_mod <- vbpca(X, D = 3, tau = 1e+05, priorvar = "fixed", updatetau = FALSE, control = vbpca_ctrl)
+vbpca_mod <- vbpca(X, D = 3, tau = 1e+05, priorvar = "fixed", updatetau = FALSE, control = vbpca_ctrl, suppressWarnings = TRUE)
 
 # Test 2: VBPCA recovers PCA for low regularization (large tau)
 testthat::test_that("Test 2: vbpca vs. pca, scaling", {
@@ -60,11 +60,11 @@ testthat::test_that("Test 3: vbpca vs. pca, reconstructed matrix", {
  
 ##################### bayespca - Regularization on tau 
 vbpca_ctrl <- vbpca_control(center = TRUE, scalecorrection = -1, plot.lowerbound = FALSE)
-vbpca_mod <- vbpca(X, D = 3, tau = 1e-05, priorvar = "fixed", updatetau = FALSE, control = vbpca_ctrl)
-vbpca_mod2 <- vbpca(X, D = 3, tau = 1e+05, priorvar = "fixed", updatetau = FALSE, control = vbpca_ctrl)
+vbpca_mod <- vbpca(X, D = 3, tau = 1e-05, priorvar = "fixed", updatetau = FALSE, control = vbpca_ctrl, suppressWarnings = TRUE)
+vbpca_mod2 <- vbpca(X, D = 3, tau = 1e+05, priorvar = "fixed", updatetau = FALSE, control = vbpca_ctrl, suppressWarnings = TRUE)
  
 testthat::test_that("Test 4: vbpca, effect of tau on absolute values of weights", {
-    testthat::expect_equivalent( sum(abs(vbpca_mod[[1]]) < abs(vbpca_mod[[2]])), 3 * 8    )
+    testthat::expect_equivalent( sum(abs(vbpca_mod[[1]]) < abs(vbpca_mod[[2]])), 3 * 8  )
 })
 
 
@@ -74,8 +74,8 @@ vbpca_ctrl <- vbpca_control(center = TRUE, scalecorrection = -1, plot.lowerbound
                             alphatau = 100, betatau = 1e-02)
 vbpca_ctrl2 <- vbpca_control(center = TRUE, scalecorrection = -1, plot.lowerbound = FALSE, 
                              alphatau = 1e-02, betatau = 1e+02)
-vbpca_mod <- vbpca(X, D = 3, tau = 1, priorvar = "invgamma",, control = vbpca_ctrl)
-vbpca_mod2 <- vbpca(X, D = 3, tau = 1, priorvar = "invgamma", control = vbpca_ctrl2)
+vbpca_mod <- vbpca(X, D = 3, tau = 1, priorvar = "invgamma",, control = vbpca_ctrl, suppressWarnings = TRUE)
+vbpca_mod2 <- vbpca(X, D = 3, tau = 1, priorvar = "invgamma", control = vbpca_ctrl2, suppressWarnings = TRUE)
 
 testthat::test_that("Test 5: effect of InvGamma parameters", {
 	testthat::expect_equal( sum(abs(vbpca_mod2[[1]])) -  sum(abs(vbpca_mod[[1]])) >= tol, TRUE )
@@ -88,9 +88,9 @@ testthat::test_that("Test 5: effect of InvGamma parameters", {
 vbpca_ctrl <- vbpca_control(center = TRUE, scalecorrection = -1, plot.lowerbound = FALSE,
                             alphatau = 1, betatau = 1, beta1pi = -1)
 vbpca_mod <- vbpca(X, D = 3, tau = 1, priorvar = "invgamma", SVS = TRUE, 
-                   priorInclusion = 0.1, control = vbpca_ctrl)
+                   priorInclusion = 0.1, control = vbpca_ctrl, suppressWarnings = TRUE)
 vbpca_mod2 <- vbpca(X, D = 3, tau = 1, priorvar = "invgamma", SVS = TRUE,
-                    priorInclusion = 0.9, control = vbpca_ctrl)
+                    priorInclusion = 0.9, control = vbpca_ctrl, suppressWarnings = TRUE)
 
 testthat::test_that("Test 6: effect of prior inclusion probability (SVS)", {
 	testthat::expect_equal( sum( vbpca_mod[[9]] < vbpca_mod2[[9]] ), 3 * 8 )
@@ -103,20 +103,20 @@ testthat::test_that("Test 6: effect of prior inclusion probability (SVS)", {
 
 
 vbpca_ctrl <- vbpca_control(center = TRUE, scalecorrection = -1, plot.lowerbound = FALSE,
-                            alphatau = 1, betatau = 1, beta1pi = 1, beta2pi = 50, v0 = 1e-04)
+                            alphatau = 1, betatau = 1, beta1pi = 1, beta2pi = 50, v0 = 5e-03)
 vbpca_ctrl2 <- vbpca_control(center = TRUE, scalecorrection = -1, plot.lowerbound = FALSE,
-                            alphatau = 1, betatau = 1, beta1pi = 320, beta2pi = 50, v0 = 1e-04)
+                            alphatau = 1, betatau = 1, beta1pi = 320, beta2pi = 50, v0 = 5e-03)
 							
 vbpca_mod <- vbpca(X, D = 3, tau = 1, priorvar = "invgamma", SVS = TRUE, 
-                   priorInclusion = 0.5, control = vbpca_ctrl)
+                   priorInclusion = 0.5, control = vbpca_ctrl, suppressWarnings = TRUE)
 vbpca_mod2 <- vbpca(X, D = 3, tau = 1, priorvar = "invgamma", SVS = TRUE,
-                    priorInclusion = 0.5, control = vbpca_ctrl2)
+                    priorInclusion = 0.5, control = vbpca_ctrl2, suppressWarnings = TRUE)
 
 					
 testthat::test_that("Test 7: effect of Beta priors on inclusion probabilities (SVS)", {
 	testthat::expect_equal( sum( vbpca_mod[[9]] < vbpca_mod2[[9]] ), 3 * 8 )
-	testthat::expect_equal( colSums( vbpca_mod2[[9]] > .5 ), c(3, 3, 2) )
-	testthat::expect_equal( colSums( vbpca_mod[[9]] > .5 ), c(0, 0, 0) )
+	testthat::expect_equivalent( colSums( vbpca_mod2[[9]] > .5 ), c(3, 3, 2) )
+	testthat::expect_equivalent( colSums( vbpca_mod[[9]] > .5 ), c(0, 0, 0) )
 }) 
 		
 
