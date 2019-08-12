@@ -2,5 +2,4 @@
 bayespca.Rproj
 .Rhistory
 .RData
-R/bayespca.R
-
+inst/doc

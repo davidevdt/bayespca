@@ -1,6 +1,6 @@
 #' @export 
-vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = FALSE, tau = 1, updatetau = FALSE, priorvar = "invgamma", SVS = FALSE, priorInclusion = 0.5, global.var = FALSE, 
-    control = list(), suppressWarnings = FALSE) {
+vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = FALSE, tau = 1, updatetau = FALSE, priorvar = "invgamma", SVS = FALSE, priorInclusion = 0.5, global.var = FALSE, control = list(), 
+    suppressWarnings = FALSE) {
     
     
     
@@ -15,25 +15,25 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
     if (length(unkNames <- namesSpec[!namesSpec %in% namesCtrl])) {
         warning("unknown names in control: ", paste(unkNames, collapse = ", "))
     }
-	
-	nstart <- ctrl$nstart 
-	center <- ctrl$center 
-	scalecorrection <- ctrl$scalecorrection
-	svdStart <- ctrl$svdStart
-	normalise <- ctrl$normalise 
-	seed <- ctrl$seed
-	plot.lowerbound <- ctrl$plot.lowerbound
-	hpdi <- ctrl$hpdi 
-	probHPDI <- ctrl$probHPDI
-	scaleprior <- ctrl$scaleprior 
-	alphatau <- ctrl$alphatau
-	betatau <- ctrl$betatau 
-	gammatau <- ctrl$gammatau 
-	deltatau <- ctrl$deltatau 
-	hypertype <- ctrl$hypertype
-	beta1pi <- ctrl$beta1pi
-	beta2pi <- ctrl$beta2pi 
-	v0 <- ctrl$v0 	
+    
+    nstart <- ctrl$nstart
+    center <- ctrl$center
+    scalecorrection <- ctrl$scalecorrection
+    svdStart <- ctrl$svdStart
+    normalise <- ctrl$normalise
+    seed <- ctrl$seed
+    plot.lowerbound <- ctrl$plot.lowerbound
+    hpdi <- ctrl$hpdi
+    probHPDI <- ctrl$probHPDI
+    scaleprior <- ctrl$scaleprior
+    alphatau <- ctrl$alphatau
+    betatau <- ctrl$betatau
+    gammatau <- ctrl$gammatau
+    deltatau <- ctrl$deltatau
+    hypertype <- ctrl$hypertype
+    beta1pi <- ctrl$beta1pi
+    beta2pi <- ctrl$beta2pi
+    v0 <- ctrl$v0
     ### 
     
     
@@ -322,11 +322,7 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
             if (commonpi) {
                 if (any(beta1pi <= 0)) {
                   
-                  if (all(beta1pi == 0)) {
-                    message("SVS activated: common prior probabilities, updated via Type-II ML.")
-                  } else {
-                    message("SVS activated: common prior probabilities, fixed.")
-                  }
+                  message("SVS activated: common prior probabilities, fixed.")
                   
                 } else {
                   
@@ -336,14 +332,12 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
             } else {
                 if (any(beta1pi <= 0)) {
                   
-                  if (all(beta1pi == 0)) {
-                    message("SVS activated: component-specific prior probabilities, updated via Type-II ML.")
-                  } else {
-                    message("SVS activated: component-specific prior probabilities, fixed.")
-                  }
+                  message("SVS activated: component-specific prior probabilities, fixed.")
                   
                 } else {
+                  
                   message("SVS activated: random component-specific prior probabilities with Beta priors.")
+                  
                 }
             }
         }
@@ -372,18 +366,18 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
     }
     
     if (scalecorrection >= 0) {
-	
+        
         sdX <- apply(X, 2, function(y) sqrt(sum(y^2, na.rm = TRUE)/(I - scalecorrection)))
         X <- t(t(X)/sdX)
         rm(sdX)
-		
-    }else{
-	
-		if( !suppressWarnings ){
-			warning( "unscaled data - ELBO values might be positive.", call. = FALSE, immediate. = TRUE, noBreaks. = FALSE, domain = NULL )	
-		}
-		
-	}
+        
+    } else {
+        
+        if (!suppressWarnings) {
+            warning("unscaled data - ELBO values might be positive.", call. = FALSE, immediate. = TRUE, noBreaks. = FALSE, domain = NULL)
+        }
+        
+    }
     
     # Inverse variances
     JD <- J * D
@@ -398,8 +392,8 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
     ##################################### Model Estimation
     timeStart <- proc.time()
     
-    retList <- mainBayesPCA(X, D, I, J, nstart, maxIter, tolerance, svdStart, verbose, updatetau, priorvar, alphatau, betatau, gammatau, deltatau, SVS, priorInclusion, beta1pi, 
-        beta2pi, v0, commonpi, JD, invTau, qz, scaleprior, hypertype, global.var, hpdi)
+    retList <- mainBayesPCA(X, D, I, J, nstart, maxIter, tolerance, svdStart, verbose, updatetau, priorvar, alphatau, betatau, gammatau, deltatau, SVS, priorInclusion, beta1pi, beta2pi, v0, commonpi, JD, invTau, 
+        qz, scaleprior, hypertype, global.var, hpdi)
     
     finalTime <- proc.time() - timeStart
     rm(timeStart)
@@ -408,25 +402,30 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
     
     
     ##################################### Results evaluation
-    if( !suppressWarnings ){
-		try(if (!retList$globalConverged) 
-			warning("vbpca has not converged. Please re-run by increasing <maxIter> or the convergence criterion <tolerance>.", call. = FALSE, immediate. = FALSE, noBreaks. = FALSE, 
-				domain = NULL))
-
-		if( retList$globalConverged ){		
-
-			MX <- max(retList$elbovals[-1])
-			try(if (retList$elbovals[length(retList$elbovals)] != MX) 
-				warning("decreasing ELBO.", call. = FALSE, immediate. = FALSE, noBreaks. = FALSE, domain = NULL))
-			rm(MX)
-		}
-	}
+    if (!suppressWarnings) {
+        try(if (!retList$globalConverged) 
+            warning("vbpca has not converged. Please re-run by increasing <maxIter> or the convergence criterion <tolerance>.", call. = FALSE, immediate. = FALSE, noBreaks. = FALSE, domain = NULL))
+        
+        if (retList$globalConverged) {
+            
+            MX <- max(retList$elbovals[-1])
+            try(if (retList$elbovals[length(retList$elbovals)] != MX) 
+                warning("decreasing ELBO.", call. = FALSE, immediate. = FALSE, noBreaks. = FALSE, domain = NULL))
+            rm(MX)
+        }
+    }
     
     
     if (normalise) {
-        retList$globalMuW = apply( retList$globalMuW, 2, function(x) x/sqrt(sum(x^2)) )
+        retList$globalMuW = apply(retList$globalMuW, 2, function(x) x/sqrt(sum(x^2)))
     }
     
+    
+    if (!is.null(colnames(X))) {
+        nms <- colnames(X)
+    } else {
+        nms <- paste("variable", 1:J)
+    }
     
     
     if (!hpdi) {
@@ -440,6 +439,7 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
             
             for (i in seq_along(retList$globalHPDIS)) {
                 colnames(retList$globalHPDIS[[i]]) <- noquote(paste(c(((100 - (probHPDI * 100))/2), 100 - ((100 - probHPDI * 100)/2)), "%", sep = ""))
+                rownames(retList$globalHPDIS[[i]]) <- nms
             }
             
         }
@@ -454,6 +454,7 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
     } else {
         
         colnames(retList$globaltau) <- paste("Component", 1:D)
+        rownames(retList$globaltau) <- nms
         
     }
     rm(tau)
@@ -468,23 +469,23 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
             par(mfrow = c(2, 1))
             plot(retList$elbovals[-1], type = "l", col = "blue", lwd = 2, main = "Evidence Lower Bound", ylab = "ELBO", xlab = "Iteration")
             plot(1/retList$globaltau, type = "b", col = "blue", lwd = 2, main = "Prior Variances", ylab = expression(tau), xlab = "Component")
-    
-			pl <- recordPlot()
-			par(mfrow = c(1, 1))
-			
-
+            
+            pl <- recordPlot()
+            par(mfrow = c(1, 1))
+            
+            
             
         } else if (plot.lowerbound & !(global.var)) {
             
             plot(retList$elbovals[-1], type = "l", col = "blue", lwd = 2, main = "Evidence Lower Bound", ylab = "ELBO", xlab = "Iteration")
-			
-			pl <- recordPlot()
+            
+            pl <- recordPlot()
             
         } else if (!plot.lowerbound & (global.var)) {
             
-		   plot(1/retList$globaltau, type = "b", col = "blue", lwd = 2, main = "Prior Variances", ylab =expression(tau), xlab = "Component")
-			
-		   pl <- recordPlot()
+            plot(1/retList$globaltau, type = "b", col = "blue", lwd = 2, main = "Prior Variances", ylab = expression(tau), xlab = "Component")
+            
+            pl <- recordPlot()
         }
         
         
@@ -495,11 +496,17 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
     
     colnames(retList$globalMuW) <- paste("Component", 1:D)
     colnames(retList$globalMuP) <- paste("Component", 1:D)
+    rownames(retList$globalMuW) <- nms
+    rownames(retList$globalMuP) <- nms
+    
     
     
     if (!SVS) {
         retList$globalPriorInc <- NULL
         retList$globalIncPr <- NULL
+    } else {
+        colnames(retList$globalIncPr) <- paste("Component", 1:D)
+        rownames(retList$globalIncPr) <- nms
     }
     
     
@@ -513,6 +520,7 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
                 names(retList$globalbetatau) <- paste("beta", 1:D)
             } else {
                 colnames(retList$globalbetatau) <- paste("beta", 1:D)
+                rownames(retList$globalbetatau) <- nms
             }
         }
         
@@ -524,9 +532,9 @@ vbpca.default <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = 
     
     
     ##################################### Output
-    ret <- list(muW = retList$globalMuW, P = retList$globalMuP, invTau = retList$globaltau, sigma2 = retList$globalSigma2, HPDI = retList$globalHPDIS, priorAlpha = alphatau, 
-        priorBeta = retList$globalbetatau, priorInclusion = retList$globalPriorInc, inclusionProbabilities = retList$globalIncPr, elbo = retList$globalElbo, converged = retList$globalConverged, 
-        time = retList$time, priorvar = priorvar, global.var = global.var, hypertype = hypertype, SVS = SVS, plot = invisible(pl))
+    ret <- list(muW = retList$globalMuW, P = retList$globalMuP, invTau = retList$globaltau, sigma2 = retList$globalSigma2, HPDI = retList$globalHPDIS, priorAlpha = alphatau, priorBeta = retList$globalbetatau, 
+        priorInclusion = retList$globalPriorInc, inclusionProbabilities = retList$globalIncPr, elbo = retList$globalElbo, converged = retList$globalConverged, time = retList$time, priorvar = priorvar, global.var = global.var, 
+        hypertype = hypertype, SVS = SVS, plot = invisible(pl))
     
     ret$call <- match.call()
     

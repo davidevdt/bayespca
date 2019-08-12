@@ -1,13 +1,29 @@
 ---
 title: "bayespca Package"
 author: "Davide Vidotto <d.vidotto@uvt.nl>"
+geometry: margin=1cm
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:	
+  rmarkdown::html_vignette:
+    toc: true 
+  pdf_document:
+    toc: true 
+  github_document: 
+    toc: true
 vignette: >
   %\VignetteIndexEntry{bayespca Package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+<style type="text/css">
+.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
 
 # bayespca: A package for Variational Bayes PCA 
 
@@ -33,8 +49,8 @@ The Variational Bayes algorithm sees the columns of $W$ as latent variables, and
 
 $$ w_d \sim MVN(0, T_d)  $$
 
-where $MVN()$ denotes the density of the Multivariate Normal Matrix, and T_d denotes the prior (diagonal) covariance matrix of the $d$-th component. The $j$-th element of the diagonal of $T_d$ will be denoted $\tau_{dj}$.  
-where $MVN()$ denotes the density of the Multivariate Normal Matrix, and T_d denotes the prior (diagonal) covariance matrix of the $d$-th component. The $j$-th element of the diagonal of $T_d$ will be denoted $\tau_j$.  
+where $MVN()$ denotes the density of the Multivariate Normal Matrix, and $T_d$ denotes the prior (diagonal) covariance matrix of the $d$-th component. The $j$-th element of the diagonal of $T_d$ will be denoted $\tau_{dj}$.  
+
 
 ## The `bayespca` package 
 Variational Bayes PCA is implemented through the ```vbpca``` function, which takes the following arguments as inputs: 
@@ -114,7 +130,7 @@ mod1$P
 ```
 
 
-Among other things, the function returns also the model evidence lower bound (ELBO) and the estimation time: 
+Among other things, the function returns the model evidence lower bound (ELBO) and the estimation time: 
 
 
 ```{r}
@@ -292,10 +308,10 @@ mod7$invTau
 
 
 Notice the plot of the prior variances (inverse precisions) that appears in this case. This is useful when 
-the number of components supported by the data is uncertain (elbow method): 
+the number of components supported by the data is uncertain (elbow method - see Figure 2): 
 
 
-```{r, fig.cap = "Prior variances for 10 components. "}
+```{r, fig.cap = "Elbow method for 10 components. "}
 mod8 <- vbpca(X, D = 10, maxIter = 1e+03, priorvar = 'fixed',
               updatetau = TRUE, global.var = TRUE, 
 			  control = ctrl, verbose = FALSE )
@@ -310,12 +326,11 @@ $$ w_{j,d} \sim N(0, \pi \tau + (1 - \pi) \tau v_0)  $$
 
 where $v_0$ is a scalar which rescales the spike variance to a value close to 0. For this reason, $v_0$ should be a number included in $(0, 1)$, as close as possible to 0. $\pi$ represents the prior probability of inclusion of the $j$-th variable in the $d$-th component of the model. ```vbpca``` estimates the posterior probabilities of inclusion, conditional on $X$ and the values in $W$. 
 
-While $v_0$ should be a small value close to 0, too small values of such parameter will shrink the variances $\tau$ too much, and no variable will eventually be included in the model. On the other hand, using a too large value for $v_0$ will not shrink the variances enough, and all posterior inclusion probabilities will be close to 1. $v_0$ should then be set with a grain of salt. Preliminary results from partial simulation studies have shown that values between 0.0001 and 0.005 lead to acceptable results, but adequate values of $v_0$ can be dataset-specific. Preliminary simulation studies have also shown that the method works better when Inverse Gamma priors are specified for $\tau$, with ```betatau``` equal to 1 and larger values of ```alphatau```. However, the technique has just been devised and further studies must be carried out to further test the functioning of Stochastic Variable Selection in this context. 
+While $v_0$ should be a small value close to 0, too small values of such parameter will shrink the variances $\tau$ too much, and no variable will eventually be included in the model. On the other hand, using a too large value for $v_0$ will not shrink the variances enough, and all posterior inclusion probabilities will be close to 1. $v_0$ should then be set with a grain of salt. Preliminary results from partial simulation studies have shown that values between 0.0001 and 0.005 lead to acceptable results, but adequate values of $v_0$ can be dataset-specific. Preliminary simulation studies have also shown that the method works better when Inverse Gamma priors are specified for $\tau$. 
 
-In ```vbpca```, the parameter $v_0$ is called ```v0``` in the control parameters of ```vbpca_control```, while the prior inclusion probability is called ```priorInclusion```. ```priorInclusion``` can be fixed, updated via Type-II maximum likelihood, or assigned to a Beta hyperprior: 
+In ```vbpca```, the parameter $v_0$ is called ```v0``` in the control parameters of ```vbpca_control```, while the prior inclusion probability is called ```priorInclusion```. ```priorInclusion``` can be fixed, or assigned to a Beta hyperprior: 
 
-* among the control parameters of ```vbpca_control```, set ```beta1pi``` smaller than 0 for fixed $\pi$; 
-* set ```beta1pi = 0``` instead for Type-II ML updates; 
+* among the control parameters of ```vbpca_control```, set ```beta1pi``` smaller than or equal to 0 for fixed $\pi$; 
 * last, set ```beta1pi``` larger than 0 for Beta specifications. 
 
 When ```beta1pi``` is larger than 0, a Beta prior is assumed for $\pi$: 
@@ -343,50 +358,34 @@ mod9$muW
 
 
 
-# SVS, priorInclusion update via Type-II ML and InverseGamma(5, 1) for tau, v0 = .005
-ctrl6 <- vbpca_control(center = FALSE, scalecorrection = -1, 
-                       plot.lowerbound = FALSE, 
-					   alphatau = 5, betatau = 1,
-					   beta1pi = 0, v0 = 5e-03)
-
-
-# Estimate the model 
-mod10 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'invgamma',
-               SVS = TRUE, control = ctrl6, verbose = FALSE )
-
-mod10$muW
-
-
-			  
 # SVS, priorInclusion with Beta(1,1) priors and InverseGamma(5, 1) for tau, v0 = .005
-ctrl7 <- vbpca_control(center = FALSE, scalecorrection = -1,
+ctrl6 <- vbpca_control(center = FALSE, scalecorrection = -1,
                        plot.lowerbound = FALSE, alphatau = 5,
 					   betatau = 1, beta1pi = 1, beta2pi = 1, 
-					   v0 = 1e-03)
+					   v0 = 5e-03)
 
 					   
 # Estimate the model
-mod11 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'invgamma', 
-              SVS = TRUE, priorInclusion = 0.5, control = ctrl7,
+mod10 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'invgamma', 
+              SVS = TRUE, priorInclusion = 0.5, control = ctrl6,
 			  verbose = FALSE )	
 
 			  
-mod11$muW 			  
+mod10$muW 			  
 ```
 
 
-The estimated posterior inclusion probabilities for the three  models: 
+The estimated posterior inclusion probabilities for the two models: 
 
 ```{r}
 mod9$inclusionProbabilities
 mod10$inclusionProbabilities
-mod11$inclusionProbabilities
 ```
 
 It is also possible to compare the (known) variable inclusion matrix vs. the estimated ones graphically. Let's plot a heatmap of such probabilities for model ```mod9```: 
 
 
-```{r, fig.show='hold', fig.cap = "True and Estimated inclusion probabilities.", fig.width=6, fig.height=4}
+```{r, fig.show='hold', fig.cap = "True and Estimated inclusion probabilities.", fig.width=7, fig.height=5}
 trueInclusions <- matrix(0, J, 3)
 trueInclusions[1:7, 1] <- 1
 trueInclusions[8:14, 2] <- 1 
@@ -415,47 +414,21 @@ axis(side = 1, at = 1:3, labels = paste("Component ", 1:3 ))
 
 
 
-For ```mod10``` and ```mod11``` we can observe the estimated prior inclusion probabilities: 
+We can observe the estimated prior inclusion probabilities for ```mod10```: 
 
 
 
 ```{r}
-
 mod10$priorInclusion
-
-mod11$priorInclusion
 ```
 
-Similar to the hyperparameters of the Inverse Gamma priors on $\tau$, ```priorInclusion```, ```beta1pi``` and ```beta2pi```can also be specified as $D$-dimensional arrays. This will allow estimating the inclusion probabilities with different degrees of 'sparsity' for each component. For Type-II maximum likelihood updates of ```priorInclusion```, all elements of ```beta1pi``` must be equal to 0. For Beta priors, all elements of ```beta1pi``` must be larger than 0.  Let us look at two examples: 
+Similar to the hyperparameters of the Inverse Gamma priors on $\tau$, ```priorInclusion```, ```beta1pi``` and ```beta2pi``` can also be specified as $D$-dimensional arrays. This will allow estimating the inclusion probabilities with different degrees of 'sparsity' for each component. For Beta priors, all elements of ```beta1pi``` must be larger than 0.  Let us look at one example: 
 
 
 
 ```{r}
-# Type-II maximum likelihood (component-specific) updates 
-ctrl8 <- vbpca_control(center = FALSE, scalecorrection = -1, 
-                       plot.lowerbound = FALSE, 
-					   alphatau = 5, betatau = 1,
-					   beta1pi = rep(0, 3), v0 = 5e-03)
-
-# Estimate the model 
-mod12 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'invgamma', 
-               SVS = TRUE, priorInclusion = rep(0.5, 3),
-			   control = ctrl8, verbose = FALSE )
-
-
-mod12$muW
-
-
-mod12$priorInclusion
-
-
-mod12$inclusionProbabilities 
-
-
-
-			  
 # Beta priors with different degrees of sparsity for each component 
-ctrl9 <- vbpca_control(center = FALSE, scalecorrection = -1,
+ctrl7 <- vbpca_control(center = FALSE, scalecorrection = -1,
                        plot.lowerbound = FALSE, 
 					   alphatau = 5, betatau = 1,
 					   beta1pi = c(0.01, 1, 10), beta2pi = 1,
@@ -463,35 +436,35 @@ ctrl9 <- vbpca_control(center = FALSE, scalecorrection = -1,
 
 					   
 # Estimate the model
-mod13 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'invgamma', SVS = TRUE,
-			  priorInclusion = rep(0.5, 3), control = ctrl9, verbose = FALSE )	
+mod11 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'invgamma', SVS = TRUE,
+			  priorInclusion = rep(0.5, 3), control = ctrl7, verbose = FALSE )	
 
-mod13$muW
-
-
-mod13$priorInclusion
+mod11$muW
 
 
-mod13$inclusionProbabilities 	
+mod11$priorInclusion
+
+
+mod11$inclusionProbabilities 	
 ```
 
 
 ## High posterior density intervals 
-It is also possible to require the computation of high probability density intervals for the elements of $W$, which can then be plotted with the ```plothpdi``` function, which internally calls ```ggplot2``` functionalities. 
+It is also possible to require the computation of high probability density intervals for the elements of $W$, which can then be plotted with the ```plothpdi``` function, which internally calls ```ggplot2``` functionalities. *Note*: when normalised weights are require from the corresponding ```vbpca_control``` argument, the posterior density interval will still be returned in the original weights scale (thus, no normalisation is performed on the HPDIs). 
 
 ```{r, fig.show='hold', fig.cap = "High posterior density intervals. "}
 # Set hyperparameter values and require 50% probability density intervals 
-ctrl10 <- vbpca_control(center = FALSE, scalecorrection = -1, 
+ctrl8 <- vbpca_control(center = FALSE, scalecorrection = -1, 
                         plot.lowerbound = FALSE, 
 					    alphatau = 2, betatau = .5, 
 					    hpdi = TRUE, probHPDI = 0.5)
 
 # Estimate the model 
-mod14 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'invgamma',
-              control = ctrl10, verbose = TRUE )
+mod12 <- vbpca(X, D = 3, maxIter = 1e+03, priorvar = 'invgamma',
+              control = ctrl8, verbose = TRUE )
 
-# Plot HPD intervals for variables 1:10 component 1 
-plothpdi(mod14, d = 1, X, vars = 1:10)
+# Plot HPD intervals for variables 1:10, component 1 
+plothpdi(mod12, d = 1, vars = 1:10)
 ```
 
 

@@ -7,7 +7,7 @@
 vbpca_control(nstart = 1, center = TRUE, scalecorrection = 0, svdStart = TRUE,
      normalise = FALSE, seed = -1, plot.lowerbound = TRUE, hpdi = FALSE, probHPDI = 0.9, 
      scaleprior = FALSE, alphatau = 0.5, betatau = 0.5, gammatau = -1, deltatau = 1, 
-     hypertype = "common", beta1pi = 0, beta2pi = 0.5, v0 = 0.001)
+     hypertype = 'common', beta1pi = 0.5, beta2pi = 0.5, v0 = 1e-04)
 }
 \arguments{
 \item{nstart}{integer; \cr 
@@ -65,13 +65,12 @@ component-specific updates; use \code{'local'} for element-specific updates.}
 \item{beta1pi}{float or array_like; \cr 
 shape parameter which models the probability of inclusion in the Beta hyperprior (\code{SVS = TRUE}). 
 It can be a scalar, or a \eqn{D} dimensional vector. When at least one element of \code{beta1pi} 
-is smaller than 0, no updates will be performed on \code{priorInclusion}. When all elements are equal 
-to 0, Type-II maximum likelihood updates will be performed. When all the elements are larger than 0,
-a Beta hyperprior is assumed on \code{priorInclusion}.}
+is smaller than (or equal to) 0, no updates will be performed on \code{priorInclusion}.
+When all the elements are larger than 0, a Beta hyperprior is assumed on \code{priorInclusion}.}
 
 \item{beta2pi}{float or array_like; \cr
 shape parameter which models the probability of exclusion in the Beta hyperprior (\code{SVS = TRUE}). 
-It can be a scalar, or a \eqn{D} dimensional vector. When at least one element of \code{beta1pi}}
+It can be a scalar, or a \eqn{D} dimensional vector.}
 
 \item{v0}{float; \cr 
 scalar value between 0 and 1 (possibly close to 0) which specifies how much the prior variance of the `slab` 
@@ -98,24 +97,21 @@ all elements of \code{gammatau} are larger than 0. \cr
 Similarly, \code{beta1pi} and \code{beta2pi} specify the Beta prior hyperparameters for the \code{priorInclusion}
 argument when \code{SVS = TRUE}. Both \code{beta1pi} and \code{beta2pi} can be scalar or \eqn{D} dimensional arrays.
 The Beta hyperpriors will be activated only when all elements of \code{beta1pi} are 
-larger than 0, while Type-II maximum likelihood updates are implemented when all its element are equal to 0.
+larger than 0.
 }
 \examples{
-\dontrun{
 
 # Specify controls for Inverse Gamma(1, .01) prior for W; 
 # and Beta(5, 1) prior for priorInclusion 
 ctrl <- vbpca_control(alphatau = 1, betatau = .01, beta1pi = 5, beta2pi = 1)
 
-}
 
 
 
-}
-\author{
-D. Vidotto <d.vidotto@uvt.nl>
 }
 \seealso{
 \code{\link{vbpca}}
 }
-
+\author{
+D. Vidotto <d.vidotto@uvt.nl>
+}

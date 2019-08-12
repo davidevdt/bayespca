@@ -321,22 +321,16 @@ void updateSVS( arma::mat &incProbs, arma::vec &priorInclusion, arma::vec &betas
 	updateIncProbs( incProbs, J, D, logpg, logpinvg, W2, v0, invTau, invSigma2 ); 
 	
 	if( commonpi ){
-		if( all(beta1pi == 0.0) ){
-			priorInclusion.fill( arma::accu(incProbs) / double(JD) ); 
-		}else if( all(beta1pi > 0.0) ){
+		if( all(beta1pi > 0.0) ){
 			double sumtmp; 
 			betastar1.fill( beta1pi(0) + arma::accu( incProbs ) ); 
 			betastar2.fill( beta2pi(0) + arma::accu( 1.0 - incProbs) ); 
 			sumtmp = betastar1(0) + betastar2(0); 
 			priorInclusion.fill( betastar1(0) / (sumtmp) );
-		}else{} 			// Don't update probabilities if priorInclusion is fixed    
+		}
 	}else{
 		int d; 
-		if( all(beta1pi == 0.0) ){
-			for( d=0; d<D; d++ ){
-				priorInclusion(d) = ( arma::accu(incProbs.col(d)) / double(J) ); 	
-			}
-		}else if( all(beta1pi > 0.0) ){
+		if( all(beta1pi > 0.0) ){
 			double sumtmp; 
 			for( d=0; d<D; d++ ){
 				betastar1(d) = beta1pi(d) + arma::accu( incProbs.col(d) ); 
@@ -344,7 +338,7 @@ void updateSVS( arma::mat &incProbs, arma::vec &priorInclusion, arma::vec &betas
 				sumtmp = betastar1(d) + betastar2(d); 		
 				priorInclusion(d) = ( betastar1(d) / (sumtmp) );			
 			}			
-		}else{}				// Don't update probabilities if priorInclusion is fixed  	
+		}			// Don't update probabilities if priorInclusion is fixed  	
 	}
 }
 
