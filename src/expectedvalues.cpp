@@ -21,7 +21,7 @@ void updateWPXsigma( arma::mat &muW, arma::mat &W2, double &sigma2, arma::mat &m
 	double Det; 
 	double tmpDet; 
 	double invSigma2 = 1.0 / sigma2; 
-	double invsigma = sqrt(1 / sigma2);
+
 
 	arma::mat sigmaWd(J,J); 
 	arma::mat id = arma::eye(J,J);
@@ -40,21 +40,19 @@ void updateWPXsigma( arma::mat &muW, arma::mat &W2, double &sigma2, arma::mat &m
 	
 	for( d = 0; d<D; d++ ){		
 
-		taucol = arma::inv( arma::diagmat( invTau.col( d ) ) );
+		taucol = invTau.col( d );
 
 		if( scaleprior ){
-			taucol *= (sigma2); 
+			taucol *= (invSigma2); 
 		}
 		
+
 		if( SVS ){
-			taucol = taucol % arma::diagmat( v0 / ( (1.0 - incProbs.col(d)) + ((incProbs.col(d)) * v0) ) );  
+			taucol = taucol % ( 1 / ( v0 / ( (1.0 - incProbs.col(d)) + ((incProbs.col(d)) * v0) ) ) );  
 		}
 	 
-		if( double(J / I) <= 100. ){
-			sigmaWd = arma::inv(id +  (taucol  * (invSigma2 * XTX ))) * taucol ;
-		}else{
-			sigmaWd = invSMW( taucol, invsigma * X, I );
-		}
+
+		sigmaWd = arma::inv_sympd(arma::diagmat(taucol) + (invSigma2 * XTX ));
 	
 		muW.col( d ) = invSigma2 * ( sigmaWd * XTX * muP.col(d) ); 
 		W2.col( d ) = ( arma::square( muW.col( d ) ) + sigmaWd.diag() );	

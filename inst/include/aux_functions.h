@@ -7,9 +7,6 @@ double gammaFunc( double x, bool logScale );
 double diGammaFunc( double x ); 
 double betaFunc( double a, double b, bool logScale ); 
 
- 
-arma::mat invSMW( arma::mat D, arma::mat X, int I ); 
-
 void funcX( const arma::mat& X, arma::mat &XTX, double &trXTX ); 
 
 

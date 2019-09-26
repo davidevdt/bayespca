@@ -64,9 +64,11 @@ double betaFunc( double a, double b, bool logScale ){
 /**************************************************
 *	Sherman - Morrison - Woodbury Inversion 		*
 **************************************************/
-arma::mat invSMW( arma::mat D, arma::mat X, int I ){
-	return D - D * X.t() * arma::inv( arma::eye(I, I) + X * D * X.t() ) * X * D;
-}
+// Note: this function is not used in new package versions.
+
+// arma::mat invSMW( arma::mat D, arma::mat X, int I ){
+//	return D - D * X.t() * arma::inv( arma::eye(I, I) + X * D * X.t() ) * X * D;
+// }
 
 
 
