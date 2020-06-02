@@ -3,27 +3,24 @@
 \docType{package}
 \name{bayespca}
 \alias{bayespca}
-\alias{bayespca-package}
 \title{bayespca: Regularized Principal Component Analysis via Variational Bayes inference.}
 \description{
 A package for estimating PCA with Variational Bayes inference.
 }
 \details{
 Bayesian estimation of weight vectors in PCA.
- To achieve regularization, the method allows specifying fixed variances
+ To achieve regularization, the method allows specifying fixed precisions
  in the prior distributions of the weights; alternatively, it is possible
- to implement Jeffrey's and  Inverse Gamma priors on such parameters.
- In turn, the Inverse Gamma's can have fixed shape hyperparameter; and
- fixed or random scale hyperparameter. Last, the method allows performing
- component-specific stochastic variable selection (`spike-and-slab` prior).
+ to specify Gamma priors for such parameters. The method allows
+ for variable selection through Automatic Relevance Determination.
 }
 \section{Functions}{
- 
+
 \itemize{
-    \item \code{\link{vbpca}} for model estimation; 
-    \item \code{\link{vbpca_control}} for settings of control parameters; 
-    \item \code{is.vbpca} for testing the class; 
-    \item \code{\link{plothpdi}} for plotting high probability density intervals. 
+    \item \code{\link{vbpca}} for model estimation;
+    \item \code{is.vbpca} for testing the class;
+    \item \code{\link{plotheatmap}} for plotting the precision and weights matrices;
+    \item \code{\link{plothpdi}} for plotting high probability density intervals.
 }
 }
 
@@ -32,10 +29,6 @@ Bayesian estimation of weight vectors in PCA.
 
 \item [1] C. M. Bishop. 'Variational PCA'. In Proc. Ninth Int. Conf. on Artificial Neural Networks.
 ICANN, 1999.
-
-\item [2] E. I. George, R. E. McCulloch (1993). 'Variable Selection via Gibbs Sampling'. 
-Journal of the American Statistical Association (88), 881-889.
-
 
 }
 }

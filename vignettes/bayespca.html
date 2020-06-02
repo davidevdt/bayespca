@@ -4,146 +4,425 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link href="data:text/css;charset=utf-8,%0A%40font%2Dface%20%7B%0Afont%2Dfamily%3A%20octicons%2Dlink%3B%0Asrc%3A%20url%28data%3Afont%2Fwoff%3Bcharset%3Dutf%2D8%3Bbase64%2Cd09GRgABAAAAAAZwABAAAAAACFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEU0lHAAAGaAAAAAgAAAAIAAAAAUdTVUIAAAZcAAAACgAAAAoAAQAAT1MvMgAAAyQAAABJAAAAYFYEU3RjbWFwAAADcAAAAEUAAACAAJThvmN2dCAAAATkAAAABAAAAAQAAAAAZnBnbQAAA7gAAACyAAABCUM%2B8IhnYXNwAAAGTAAAABAAAAAQABoAI2dseWYAAAFsAAABPAAAAZwcEq9taGVhZAAAAsgAAAA0AAAANgh4a91oaGVhAAADCAAAABoAAAAkCA8DRGhtdHgAAAL8AAAADAAAAAwGAACfbG9jYQAAAsAAAAAIAAAACABiATBtYXhwAAACqAAAABgAAAAgAA8ASm5hbWUAAAToAAABQgAAAlXu73sOcG9zdAAABiwAAAAeAAAAME3QpOBwcmVwAAAEbAAAAHYAAAB%2FaFGpk3jaTY6xa8JAGMW%2FO62BDi0tJLYQincXEypYIiGJjSgHniQ6umTsUEyLm5BV6NDBP8Tpts6F0v%2Bk%2F0an2i%2BitHDw3v2%2B9%2BDBKTzsJNnWJNTgHEy4BgG3EMI9DCEDOGEXzDADU5hBKMIgNPZqoD3SilVaXZCER3%2FI7AtxEJLtzzuZfI%2BVVkprxTlXShWKb3TBecG11rwoNlmmn1P2WYcJczl32etSpKnziC7lQyWe1smVPy%2FLt7Kc%2B0vWY%2FgAgIIEqAN9we0pwKXreiMasxvabDQMM4riO%2BqxM2ogwDGOZTXxwxDiycQIcoYFBLj5K3EIaSctAq2kTYiw%2Bymhce7vwM9jSqO8JyVd5RH9gyTt2%2BJ%2FyUmYlIR0s04n6%2B7Vm1ozezUeLEaUjhaDSuXHwVRgvLJn1tQ7xiuVv%2FocTRF42mNgZGBgYGbwZOBiAAFGJBIMAAizAFoAAABiAGIAznjaY2BkYGAA4in8zwXi%2BW2%2BMjCzMIDApSwvXzC97Z4Ig8N%2FBxYGZgcgl52BCSQKAA3jCV8CAABfAAAAAAQAAEB42mNgZGBg4f3vACQZQABIMjKgAmYAKEgBXgAAeNpjYGY6wTiBgZWBg2kmUxoDA4MPhGZMYzBi1AHygVLYQUCaawqDA4PChxhmh%2F8ODDEsvAwHgMKMIDnGL0x7gJQCAwMAJd4MFwAAAHjaY2BgYGaA4DAGRgYQkAHyGMF8NgYrIM3JIAGVYYDT%2BAEjAwuDFpBmA9KMDEwMCh9i%2Fv8H8sH0%2F4dQc1iAmAkALaUKLgAAAHjaTY9LDsIgEIbtgqHUPpDi3gPoBVyRTmTddOmqTXThEXqrob2gQ1FjwpDvfwCBdmdXC5AVKFu3e5MfNFJ29KTQT48Ob9%2FlqYwOGZxeUelN2U2R6%2BcArgtCJpauW7UQBqnFkUsjAY%2FkOU1cP%2BDAgvxwn1chZDwUbd6CFimGXwzwF6tPbFIcjEl%2BvvmM%2FbyA48e6tWrKArm4ZJlCbdsrxksL1AwWn%2FyBSJKpYbq8AXaaTb8AAHja28jAwOC00ZrBeQNDQOWO%2F%2FsdBBgYGRiYWYAEELEwMTE4uzo5Zzo5b2BxdnFOcALxNjA6b2ByTswC8jYwg0VlNuoCTWAMqNzMzsoK1rEhNqByEyerg5PMJlYuVueETKcd%2F89uBpnpvIEVomeHLoMsAAe1Id4AAAAAAAB42oWQT07CQBTGv0JBhagk7HQzKxca2sJCE1hDt4QF%2B9JOS0nbaaYDCQfwCJ7Au3AHj%2BLO13FMmm6cl7785vven0kBjHCBhfpYuNa5Ph1c0e2Xu3jEvWG7UdPDLZ4N92nOm%2BEBXuAbHmIMSRMs%2B4aUEd4Nd3CHD8NdvOLTsA2GL8M9PODbcL%2BhD7C1xoaHeLJSEao0FEW14ckxC%2BTU8TxvsY6X0eLPmRhry2WVioLpkrbp84LLQPGI7c6sOiUzpWIWS5GzlSgUzzLBSikOPFTOXqly7rqx0Z1Q5BAIoZBSFihQYQOOBEdkCOgXTOHA07HAGjGWiIjaPZNW13%2F%2Blm6S9FT7rLHFJ6fQbkATOG1j2OFMucKJJsxIVfQORl%2B9Jyda6Sl1dUYhSCm1dyClfoeDve4qMYdLEbfqHf3O%2FAdDumsjAAB42mNgYoAAZQYjBmyAGYQZmdhL8zLdDEydARfoAqIAAAABAAMABwAKABMAB%2F%2F%2FAA8AAQAAAAAAAAAAAAAAAAABAAAAAA%3D%3D%29%20format%28%27woff%27%29%3B%0A%7D%0Abody%20%7B%0A%2Dwebkit%2Dtext%2Dsize%2Dadjust%3A%20100%25%3B%0Atext%2Dsize%2Dadjust%3A%20100%25%3B%0Acolor%3A%20%23333%3B%0Afont%2Dfamily%3A%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20%22Segoe%20UI%22%2C%20Arial%2C%20freesans%2C%20sans%2Dserif%2C%20%22Apple%20Color%20Emoji%22%2C%20%22Segoe%20UI%20Emoji%22%2C%20%22Segoe%20UI%20Symbol%22%3B%0Afont%2Dsize%3A%2016px%3B%0Aline%2Dheight%3A%201%2E6%3B%0Aword%2Dwrap%3A%20break%2Dword%3B%0A%7D%0Aa%20%7B%0Abackground%2Dcolor%3A%20transparent%3B%0A%7D%0Aa%3Aactive%2C%0Aa%3Ahover%20%7B%0Aoutline%3A%200%3B%0A%7D%0Astrong%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Ah1%20%7B%0Afont%2Dsize%3A%202em%3B%0Amargin%3A%200%2E67em%200%3B%0A%7D%0Aimg%20%7B%0Aborder%3A%200%3B%0A%7D%0Ahr%20%7B%0Abox%2Dsizing%3A%20content%2Dbox%3B%0Aheight%3A%200%3B%0A%7D%0Apre%20%7B%0Aoverflow%3A%20auto%3B%0A%7D%0Acode%2C%0Akbd%2C%0Apre%20%7B%0Afont%2Dfamily%3A%20monospace%2C%20monospace%3B%0Afont%2Dsize%3A%201em%3B%0A%7D%0Ainput%20%7B%0Acolor%3A%20inherit%3B%0Afont%3A%20inherit%3B%0Amargin%3A%200%3B%0A%7D%0Ahtml%20input%5Bdisabled%5D%20%7B%0Acursor%3A%20default%3B%0A%7D%0Ainput%20%7B%0Aline%2Dheight%3A%20normal%3B%0A%7D%0Ainput%5Btype%3D%22checkbox%22%5D%20%7B%0Abox%2Dsizing%3A%20border%2Dbox%3B%0Apadding%3A%200%3B%0A%7D%0Atable%20%7B%0Aborder%2Dcollapse%3A%20collapse%3B%0Aborder%2Dspacing%3A%200%3B%0A%7D%0Atd%2C%0Ath%20%7B%0Apadding%3A%200%3B%0A%7D%0A%2A%20%7B%0Abox%2Dsizing%3A%20border%2Dbox%3B%0A%7D%0Ainput%20%7B%0Afont%3A%2013px%20%2F%201%2E4%20Helvetica%2C%20arial%2C%20nimbussansl%2C%20liberationsans%2C%20freesans%2C%20clean%2C%20sans%2Dserif%2C%20%22Apple%20Color%20Emoji%22%2C%20%22Segoe%20UI%20Emoji%22%2C%20%22Segoe%20UI%20Symbol%22%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%234078c0%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%2C%0Aa%3Aactive%20%7B%0Atext%2Ddecoration%3A%20underline%3B%0A%7D%0Ahr%20%7B%0Aheight%3A%200%3B%0Amargin%3A%2015px%200%3B%0Aoverflow%3A%20hidden%3B%0Abackground%3A%20transparent%3B%0Aborder%3A%200%3B%0Aborder%2Dbottom%3A%201px%20solid%20%23ddd%3B%0A%7D%0Ahr%3Abefore%20%7B%0Adisplay%3A%20table%3B%0Acontent%3A%20%22%22%3B%0A%7D%0Ahr%3Aafter%20%7B%0Adisplay%3A%20table%3B%0Aclear%3A%20both%3B%0Acontent%3A%20%22%22%3B%0A%7D%0Ah1%2C%0Ah2%2C%0Ah3%2C%0Ah4%2C%0Ah5%2C%0Ah6%20%7B%0Amargin%2Dtop%3A%2015px%3B%0Amargin%2Dbottom%3A%2015px%3B%0Aline%2Dheight%3A%201%2E1%3B%0A%7D%0Ah1%20%7B%0Afont%2Dsize%3A%2030px%3B%0A%7D%0Ah2%20%7B%0Afont%2Dsize%3A%2021px%3B%0A%7D%0Ah3%20%7B%0Afont%2Dsize%3A%2016px%3B%0A%7D%0Ah4%20%7B%0Afont%2Dsize%3A%2014px%3B%0A%7D%0Ah5%20%7B%0Afont%2Dsize%3A%2012px%3B%0A%7D%0Ah6%20%7B%0Afont%2Dsize%3A%2011px%3B%0A%7D%0Ablockquote%20%7B%0Amargin%3A%200%3B%0A%7D%0Aul%2C%0Aol%20%7B%0Apadding%3A%200%3B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Aol%20ol%2C%0Aul%20ol%20%7B%0Alist%2Dstyle%2Dtype%3A%20lower%2Droman%3B%0A%7D%0Aul%20ul%20ol%2C%0Aul%20ol%20ol%2C%0Aol%20ul%20ol%2C%0Aol%20ol%20ol%20%7B%0Alist%2Dstyle%2Dtype%3A%20lower%2Dalpha%3B%0A%7D%0Add%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20%22Liberation%20Mono%22%2C%20Menlo%2C%20Courier%2C%20monospace%3B%0Afont%2Dsize%3A%2012px%3B%0A%7D%0Apre%20%7B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%200%3B%0Afont%3A%2012px%20Consolas%2C%20%22Liberation%20Mono%22%2C%20Menlo%2C%20Courier%2C%20monospace%3B%0A%7D%0A%2Eselect%3A%3A%2Dms%2Dexpand%20%7B%0Aopacity%3A%200%3B%0A%7D%0A%2Eocticon%20%7B%0Afont%3A%20normal%20normal%20normal%2016px%2F1%20octicons%2Dlink%3B%0Adisplay%3A%20inline%2Dblock%3B%0Atext%2Ddecoration%3A%20none%3B%0Atext%2Drendering%3A%20auto%3B%0A%2Dwebkit%2Dfont%2Dsmoothing%3A%20antialiased%3B%0A%2Dmoz%2Dosx%2Dfont%2Dsmoothing%3A%20grayscale%3B%0A%2Dwebkit%2Duser%2Dselect%3A%20none%3B%0A%2Dmoz%2Duser%2Dselect%3A%20none%3B%0A%2Dms%2Duser%2Dselect%3A%20none%3B%0Auser%2Dselect%3A%20none%3B%0A%7D%0A%2Eocticon%2Dlink%3Abefore%20%7B%0Acontent%3A%20%27%5Cf05c%27%3B%0A%7D%0A%2Emarkdown%2Dbody%3Abefore%20%7B%0Adisplay%3A%20table%3B%0Acontent%3A%20%22%22%3B%0A%7D%0A%2Emarkdown%2Dbody%3Aafter%20%7B%0Adisplay%3A%20table%3B%0Aclear%3A%20both%3B%0Acontent%3A%20%22%22%3B%0A%7D%0A%2Emarkdown%2Dbody%3E%2A%3Afirst%2Dchild%20%7B%0Amargin%2Dtop%3A%200%20%21important%3B%0A%7D%0A%2Emarkdown%2Dbody%3E%2A%3Alast%2Dchild%20%7B%0Amargin%2Dbottom%3A%200%20%21important%3B%0A%7D%0Aa%3Anot%28%5Bhref%5D%29%20%7B%0Acolor%3A%20inherit%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0A%2Eanchor%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Apadding%2Dright%3A%202px%3B%0Amargin%2Dleft%3A%20%2D18px%3B%0A%7D%0A%2Eanchor%3Afocus%20%7B%0Aoutline%3A%20none%3B%0A%7D%0Ah1%2C%0Ah2%2C%0Ah3%2C%0Ah4%2C%0Ah5%2C%0Ah6%20%7B%0Amargin%2Dtop%3A%201em%3B%0Amargin%2Dbottom%3A%2016px%3B%0Afont%2Dweight%3A%20bold%3B%0Aline%2Dheight%3A%201%2E4%3B%0A%7D%0Ah1%20%2Eocticon%2Dlink%2C%0Ah2%20%2Eocticon%2Dlink%2C%0Ah3%20%2Eocticon%2Dlink%2C%0Ah4%20%2Eocticon%2Dlink%2C%0Ah5%20%2Eocticon%2Dlink%2C%0Ah6%20%2Eocticon%2Dlink%20%7B%0Acolor%3A%20%23000%3B%0Avertical%2Dalign%3A%20middle%3B%0Avisibility%3A%20hidden%3B%0A%7D%0Ah1%3Ahover%20%2Eanchor%2C%0Ah2%3Ahover%20%2Eanchor%2C%0Ah3%3Ahover%20%2Eanchor%2C%0Ah4%3Ahover%20%2Eanchor%2C%0Ah5%3Ahover%20%2Eanchor%2C%0Ah6%3Ahover%20%2Eanchor%20%7B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Ah1%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah2%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah3%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah4%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah5%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah6%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%20%7B%0Avisibility%3A%20visible%3B%0A%7D%0Ah1%20%7B%0Apadding%2Dbottom%3A%200%2E3em%3B%0Afont%2Dsize%3A%202%2E25em%3B%0Aline%2Dheight%3A%201%2E2%3B%0Aborder%2Dbottom%3A%201px%20solid%20%23eee%3B%0A%7D%0Ah1%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%3B%0A%7D%0Ah2%20%7B%0Apadding%2Dbottom%3A%200%2E3em%3B%0Afont%2Dsize%3A%201%2E75em%3B%0Aline%2Dheight%3A%201%2E225%3B%0Aborder%2Dbottom%3A%201px%20solid%20%23eee%3B%0A%7D%0Ah2%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%3B%0A%7D%0Ah3%20%7B%0Afont%2Dsize%3A%201%2E5em%3B%0Aline%2Dheight%3A%201%2E43%3B%0A%7D%0Ah3%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E2%3B%0A%7D%0Ah4%20%7B%0Afont%2Dsize%3A%201%2E25em%3B%0A%7D%0Ah4%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E2%3B%0A%7D%0Ah5%20%7B%0Afont%2Dsize%3A%201em%3B%0A%7D%0Ah5%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E1%3B%0A%7D%0Ah6%20%7B%0Afont%2Dsize%3A%201em%3B%0Acolor%3A%20%23777%3B%0A%7D%0Ah6%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E1%3B%0A%7D%0Ap%2C%0Ablockquote%2C%0Aul%2C%0Aol%2C%0Adl%2C%0Atable%2C%0Apre%20%7B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%2016px%3B%0A%7D%0Ahr%20%7B%0Aheight%3A%204px%3B%0Apadding%3A%200%3B%0Amargin%3A%2016px%200%3B%0Abackground%2Dcolor%3A%20%23e7e7e7%3B%0Aborder%3A%200%20none%3B%0A%7D%0Aul%2C%0Aol%20%7B%0Apadding%2Dleft%3A%202em%3B%0A%7D%0Aul%20ul%2C%0Aul%20ol%2C%0Aol%20ol%2C%0Aol%20ul%20%7B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Ali%3Ep%20%7B%0Amargin%2Dtop%3A%2016px%3B%0A%7D%0Adl%20%7B%0Apadding%3A%200%3B%0A%7D%0Adl%20dt%20%7B%0Apadding%3A%200%3B%0Amargin%2Dtop%3A%2016px%3B%0Afont%2Dsize%3A%201em%3B%0Afont%2Dstyle%3A%20italic%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Adl%20dd%20%7B%0Apadding%3A%200%2016px%3B%0Amargin%2Dbottom%3A%2016px%3B%0A%7D%0Ablockquote%20%7B%0Apadding%3A%200%2015px%3B%0Acolor%3A%20%23777%3B%0Aborder%2Dleft%3A%204px%20solid%20%23ddd%3B%0A%7D%0Ablockquote%3E%3Afirst%2Dchild%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Ablockquote%3E%3Alast%2Dchild%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Atable%20%7B%0Adisplay%3A%20block%3B%0Awidth%3A%20100%25%3B%0Aoverflow%3A%20auto%3B%0Aword%2Dbreak%3A%20normal%3B%0Aword%2Dbreak%3A%20keep%2Dall%3B%0A%7D%0Atable%20th%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Atable%20th%2C%0Atable%20td%20%7B%0Apadding%3A%206px%2013px%3B%0Aborder%3A%201px%20solid%20%23ddd%3B%0A%7D%0Atable%20tr%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Aborder%2Dtop%3A%201px%20solid%20%23ccc%3B%0A%7D%0Atable%20tr%3Anth%2Dchild%282n%29%20%7B%0Abackground%2Dcolor%3A%20%23f8f8f8%3B%0A%7D%0Aimg%20%7B%0Amax%2Dwidth%3A%20100%25%3B%0Abox%2Dsizing%3A%20content%2Dbox%3B%0Abackground%2Dcolor%3A%20%23fff%3B%0A%7D%0Acode%20%7B%0Apadding%3A%200%3B%0Apadding%2Dtop%3A%200%2E2em%3B%0Apadding%2Dbottom%3A%200%2E2em%3B%0Amargin%3A%200%3B%0Afont%2Dsize%3A%2085%25%3B%0Abackground%2Dcolor%3A%20rgba%280%2C0%2C0%2C0%2E04%29%3B%0Aborder%2Dradius%3A%203px%3B%0A%7D%0Acode%3Abefore%2C%0Acode%3Aafter%20%7B%0Aletter%2Dspacing%3A%20%2D0%2E2em%3B%0Acontent%3A%20%22%5C00a0%22%3B%0A%7D%0Apre%3Ecode%20%7B%0Apadding%3A%200%3B%0Amargin%3A%200%3B%0Afont%2Dsize%3A%20100%25%3B%0Aword%2Dbreak%3A%20normal%3B%0Awhite%2Dspace%3A%20pre%3B%0Abackground%3A%20transparent%3B%0Aborder%3A%200%3B%0A%7D%0A%2Ehighlight%20%7B%0Amargin%2Dbottom%3A%2016px%3B%0A%7D%0A%2Ehighlight%20pre%2C%0Apre%20%7B%0Apadding%3A%2016px%3B%0Aoverflow%3A%20auto%3B%0Afont%2Dsize%3A%2085%25%3B%0Aline%2Dheight%3A%201%2E45%3B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0A%7D%0A%2Ehighlight%20pre%20%7B%0Amargin%2Dbottom%3A%200%3B%0Aword%2Dbreak%3A%20normal%3B%0A%7D%0Apre%20%7B%0Aword%2Dwrap%3A%20normal%3B%0A%7D%0Apre%20code%20%7B%0Adisplay%3A%20inline%3B%0Amax%2Dwidth%3A%20initial%3B%0Apadding%3A%200%3B%0Amargin%3A%200%3B%0Aoverflow%3A%20initial%3B%0Aline%2Dheight%3A%20inherit%3B%0Aword%2Dwrap%3A%20normal%3B%0Abackground%2Dcolor%3A%20transparent%3B%0Aborder%3A%200%3B%0A%7D%0Apre%20code%3Abefore%2C%0Apre%20code%3Aafter%20%7B%0Acontent%3A%20normal%3B%0A%7D%0Akbd%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Apadding%3A%203px%205px%3B%0Afont%2Dsize%3A%2011px%3B%0Aline%2Dheight%3A%2010px%3B%0Acolor%3A%20%23555%3B%0Avertical%2Dalign%3A%20middle%3B%0Abackground%2Dcolor%3A%20%23fcfcfc%3B%0Aborder%3A%20solid%201px%20%23ccc%3B%0Aborder%2Dbottom%2Dcolor%3A%20%23bbb%3B%0Aborder%2Dradius%3A%203px%3B%0Abox%2Dshadow%3A%20inset%200%20%2D1px%200%20%23bbb%3B%0A%7D%0A%2Epl%2Dc%20%7B%0Acolor%3A%20%23969896%3B%0A%7D%0A%2Epl%2Dc1%2C%0A%2Epl%2Ds%20%2Epl%2Dv%20%7B%0Acolor%3A%20%230086b3%3B%0A%7D%0A%2Epl%2De%2C%0A%2Epl%2Den%20%7B%0Acolor%3A%20%23795da3%3B%0A%7D%0A%2Epl%2Ds%20%2Epl%2Ds1%2C%0A%2Epl%2Dsmi%20%7B%0Acolor%3A%20%23333%3B%0A%7D%0A%2Epl%2Dent%20%7B%0Acolor%3A%20%2363a35c%3B%0A%7D%0A%2Epl%2Dk%20%7B%0Acolor%3A%20%23a71d5d%3B%0A%7D%0A%2Epl%2Dpds%2C%0A%2Epl%2Ds%2C%0A%2Epl%2Ds%20%2Epl%2Dpse%20%2Epl%2Ds1%2C%0A%2Epl%2Dsr%2C%0A%2Epl%2Dsr%20%2Epl%2Dcce%2C%0A%2Epl%2Dsr%20%2Epl%2Dsra%2C%0A%2Epl%2Dsr%20%2Epl%2Dsre%20%7B%0Acolor%3A%20%23183691%3B%0A%7D%0A%2Epl%2Dv%20%7B%0Acolor%3A%20%23ed6a43%3B%0A%7D%0A%2Epl%2Did%20%7B%0Acolor%3A%20%23b52a1d%3B%0A%7D%0A%2Epl%2Dii%20%7B%0Abackground%2Dcolor%3A%20%23b52a1d%3B%0Acolor%3A%20%23f8f8f8%3B%0A%7D%0A%2Epl%2Dsr%20%2Epl%2Dcce%20%7B%0Acolor%3A%20%2363a35c%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dml%20%7B%0Acolor%3A%20%23693a17%3B%0A%7D%0A%2Epl%2Dmh%2C%0A%2Epl%2Dmh%20%2Epl%2Den%2C%0A%2Epl%2Dms%20%7B%0Acolor%3A%20%231d3e81%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dmq%20%7B%0Acolor%3A%20%23008080%3B%0A%7D%0A%2Epl%2Dmi%20%7B%0Acolor%3A%20%23333%3B%0Afont%2Dstyle%3A%20italic%3B%0A%7D%0A%2Epl%2Dmb%20%7B%0Acolor%3A%20%23333%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dmd%20%7B%0Abackground%2Dcolor%3A%20%23ffecec%3B%0Acolor%3A%20%23bd2c00%3B%0A%7D%0A%2Epl%2Dmi1%20%7B%0Abackground%2Dcolor%3A%20%23eaffea%3B%0Acolor%3A%20%2355a532%3B%0A%7D%0A%2Epl%2Dmdr%20%7B%0Acolor%3A%20%23795da3%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dmo%20%7B%0Acolor%3A%20%231d3e81%3B%0A%7D%0Akbd%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Apadding%3A%203px%205px%3B%0Afont%3A%2011px%20Consolas%2C%20%22Liberation%20Mono%22%2C%20Menlo%2C%20Courier%2C%20monospace%3B%0Aline%2Dheight%3A%2010px%3B%0Acolor%3A%20%23555%3B%0Avertical%2Dalign%3A%20middle%3B%0Abackground%2Dcolor%3A%20%23fcfcfc%3B%0Aborder%3A%20solid%201px%20%23ccc%3B%0Aborder%2Dbottom%2Dcolor%3A%20%23bbb%3B%0Aborder%2Dradius%3A%203px%3B%0Abox%2Dshadow%3A%20inset%200%20%2D1px%200%20%23bbb%3B%0A%7D%0A%2Etask%2Dlist%2Ditem%20%7B%0Alist%2Dstyle%2Dtype%3A%20none%3B%0A%7D%0A%2Etask%2Dlist%2Ditem%2B%2Etask%2Dlist%2Ditem%20%7B%0Amargin%2Dtop%3A%203px%3B%0A%7D%0A%2Etask%2Dlist%2Ditem%20input%20%7B%0Amargin%3A%200%200%2E35em%200%2E25em%20%2D1%2E6em%3B%0Avertical%2Dalign%3A%20middle%3B%0A%7D%0A%3Achecked%2B%2Eradio%2Dlabel%20%7B%0Az%2Dindex%3A%201%3B%0Aposition%3A%20relative%3B%0Aborder%2Dcolor%3A%20%234078c0%3B%0A%7D%0A%2EsourceLine%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0A%7D%0Acode%20%2Ekw%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Edt%20%7B%20color%3A%20%23ed6a43%3B%20%7D%0Acode%20%2Edv%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Ebn%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Efl%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Ech%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Est%20%7B%20color%3A%20%23183691%3B%20%7D%0Acode%20%2Eco%20%7B%20color%3A%20%23969896%3B%20%7D%0Acode%20%2Eot%20%7B%20color%3A%20%230086b3%3B%20%7D%0Acode%20%2Eal%20%7B%20color%3A%20%23a61717%3B%20%7D%0Acode%20%2Efu%20%7B%20color%3A%20%2363a35c%3B%20%7D%0Acode%20%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%0Acode%20%2Ewa%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Ecn%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Esc%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Evs%20%7B%20color%3A%20%23183691%3B%20%7D%0Acode%20%2Ess%20%7B%20color%3A%20%23183691%3B%20%7D%0Acode%20%2Eim%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Eva%20%7Bcolor%3A%20%23008080%3B%20%7D%0Acode%20%2Ecf%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Eop%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Ebu%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Eex%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Epp%20%7B%20color%3A%20%23999999%3B%20%7D%0Acode%20%2Eat%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Edo%20%7B%20color%3A%20%23969896%3B%20%7D%0Acode%20%2Ean%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Ecv%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Ein%20%7B%20color%3A%20%23008080%3B%20%7D%0A" rel="stylesheet">
-<style>
-body {
-  box-sizing: border-box;
-  min-width: 200px;
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 45px;
-  padding-top: 0px;
+<meta name="author" content="Davide Vidotto d.vidotto@uvt.nl" />
+
+<meta name="date" content="2020-06-02" />
+
+<title>bayespca Package</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
 
 </head>
 
 <body>
 
-<h1 id="bayespca-package">bayespca Package</h1>
-<p>Davide Vidotto <a href="mailto:d.vidotto@uvt.nl">d.vidotto@uvt.nl</a><br />
-2019-08-12</p>
+
+
+
+<h1 class="title toc-ignore">bayespca Package</h1>
+<h4 class="author">Davide Vidotto <a href="mailto:d.vidotto@uvt.nl">d.vidotto@uvt.nl</a></h4>
+<h4 class="date">2020-06-02</h4>
+
+
+<div id="TOC">
 <ul>
-<li><a href="#bayespca-a-package-for-variational-bayes-pca">bayespca: A package for Variational Bayes PCA</a>
-<ul>
+<li><a href="#bayespca-a-package-for-variational-bayes-pca">bayespca: A package for Variational Bayes PCA</a><ul>
 <li><a href="#theoretical-background">Theoretical background</a></li>
 <li><a href="#the-bayespca-package">The <code>bayespca</code> package</a></li>
-<li><a href="#levels-of-regularization-on-the-w-matrix">Levels of regularization on the W matrix</a>
-<ul>
+<li><a href="#levels-of-regularization-on-the-w-matrix">Levels of regularization on the W matrix</a><ul>
 <li><a href="#fixed-tau">Fixed <code>tau</code></a></li>
 <li><a href="#fixed-updatable-tau">Fixed, updatable <code>tau</code></a></li>
-<li><a href="#random-tau-jeffreys-prior">Random <code>tau</code>: Jeffrey's prior</a></li>
-<li><a href="#random-tau-inverse-gamma-prior">Random <code>tau</code>: Inverse Gamma prior</a></li>
-<li><a href="#random-tau-random-betatau">Random <code>tau</code>, random <code>betatau</code></a></li>
+<li><a href="#random-tau-gamma-prior">Random <code>tau</code>: Gamma prior</a></li>
 <li><a href="#global-prior-variances">Global prior variances</a></li>
 </ul></li>
-<li><a href="#stochastic-search-variable-selection">Stochastic Search Variable Selection</a></li>
+<li><a href="#automatic-relevance-determination">Automatic Relevance Determination</a></li>
 <li><a href="#high-posterior-density-intervals">High posterior density intervals</a></li>
-<li><a href="#retrieve-principal-components">Retrieve Principal Components</a>
-<ul>
+<li><a href="#retrieve-principal-components">Retrieve Principal Components</a><ul>
 <li><a href="#references">References</a></li>
 </ul></li>
 </ul></li>
 </ul>
-<style type="text/css">
-.main-container {
-  max-width: 1800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-</style>
-<h1 id="bayespca-a-package-for-variational-bayes-pca">bayespca: A package for Variational Bayes PCA</h1>
-<h2 id="theoretical-background">Theoretical background</h2>
-<p>Principal Components Analysis (PCA) allows performing dimensionality reduction via matrix factorization. While there are several ways to express a PCA model, in what follows will we consider the formulation<br />
-<em>X</em> = <em>X<strong>W</strong>P</em><sup><em>T</em></sup> + <em>E</em>,<br />
-where X is a <em>I</em> × <em>J</em> data matrix (<em>I</em> is the number of units; <em>J</em> the number of continuous variables); <em>W</em> is a <em>J</em> × <em>D</em> weight matrix (<em>D</em> ≤ <em>J</em> is the rank of the reduced matrix); <em>P</em> is the orthogonal loading matrix, such that <em>P</em><sup><em>T</em></sup><em>P</em> = <em>I</em><sub><em>D</em> × <em>D</em></sub>; and <em>E</em> is an <em>I</em> × <em>J</em> error matrix. The <em>D</em> principal components can be retrieved with <em>Z</em> = *X**W<em>. In this context, the focus of the inference is typically on </em>W<em>. In particular, when </em>J* is large and the main inferential goal is components' interpretation, it is important for the analyst to obtain simple and interpretable components.</p>
+</div>
+
+<div id="bayespca-a-package-for-variational-bayes-pca" class="section level1">
+<h1>bayespca: A package for Variational Bayes PCA</h1>
+<div id="theoretical-background" class="section level2">
+<h2>Theoretical background</h2>
+<p>Principal Components Analysis (PCA) allows performing dimensionality reduction via matrix factorization. While there are several ways to express a PCA model, in what follows will we consider the formulation <span class="math display">\[ X = X W P^T + E, \]</span> where X is a <span class="math inline">\(I \times J\)</span> data matrix (<span class="math inline">\(I\)</span> is the number of units; <span class="math inline">\(J\)</span> the number of continuous variables); <span class="math inline">\(W\)</span> is a <span class="math inline">\(J \times D\)</span> weight matrix (<span class="math inline">\(D \leq J\)</span> is the rank of the reduced matrix); <span class="math inline">\(P\)</span> is the orthogonal loading matrix, such that <span class="math inline">\(P^T P = I_{D \times D}\)</span>; and <span class="math inline">\(E\)</span> is an <span class="math inline">\(I \times J\)</span> error matrix. The <span class="math inline">\(D\)</span> principal components can be retrieved with <span class="math inline">\(Z = X W\)</span>. In this context, the focus of the inference is typically on <span class="math inline">\(W\)</span>. In particular, when <span class="math inline">\(J\)</span> is large and the main inferential goal is components’ interpretation, it is important for the analyst to obtain simple and interpretable components.</p>
 <p>The <code>bayespca</code> package allows performing the following operations:</p>
-<ol>
-<li>estimation of the PCA model, with a Variational Bayes algorithm;</li>
-<li>regularization of the elements of <em>W</em> by means of its prior variances;</li>
-<li>variable selection, via a Stochastic Search Variable Selection method (a form of &quot;spike-and-slab&quot; prior).</li>
+<ol style="list-style-type: decimal">
+<li>estimation of the PCA model, with a Variational Bayes algorithm;<br />
+</li>
+<li>regularization of the elements of <span class="math inline">\(W\)</span> by means of its prior variances;</li>
+<li>variable selection, via automatic relevance determination (ARD).</li>
 </ol>
-<p>The Variational Bayes algorithm sees the columns of <em>W</em> as latent variables, and <em>P</em> as a fixed parameter. Furthermore, the residuals <em>E</em> are assumed to be distributed according to a Normal distribution with mean 0 and variance <em>σ</em><sup>2</sup>. The following prior is assumed for the <em>d</em>-th column of <em>W</em>:</p>
-<p><em>w</em><sub><em>d</em></sub> ∼ <em>M<strong>V</strong>N</em>(0, <em>T</em><sub><em>d</em></sub>)</p>
-<p>where <em>M<strong>V</strong>N</em>() denotes the density of the Multivariate Normal Matrix, and <em>T</em><sub><em>d</em></sub> denotes the prior (diagonal) covariance matrix of the <em>d</em>-th component. The <em>j</em>-th element of the diagonal of <em>T</em><sub><em>d</em></sub> will be denoted <em>τ</em><sub>*d**j*</sub>.</p>
-<h2 id="the-bayespca-package">The <code>bayespca</code> package</h2>
+<p>The Variational Bayes algorithm sees the columns of <span class="math inline">\(W\)</span> as latent variables, and <span class="math inline">\(P\)</span> as a fixed parameter. Furthermore, the residuals <span class="math inline">\(E\)</span> are assumed to be distributed according to a Normal distribution with mean 0 and variance <span class="math inline">\(\sigma^2\)</span>. The following prior is assumed for the <span class="math inline">\(d\)</span>-th column of <span class="math inline">\(W\)</span>:</p>
+<p><span class="math display">\[ w_d \sim MVN(0, T_d^{-1})  \]</span></p>
+<p>where <span class="math inline">\(MVN()\)</span> denotes the density of the Multivariate Normal Matrix, and <span class="math inline">\(T_d\)</span> denotes the prior (diagonal) precision matrix of the <span class="math inline">\(d\)</span>-th component. The <span class="math inline">\(j\)</span>-th element of the diagonal of <span class="math inline">\(T_d\)</span> will be denoted <span class="math inline">\(\tau_{dj}\)</span>.</p>
+</div>
+<div id="the-bayespca-package" class="section level2">
+<h2>The <code>bayespca</code> package</h2>
 <p>Variational Bayes PCA is implemented through the <code>vbpca</code> function, which takes the following arguments as inputs:</p>
 <ul>
 <li><code>X</code> the input matrix;</li>
 <li><code>D</code> the number of components to be estimated;</li>
+<li><code>nstart</code> number of times a different run of the algorithm is performed (with varying starting values);</li>
 <li><code>maxIter</code> the maximum number of iterations for the Variational Bayes algorithm;</li>
 <li><code>tolerance</code> convergence criterion of the algorithm (relative difference between ELBO values);</li>
 <li><code>verbose</code> logical parameter which prints estimation information on screen when <code>TRUE</code>;</li>
-<li><code>tau</code> value of the prior variances; starting value when <code>updatetau=TRUE</code> or <code>priorvar!='fixed'</code></li>
-<li><code>updatetau</code> logical parameter denoting whether the prior variances should be updated when <code>priorvar='fixed'</code>;</li>
-<li><code>priorvar</code> character argument denoting whether the prior variances should be <code>'fixed'</code>, or random with <code>'jeffrey'</code> or <code>'invgamma'</code> priors;</li>
-<li><code>SVS</code> logical argument which activates Stochastic Variable Selection when set to <code>TRUE</code>;</li>
-<li><code>priorInclusion</code> prior inclusion probabilities for the elements of <em>W</em> in the model;</li>
+<li><code>center</code> boolean indicating whether to center the variables in X;</li>
+<li><code>scalecorrection</code>, a float which is &gt;= than 0 if the variables are scaled (by a factor <code>scalecorrection</code>), and &lt;0 otherwise;</li>
+<li><code>svdStart</code>, a boolean denoting whether to use the values of SVD decomposition for the starting values (opposed to random starts);</li>
+<li><code>tau</code> value of the prior precisions; starting value when <code>updatetau=TRUE</code> or <code>alphatau &gt; 0</code> (for Gamma priors)</li>
+<li><code>updatetau</code> logical parameter denoting whether the prior precisions should be updated when <code>priorvar='fixed'</code>;</li>
+<li><code>alphatau</code> values of the shape parameter of the Gamma priors for the precisions; prior precisions are fixed when set to 0</li>
+<li><code>betatau</code> values of the scale parameter of the Gamma priors for the precisions;</li>
+<li><code>plot.lowerbound</code> boolean indicating whether to plot the history of the ELBO values calculated during the variational iterations;<br />
+</li>
+<li><code>hpdi</code> logical indicating whether to calcualte the HPD intervals of the weights;</li>
+<li><code>probHPDI</code> the probability density covered by the HPDI’s;<br />
+</li>
 <li><code>global.var</code> logical parameter which activates component-specific prior variances when set to <code>TRUE</code>;</li>
-<li><code>control</code> other control parameters, such as Inverse Gamma hyperparameters (see <code>?vbpca_control</code> for more information).</li>
 </ul>
-<p><code>vbpca</code> returns a vbpca object, which is a list containing various aspect of the model results. See <code>?vbpca</code> for further information. Internally, <code>vbpca</code> calls a C++ function (written with Rcpp) to estimate the model.</p>
-<p>In what follows, the various estimation modalities allowed by <code>vbpca</code> will be introduced. For presentation purposes, a synthetic data matrix with <em>I</em> = 100 rows and <em>J</em> = 20 columns genereted from three components will be used:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">141</span>)
-I &lt;-<span class="st"> </span><span class="dv">100</span>
-J &lt;-<span class="st"> </span><span class="dv">20</span> 
-V1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(I, <span class="dv">0</span>, <span class="dv">50</span>)
-V2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(I, <span class="dv">0</span>, <span class="dv">30</span>)
-V3 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(I, <span class="dv">0</span>, <span class="dv">10</span>)
-X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">rep</span>(V1, <span class="dv">7</span>), <span class="kw">rep</span>(V2, <span class="dv">7</span>), <span class="kw">rep</span>(V3, <span class="dv">6</span>)), I, J)
-X &lt;-<span class="st"> </span>X <span class="op">+</span><span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(I <span class="op">*</span><span class="st"> </span>J, <span class="dv">0</span>, <span class="dv">1</span>), I, J)</code></pre></div>
+<p><code>vbpca</code> returns a vbpca object, which is a list containing various aspect of the model results. See <code>?vbpca</code> for further information. Internally, <code>vbpca</code> calls a C++ function (written with Rcpp) to estimate the model. When <code>nstart</code>&gt;1, the algorithm will autmatically pick (and output) the best run in terms of final ELBO value.</p>
+<p>In what follows, the various estimation modalities allowed by <code>vbpca</code> will be introduced. For presentation purposes, a synthetic data matrix with <span class="math inline">\(I = 100\)</span> rows and <span class="math inline">\(J = 20\)</span> columns genereted from three components will be used:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">141</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">I &lt;-<span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">J &lt;-<span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">V1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(I, <span class="dv">0</span>, <span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">V2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(I, <span class="dv">0</span>, <span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">V3 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(I, <span class="dv">0</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">rep</span>(V1, <span class="dv">7</span>), <span class="kw">rep</span>(V2, <span class="dv">7</span>), <span class="kw">rep</span>(V3, <span class="dv">6</span>)), I, J)</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">X &lt;-<span class="st"> </span>X <span class="op">+</span><span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(I <span class="op">*</span><span class="st"> </span>J, <span class="dv">0</span>, <span class="dv">1</span>), I, J)</a></code></pre></div>
 <p>I will now proceed with the estimation of the PCA model.</p>
-<h2 id="levels-of-regularization-on-the-w-matrix">Levels of regularization on the W matrix</h2>
-<h3 id="fixed-tau">Fixed <code>tau</code></h3>
+</div>
+<div id="levels-of-regularization-on-the-w-matrix" class="section level2">
+<h2>Levels of regularization on the W matrix</h2>
+<div id="fixed-tau" class="section level3">
+<h3>Fixed <code>tau</code></h3>
 <p>With fixed tau, it is possible to specify the model as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Install and load package </span>
-<span class="co"># devtools::install_github(&quot;davidevdt/bayespca&quot;)</span>
-<span class="kw">library</span>(bayespca)
-
-
-<span class="co"># De-activate data center and scaling;</span>
-ctrl &lt;-<span class="st"> </span><span class="kw">vbpca_control</span>(<span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="op">-</span><span class="dv">1</span>, 
-                      <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>)
-
-
-<span class="co"># Estimate vbpca with fixed prior variances (equal to 1) </span>
-<span class="co"># for the elements of W </span>
-mod1 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'fixed'</span>, 
-              <span class="dt">control =</span> ctrl, <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</code></pre></div>
-<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test the class of mod1: </span>
-<span class="kw">is.vbpca</span>(mod1)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># Install and load package</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co"># devtools::install_github(&quot;davidevdt/bayespca&quot;)</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">library</span>(bayespca)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co"># Estimate vbpca with fixed prior precisions (equal to 1)</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co"># for the elements of W</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">mod1 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">alphatau=</span><span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">              <span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="dv">-1</span>,</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">              <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">              <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co"># Test the class of mod1:</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="kw">is.vbpca</span>(mod1)</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<p>The estimate posterior means of the <em>W</em> matrix can be viewed with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1<span class="op">$</span>muW </code></pre></div>
+<p>The estimate posterior means of the <span class="math inline">\(W\)</span> matrix can be viewed with:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">mod1<span class="op">$</span>muW</a></code></pre></div>
 <pre><code>##              Component 1 Component 2   Component 3
-## variable 1  -0.376589697 -0.04416511  0.0003399127
-## variable 2  -0.373939776 -0.04582346 -0.0111489577
-## variable 3  -0.375148656 -0.04305857 -0.0078831833
-## variable 4  -0.374770076 -0.04473100 -0.0031124936
-## variable 5  -0.376808025 -0.04285791 -0.0100250666
-## variable 6  -0.375114064 -0.04446329 -0.0015012122
-## variable 7  -0.375069345 -0.04364081 -0.0007181137
-## variable 8   0.043916073 -0.37610684 -0.0194987814
-## variable 9   0.044338996 -0.37382689 -0.0224165501
-## variable 10  0.043216238 -0.37319455 -0.0161965551
-## variable 11  0.043432789 -0.37311089 -0.0246530479
-## variable 12  0.045420158 -0.37574266 -0.0200072027
-## variable 13  0.045158091 -0.37616395 -0.0206149535
-## variable 14  0.044605650 -0.37571347 -0.0144837510
-## variable 15  0.002905219  0.02229238 -0.4057459196
-## variable 16  0.003409761  0.02199152 -0.4068881251
-## variable 17  0.003232844  0.02063894 -0.4106993259
-## variable 18  0.002919709  0.02319335 -0.4056784549
-## variable 19  0.002019259  0.02192116 -0.4088023613
-## variable 20  0.001874207  0.02043128 -0.4078307380</code></pre>
-<p>and the <em>P</em> matrix:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1<span class="op">$</span>P </code></pre></div>
+## variable 1  -0.376589700 -0.04416511  0.0003399127
+## variable 2  -0.373939778 -0.04582346 -0.0111489595
+## variable 3  -0.375148658 -0.04305857 -0.0078831845
+## variable 4  -0.374770078 -0.04473100 -0.0031124941
+## variable 5  -0.376808027 -0.04285792 -0.0100250681
+## variable 6  -0.375114066 -0.04446329 -0.0015012124
+## variable 7  -0.375069347 -0.04364081 -0.0007181138
+## variable 8   0.043916074 -0.37610685 -0.0194987844
+## variable 9   0.044338996 -0.37382690 -0.0224165536
+## variable 10  0.043216238 -0.37319456 -0.0161965576
+## variable 11  0.043432789 -0.37311089 -0.0246530518
+## variable 12  0.045420158 -0.37574267 -0.0200072059
+## variable 13  0.045158091 -0.37616395 -0.0206149568
+## variable 14  0.044605651 -0.37571347 -0.0144837533
+## variable 15  0.002905219  0.02229238 -0.4057459837
+## variable 16  0.003409761  0.02199152 -0.4068881894
+## variable 17  0.003232845  0.02063894 -0.4106993908
+## variable 18  0.002919709  0.02319335 -0.4056785190
+## variable 19  0.002019259  0.02192116 -0.4088024260
+## variable 20  0.001874207  0.02043128 -0.4078308025</code></pre>
+<p>and the <span class="math inline">\(P\)</span> matrix:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">mod1<span class="op">$</span>P</a></code></pre></div>
 <pre><code>##              Component 1 Component 2   Component 3
 ## variable 1  -0.376589904 -0.04416517  0.0003399179
 ## variable 2  -0.373939981 -0.04582353 -0.0111491289
@@ -166,603 +445,396 @@ mod1 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class=
 ## variable 19  0.002019260  0.02192119 -0.4088086384
 ## variable 20  0.001874208  0.02043131 -0.4078370001</code></pre>
 <p>Among other things, the function returns the model evidence lower bound (ELBO) and the estimation time:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1<span class="op">$</span>elbo </code></pre></div>
-<pre><code>## [1] -2834.329</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1<span class="op">$</span>time </code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">mod1<span class="op">$</span>elbo</a></code></pre></div>
+<pre><code>## [1] -2834.277</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">mod1<span class="op">$</span>time</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##       0       0       0</code></pre>
-<h3 id="fixed-updatable-tau">Fixed, updatable <code>tau</code></h3>
-<p>The prior variances <em>τ</em><sub>*d**j*</sub> can also be updated via Type-II Maximum Likelihood (empirical Bayes updates):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod2 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'fixed'</span>,
-              <span class="dt">updatetau =</span> <span class="ot">TRUE</span>, <span class="dt">control =</span> ctrl, <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</code></pre></div>
-<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod2<span class="op">$</span>muW</code></pre></div>
+##    0.00    0.01    0.01</code></pre>
+</div>
+<div id="fixed-updatable-tau" class="section level3">
+<h3>Fixed, updatable <code>tau</code></h3>
+<p>The prior precisions <span class="math inline">\(\tau_{dj}\)</span> can also be updated via Type-II Maximum Likelihood (empirical Bayes updates):</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">mod2 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">alphatau=</span><span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">             <span class="dt">updatetau =</span> <span class="ot">TRUE</span>, <span class="dt">center =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">             <span class="dt">scalecorrection =</span> <span class="dv">-1</span>,</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">             <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">             <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7">mod2<span class="op">$</span>muW</a></code></pre></div>
 <pre><code>##               Component 1  Component 2  Component 3
-## variable 1  -3.770417e-01 -0.051573499 -0.001788633
-## variable 2  -3.747997e-01 -0.025120541 -0.002279085
-## variable 3  -3.749896e-01 -0.039169668 -0.002284711
-## variable 4  -3.695986e-01 -0.062446420 -0.002188222
-## variable 5  -3.798267e-01 -0.031100065 -0.002172447
-## variable 6  -3.809607e-01 -0.058646546 -0.001863930
-## variable 7  -3.707615e-01 -0.037076450 -0.001858450
-## variable 8   4.610643e-02 -0.388243166 -0.019761887
-## variable 9   4.122547e-02 -0.376699340 -0.023207406
-## variable 10  2.542203e-02 -0.376987920 -0.006935656
-## variable 11  5.233439e-02 -0.374340986 -0.022206305
-## variable 12  4.536997e-02 -0.374395905 -0.013879307
-## variable 13  6.378896e-02 -0.370090650 -0.031591876
-## variable 14  3.106493e-02 -0.364598986 -0.002519184
-## variable 15  5.847012e-06  0.006198051 -0.406003865
-## variable 16  6.041405e-06  0.018464891 -0.407039992
-## variable 17  5.235991e-06  0.009013294 -0.411151002
-## variable 18  3.518425e-06  0.036121023 -0.398782724
-## variable 19  6.288835e-06  0.005824170 -0.410563013
-## variable 20  6.214579e-06  0.034945874 -0.412808540</code></pre>
-<p>The matrix of the inverse prior variances can be called with</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod2<span class="op">$</span>invTau</code></pre></div>
+## variable 1  -3.774720e-01 -0.051470102 -0.001822156
+## variable 2  -3.744848e-01 -0.025307896 -0.002337156
+## variable 3  -3.747070e-01 -0.039179989 -0.002345241
+## variable 4  -3.697882e-01 -0.062258504 -0.002242303
+## variable 5  -3.794353e-01 -0.031311390 -0.002225193
+## variable 6  -3.811333e-01 -0.058594825 -0.001901847
+## variable 7  -3.709497e-01 -0.037084346 -0.001895318
+## variable 8   4.572526e-02 -0.388171353 -0.019796029
+## variable 9   4.119102e-02 -0.376636645 -0.023267758
+## variable 10  2.518537e-02 -0.376940208 -0.006967316
+## variable 11  5.297341e-02 -0.374414696 -0.022267903
+## variable 12  4.534880e-02 -0.374381287 -0.013986121
+## variable 13  6.385742e-02 -0.370055099 -0.031673499
+## variable 14  3.111306e-02 -0.364729611 -0.002535536
+## variable 15  1.288107e-05  0.006270320 -0.406011655
+## variable 16  1.305259e-05  0.018689756 -0.407077598
+## variable 17  1.211560e-05  0.009078483 -0.411159927
+## variable 18  1.039548e-05  0.036022360 -0.398788351
+## variable 19  1.331297e-05  0.005889322 -0.410538009
+## variable 20  1.326763e-05  0.035028974 -0.412758321</code></pre>
+<p>The matrix of the prior precisions can be called with</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">mod2<span class="op">$</span>Tau</a></code></pre></div>
 <pre><code>##              Component 1 Component 2  Component 3
-## variable 1  6.723601e+00  184.301092 31906.370412
-## variable 2  6.797876e+00  437.595910 25321.510608
-## variable 3  6.720477e+00  245.899700 25234.633839
-## variable 4  6.909797e+00  136.385519 26302.854255
-## variable 5  6.614756e+00  336.071864 26671.584545
-## variable 6  6.538464e+00  150.961175 30414.866200
-## variable 7  6.920149e+00  278.098092 30606.846242
-## variable 8  1.973803e+02    6.278101   670.761526
-## variable 9  2.288287e+02    6.657350   569.759379
-## variable 10 4.149292e+02    6.642324  1989.950540
-## variable 11 1.699204e+02    6.739745   597.851184
-## variable 12 2.026152e+02    6.706750   970.392618
-## variable 13 1.292935e+02    6.822902   390.944658
-## variable 14 3.536290e+02    7.210202  5658.371090
-## variable 15 3.158381e+05 2396.464628     5.835080
-## variable 16 3.162767e+05  757.091274     5.769939
-## variable 17 3.264009e+05 1565.810035     5.674352
-## variable 18 3.196566e+05  348.615143     5.995065
-## variable 19 3.198439e+05 2526.927987     5.707424
-## variable 20 3.182544e+05  363.292432     5.588104</code></pre>
-<h3 id="random-tau-jeffreys-prior">Random <code>tau</code>: Jeffrey's prior</h3>
-<p>By assuming Jeffrey's hyperpriors on <em>τ</em><sub><em>d</em>, <em>j</em></sub> we set:</p>
-<p>$$ p(\tau_{d,j}) \propto \frac{1}{\tau_{d,j}}. $$</p>
-<p>The following code runs the algorithm with Jeffrey's priors on <code>tau</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod3 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, 
-              <span class="dt">priorvar =</span> <span class="st">'jeffrey'</span>, <span class="dt">control =</span> ctrl, <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</code></pre></div>
-<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod3<span class="op">$</span>muW</code></pre></div>
-<pre><code>##               Component 1  Component 2  Component 3
-## variable 1  -3.757646e-01 -0.051773160 -0.001684598
-## variable 2  -3.756863e-01 -0.024773150 -0.002122048
-## variable 3  -3.758101e-01 -0.039042545 -0.002125161
-## variable 4  -3.692192e-01 -0.062594644 -0.002042117
-## variable 5  -3.808786e-01 -0.030957878 -0.002028616
-## variable 6  -3.802877e-01 -0.058870639 -0.001748039
-## variable 7  -3.703552e-01 -0.036931472 -0.001746713
-## variable 8   4.721080e-02 -0.388387203 -0.019681028
-## variable 9   4.143813e-02 -0.376808913 -0.023157487
-## variable 10  2.659771e-02 -0.377040717 -0.006727279
-## variable 11  5.011560e-02 -0.374286630 -0.022163915
-## variable 12  4.536128e-02 -0.374432238 -0.013520621
-## variable 13  6.304093e-02 -0.370068016 -0.031431258
-## variable 14  3.134111e-02 -0.364405736 -0.002414999
-## variable 15 -1.171811e-05  0.005936644 -0.406010842
-## variable 16 -1.146225e-05  0.018071121 -0.406913644
-## variable 17 -1.192092e-05  0.008654023 -0.411149650
-## variable 18 -1.359439e-05  0.036363148 -0.398751160
-## variable 19 -1.127322e-05  0.005569321 -0.410649936
-## variable 20 -1.140226e-05  0.034939861 -0.412915798</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod3<span class="op">$</span>invTau </code></pre></div>
-<pre><code>##              Component 1 Component 2  Component 3
-## variable 1  6.767590e+00  183.413237 35792.389870
-## variable 2  6.767276e+00  444.807011 28717.737815
-## variable 3  6.692741e+00  246.914788 28653.864298
-## variable 4  6.923187e+00  135.973349 29770.336740
-## variable 5  6.579887e+00  337.917431 30166.978285
-## variable 6  6.560514e+00  150.229799 34271.225139
-## variable 7  6.934665e+00  279.497089 34407.243746
-## variable 8  1.915903e+02    6.273751   676.164204
-## variable 9  2.275212e+02    6.653730   573.008331
-## variable 10 3.946490e+02    6.640583  2059.789146
-## variable 11 1.794492e+02    6.741653   601.092050
-## variable 12 2.026344e+02    6.705600  1000.451289
-## variable 13 1.312116e+02    6.823768   394.628449
-## variable 14 3.499053e+02    7.217607  5917.649067
-## variable 15 3.510386e+05 2512.207931     5.834906
-## variable 16 3.515804e+05  778.039953     5.773433
-## variable 17 3.627243e+05 1637.770072     5.674439
-## variable 18 3.549667e+05  347.219129     5.996028
-## variable 19 3.555498e+05 2652.878683     5.705122
-## variable 20 3.539059e+05  364.874639     5.585392</code></pre>
-<h3 id="random-tau-inverse-gamma-prior">Random <code>tau</code>: Inverse Gamma prior</h3>
-<p>It is possible to specify an inverse gamma prior on <em>τ</em><sub><em>d</em>, <em>j</em></sub>:</p>
-<p><em>τ</em><sub><em>d</em>, <em>j</em></sub> ∼ *I**G<em>(</em>α<em>, </em>β*)</p>
-<p>with <em>α</em> shape parameter and <em>β</em> scale parameter. The following code implements an IG(2, .5) prior on the variances:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set hyperparameter values </span>
-ctrl2 &lt;-<span class="st"> </span><span class="kw">vbpca_control</span>(<span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="op">-</span><span class="dv">1</span>,
-                       <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>, 
-                       <span class="dt">alphatau =</span> <span class="dv">2</span>, <span class="dt">betatau =</span> .<span class="dv">5</span>)
-                       
-                       
-                       
-<span class="co"># Estimate the model </span>
-mod4 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'invgamma'</span>, 
-              <span class="dt">control =</span> ctrl2, <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</code></pre></div>
-<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod4<span class="op">$</span>muW </code></pre></div>
+## variable 1  6.711653e+00  185.292815 30792.083009
+## variable 2  6.811715e+00  435.456531 24282.641765
+## variable 3  6.733579e+00  246.605678 24174.268760
+## variable 4  6.906649e+00  137.269136 25240.818694
+## variable 5  6.630610e+00  334.561356 25606.215195
+## variable 6  6.535962e+00  151.540810 29303.191065
+## variable 7  6.916642e+00  278.901798 29505.931801
+## variable 8  2.000395e+02    6.283433   670.346568
+## variable 9  2.297542e+02    6.662857   568.834746
+## variable 10 4.206301e+02    6.647409  1984.202810
+## variable 11 1.678142e+02    6.740676   596.809053
+## variable 12 2.033657e+02    6.710938   964.165004
+## variable 13 1.294742e+02    6.828244   390.109550
+## variable 14 3.541861e+02    7.207997  5635.426286
+## variable 15 3.077602e+05 2373.138268     5.837005
+## variable 16 3.081676e+05  748.154670     5.771306
+## variable 17 3.180735e+05 1556.626020     5.676298
+## variable 18 3.115912e+05  349.915331     5.997557
+## variable 19 3.116412e+05 2503.322335     5.710167
+## variable 20 3.100489e+05  362.448139     5.591906</code></pre>
+</div>
+<div id="random-tau-gamma-prior" class="section level3">
+<h3>Random <code>tau</code>: Gamma prior</h3>
+<p>It is possible to specify a gamma prior on <span class="math inline">\(\tau_{d,j}\)</span>:</p>
+<p><span class="math display">\[ \tau_{d,j} \sim G(\alpha, \beta) \]</span></p>
+<p>with <span class="math inline">\(\alpha\)</span> shape parameter and <span class="math inline">\(\beta\)</span> scale parameter. The following code implements an IG(2, .5) prior on the precisions:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># Estimate the model</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">mod3 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>,</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3">              <span class="dt">alphatau =</span> <span class="dv">2</span>, <span class="dt">betatau =</span> <span class="fl">.5</span>,</a>
+<a class="sourceLine" id="cb16-4" data-line-number="4">              <span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="dv">-1</span>,</a>
+<a class="sourceLine" id="cb16-5" data-line-number="5">              <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb16-6" data-line-number="6">              <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</a>
+<a class="sourceLine" id="cb16-7" data-line-number="7">mod3<span class="op">$</span>muW</a></code></pre></div>
 <pre><code>##              Component 1 Component 2   Component 3
-## variable 1  -0.376590647 -0.04416831  0.0002942783
-## variable 2  -0.373916145 -0.04580796 -0.0111136115
-## variable 3  -0.375152371 -0.04306335 -0.0078482119
-## variable 4  -0.374771589 -0.04473679 -0.0031289018
-## variable 5  -0.376819230 -0.04285286 -0.0099901143
-## variable 6  -0.375128398 -0.04445794 -0.0015202569
-## variable 7  -0.375056419 -0.04365149 -0.0007404096
-## variable 8   0.043918311 -0.37612413 -0.0195192789
-## variable 9   0.044336971 -0.37380675 -0.0224249935
-## variable 10  0.043215376 -0.37316095 -0.0162247651
-## variable 11  0.043435543 -0.37309948 -0.0245954650
-## variable 12  0.045416531 -0.37575287 -0.0200104086
-## variable 13  0.045161134 -0.37621159 -0.0206043931
-## variable 14  0.044602975 -0.37569136 -0.0144839228
-## variable 15  0.002901088  0.02228831 -0.4056882953
-## variable 16  0.003405222  0.02198276 -0.4068836318
-## variable 17  0.003228802  0.02064986 -0.4107113728
-## variable 18  0.002920826  0.02319232 -0.4056318015
-## variable 19  0.002018519  0.02191736 -0.4087805942
-## variable 20  0.001885975  0.02043594 -0.4078297610</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod4<span class="op">$</span>invTau</code></pre></div>
+## variable 1  -0.376590725 -0.04416826  0.0002947089
+## variable 2  -0.373916478 -0.04580818 -0.0111139002
+## variable 3  -0.375152260 -0.04306330 -0.0078485203
+## variable 4  -0.374771451 -0.04473662 -0.0031287802
+## variable 5  -0.376819149 -0.04285298 -0.0099904658
+## variable 6  -0.375128188 -0.04445803 -0.0015201459
+## variable 7  -0.375056611 -0.04365135 -0.0007401483
+## variable 8   0.043918292 -0.37612390 -0.0195191684
+## variable 9   0.044336996 -0.37380699 -0.0224249101
+## variable 10  0.043215418 -0.37316141 -0.0162245050
+## variable 11  0.043435548 -0.37309952 -0.0245960805
+## variable 12  0.045416539 -0.37575273 -0.0200103648
+## variable 13  0.045161055 -0.37621087 -0.0206044028
+## variable 14  0.044603008 -0.37569186 -0.0144838955
+## variable 15  0.002901159  0.02228837 -0.4056891063
+## variable 16  0.003405260  0.02198287 -0.4068836504
+## variable 17  0.003228832  0.02064976 -0.4107113982
+## variable 18  0.002920806  0.02319222 -0.4056322666
+## variable 19  0.002018556  0.02191743 -0.4087810436
+## variable 20  0.001885825  0.02043591 -0.4078295957</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">mod3<span class="op">$</span>Tau</a></code></pre></div>
 <pre><code>##             Component 1 Component 2 Component 3
-## variable 1     4.349513    4.952224    4.961845
-## variable 2     4.357094    4.951479    4.961185
-## variable 3     4.348866    4.946652    4.955442
-## variable 4     4.346970    4.942133    4.951918
-## variable 5     4.346201    4.949399    4.957941
-## variable 6     4.348419    4.945415    4.955085
-## variable 7     4.353566    4.952076    4.961437
-## variable 8     4.940075    4.341259    4.947637
-## variable 9     4.943619    4.350731    4.950784
-## variable 10    4.946272    4.354243    4.954138
-## variable 11    4.941374    4.350682    4.947635
-## variable 12    4.939956    4.342697    4.948068
-## variable 13    4.934268    4.336865    4.942105
-## variable 14    4.953804    4.353473    4.962576
-## variable 15    4.963713    4.961313    4.266473
-## variable 16    4.954953    4.952599    4.256391
-## variable 17    4.956272    4.954215    4.246050
-## variable 18    4.953989    4.951371    4.259347
-## variable 19    4.962076    4.959717    4.256072
-## variable 20    4.950147    4.948089    4.249971</code></pre>
-<p><code>alphatau</code> and <code>betatau</code> can also be specified as <em>D</em>-dimensional array, in which case the Inverse Gamma will have component-specific hyperparameters:<br />
-<em>τ</em><sub><em>d</em>, <em>j</em></sub> ∼ *I**G<em>(</em>α<em><sub></em>d<em></sub>, </em>β<em><sub></em>d*</sub>)<br />
-.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set hyperparameter values </span>
-ctrl3 &lt;-<span class="st"> </span><span class="kw">vbpca_control</span>(<span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="op">-</span><span class="dv">1</span>,
-                       <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>, 
-                       <span class="dt">alphatau =</span> <span class="kw">c</span>(.<span class="dv">5</span>, <span class="dv">50</span>, <span class="dv">3</span>), <span class="dt">betatau =</span> <span class="kw">c</span>(.<span class="dv">5</span>, .<span class="dv">01</span>, <span class="dv">10</span>), 
-                       <span class="dt">hypertype =</span> <span class="st">'component'</span>)
-                       
-                       
-<span class="co"># Estimate the model </span>
-mod5 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'invgamma'</span>, 
-              <span class="dt">control =</span> ctrl3, <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</code></pre></div>
-<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod5<span class="op">$</span>muW </code></pre></div>
+## variable 1     4.349798    4.952591    4.962213
+## variable 2     4.357381    4.951847    4.961554
+## variable 3     4.349198    4.947077    4.955868
+## variable 4     4.347326    4.942587    4.952373
+## variable 5     4.346511    4.949795    4.958338
+## variable 6     4.348754    4.945842    4.955514
+## variable 7     4.353855    4.952447    4.961810
+## variable 8     4.940550    4.341632    4.948114
+## variable 9     4.944064    4.351079    4.951230
+## variable 10    4.946698    4.354576    4.954566
+## variable 11    4.941841    4.351048    4.948103
+## variable 12    4.940429    4.343068    4.948542
+## variable 13    4.934790    4.337277    4.942629
+## variable 14    4.954153    4.353743    4.962926
+## variable 15    4.964065    4.961664    4.266733
+## variable 16    4.955381    4.953028    4.256713
+## variable 17    4.956688    4.954630    4.246359
+## variable 18    4.954427    4.951810    4.259675
+## variable 19    4.962441    4.960082    4.256343
+## variable 20    4.950618    4.948561    4.250325</code></pre>
+<p><code>alphatau</code> and <code>betatau</code> can also be specified as <span class="math inline">\(D\)</span>-dimensional array, in which case the Gamma will have component-specific hyperparameters: <span class="math display">\[ \tau_{d,j} \sim G(\alpha_d, \beta_d) \]</span>.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># Estimate the model</span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">mod4 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>,</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">              <span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="dv">-1</span>,</a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">              <span class="dt">alphatau =</span> <span class="kw">c</span>(.<span class="dv">5</span>, <span class="dv">50</span>, <span class="dv">3</span>), <span class="dt">betatau =</span> <span class="kw">c</span>(.<span class="dv">5</span>, <span class="fl">.01</span>, <span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">              <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">              <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</a>
+<a class="sourceLine" id="cb20-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb20-8" data-line-number="8">mod4<span class="op">$</span>muW</a></code></pre></div>
 <pre><code>##              Component 1  Component 2   Component 3
-## variable 1  -0.378543478 -0.022403852  0.0025386295
-## variable 2  -0.376019722 -0.021196983 -0.0088612115
-## variable 3  -0.377066494 -0.022557126 -0.0057270031
-## variable 4  -0.376774699 -0.022650241 -0.0008814042
-## variable 5  -0.378720012 -0.022357681 -0.0078768015
-## variable 6  -0.377102619 -0.019528818  0.0007032582
-## variable 7  -0.376989874 -0.026248142  0.0014710887
-## variable 8   0.021470521 -0.045359009 -0.0012343390
-## variable 9   0.022018693 -0.049787441 -0.0042453561
-## variable 10  0.020952041 -0.037610876  0.0018996414
-## variable 11  0.021150966 -0.048838642 -0.0065159768
-## variable 12  0.022990213 -0.048959831 -0.0017490218
-## variable 13  0.022694280 -2.350959262 -0.0024775177
-## variable 14  0.022197501 -0.048663411  0.0037657268
-## variable 15  0.002988814  0.002048412 -0.4063509956
-## variable 16  0.003472519 -0.001954198 -0.4074615231
-## variable 17  0.003201167  0.008962963 -0.4112475488
-## variable 18  0.003059452  0.006509927 -0.4063451138
-## variable 19  0.002074293  0.003760222 -0.4093932228
-## variable 20  0.001853458 -0.003935007 -0.4083201342</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod5<span class="op">$</span>invTau </code></pre></div>
+## variable 1  -0.378535069 -0.022550177  0.0025320655
+## variable 2  -0.376010407 -0.021331002 -0.0088680201
+## variable 3  -0.377058121 -0.022705524 -0.0057334841
+## variable 4  -0.376765736 -0.022799099 -0.0008880582
+## variable 5  -0.378711737 -0.022502952 -0.0078832752
+## variable 6  -0.377093814 -0.019646614  0.0006966940
+## variable 7  -0.376981673 -0.026435232  0.0014645273
+## variable 8   0.021618521 -0.045787586 -0.0012802351
+## variable 9   0.022165897 -0.050285073 -0.0042910494
+## variable 10  0.021098823 -0.037934476  0.0018542188
+## variable 11  0.021297952 -0.049321093 -0.0065615922
+## variable 12  0.023138118 -0.049443570 -0.0017949202
+## variable 13  0.022842413 -2.348222240 -0.0025229191
+## variable 14  0.022345189 -0.049142867  0.0037198670
+## variable 15  0.002992116  0.002091087 -0.4063507109
+## variable 16  0.003475947 -0.001948958 -0.4074613372
+## variable 17  0.003205251  0.009070114 -0.4112473691
+## variable 18  0.003062334  0.006593144 -0.4063446402
+## variable 19  0.002077795  0.003818705 -0.4093929706
+## variable 20  0.001857368 -0.003947850 -0.4083201743</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">mod4<span class="op">$</span>Tau</a></code></pre></div>
 <pre><code>##             Component 1 Component 2 Component 3
-## variable 1     1.734909  4885.51101   0.3498302
-## variable 2     1.737796  4897.91867   0.3498294
-## variable 3     1.734283  4883.57903   0.3498025
-## variable 4     1.733024  4882.65984   0.3497829
-## variable 5     1.733356  4885.97064   0.3498127
-## variable 6     1.733921  4914.16337   0.3497986
-## variable 7     1.736550  4841.25146   0.3498290
-## variable 8     1.974069  4535.17321   0.3497716
-## variable 9     1.975981  4450.34973   0.3497902
-## variable 10    1.977182  4671.07826   0.3498009
-## variable 11    1.974679  4468.90214   0.3497765
-## variable 12    1.974249  4466.51594   0.3497748
-## variable 13    1.971273    18.20417   0.3497460
-## variable 14    1.981100  4472.66011   0.3498376
-## variable 15    1.982219  5007.34354   0.3469767
-## variable 16    1.977733  5007.36672   0.3469196
-## variable 17    1.978365  4988.53185   0.3468718
-## variable 18    1.977266  4997.70264   0.3469310
-## variable 19    1.981324  5004.97797   0.3469253
-## variable 20    1.975283  5004.39805   0.3468847</code></pre>
-<p>Notice the different level of regularization obtained across the different components. In order to activate these 'component-specific' hyperpriors, <code>hypertype = 'component'</code> was specified.</p>
-<h3 id="random-tau-random-betatau">Random <code>tau</code>, random <code>betatau</code></h3>
-<p>It is also possible to specify a Gamma hyperprior on <em>β</em> (while <em>α</em> remains fixed):<br />
-<em>β</em> ∼ *G**a<em>(</em>γ<em>, </em>δ*).<br />
-This is achievable by setting <code>gammatau</code> (and <code>deltatau</code>) larger than 0 in the control parameters:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Specify component-specific Gamma(.01, 10) hyperpriors on betatau </span>
-ctrl4 &lt;-<span class="st"> </span><span class="kw">vbpca_control</span>(<span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="op">-</span><span class="dv">1</span>, 
-                       <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>, 
-                       <span class="dt">alphatau =</span> <span class="dv">1</span>, <span class="dt">betatau =</span> <span class="dv">1</span>,
-                       <span class="dt">gammatau =</span> .<span class="dv">01</span>, <span class="dt">deltatau =</span> <span class="dv">10</span>, 
-                       <span class="dt">hypertype =</span> <span class="st">'component'</span>)
-
-                       
-<span class="co"># Estimate the model </span>
-mod6 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'invgamma'</span>, 
-              <span class="dt">control =</span> ctrl4, <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</code></pre></div>
-<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod6<span class="op">$</span>muW </code></pre></div>
-<pre><code>##              Component 1 Component 2  Component 3
-## variable 1  -0.376611437 -0.04414830 -0.001252671
-## variable 2  -0.373522305 -0.04527018 -0.009487805
-## variable 3  -0.375303126 -0.04330237 -0.006687095
-## variable 4  -0.374545174 -0.04476030 -0.003779739
-## variable 5  -0.377135323 -0.04290004 -0.008530456
-## variable 6  -0.375471472 -0.04449079 -0.002519439
-## variable 7  -0.374841518 -0.04378470 -0.001756540
-## variable 8   0.044091734 -0.37646021 -0.020075478
-## variable 9   0.044279171 -0.37340282 -0.022181983
-## variable 10  0.043230863 -0.37275698 -0.017353060
-## variable 11  0.043633682 -0.37285414 -0.022657108
-## variable 12  0.045225592 -0.37597481 -0.020153766
-## variable 13  0.045217385 -0.37690958 -0.020321214
-## variable 14  0.044311525 -0.37546975 -0.014960798
-## variable 15  0.002829728  0.02204140 -0.405116611
-## variable 16  0.003208895  0.02187057 -0.407344521
-## variable 17  0.003155312  0.02095411 -0.410909109
-## variable 18  0.002824576  0.02288662 -0.405229626
-## variable 19  0.002136107  0.02174443 -0.408747297
-## variable 20  0.002177548  0.02077097 -0.407952211</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod6<span class="op">$</span>invTau </code></pre></div>
-<pre><code>##             Component 1 Component 2 Component 3
-## variable 1     14.89847    49.95597    64.79114
-## variable 2     15.06380    49.85157    64.48104
-## variable 3     14.87935    49.45351    63.73992
-## variable 4     14.89953    49.19672    63.74737
-## variable 5     14.83146    49.84022    64.32954
-## variable 6     14.87624    49.45017    63.91513
-## variable 7     14.97986    49.94842    64.56200
-## variable 8     48.95314    14.77489    62.76748
-## variable 9     49.16960    14.97374    62.96668
-## variable 10    49.41724    15.02556    63.45826
-## variable 11    49.04970    14.98706    62.69018
-## variable 12    48.92027    14.79264    62.77075
-## variable 13    48.53974    14.68576    62.16584
-## variable 14    50.07132    15.00763    64.71429
-## variable 15    51.73889    51.41043    14.14011
-## variable 16    51.12230    50.69433    13.94199
-## variable 17    51.27494    50.94174    13.77126
-## variable 18    51.01890    50.58728    14.03940
-## variable 19    51.71281    51.34808    13.93690
-## variable 20    50.73849    50.38297    13.85877</code></pre>
-<p>The posterior means of <em>β</em> can be accessed via</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod6<span class="op">$</span>priorBeta </code></pre></div>
-<pre><code>##            [,1]       [,2]       [,3]
-## [1,] 0.02643281 0.02638618 0.02076472
-## attr(,&quot;names&quot;)
-## [1] &quot;beta 1&quot; &quot;beta 2&quot; &quot;beta 3&quot;</code></pre>
-<p><code>hypertype</code> specify the type of hyperprior for <code>beta</code>:</p>
-<ul>
-<li><code>'common'</code> implies <em>β</em> ∼ *G**a<em>(</em>α<em>, </em>β*);</li>
-<li><code>'component'</code> implies <em>β</em><sub><em>d</em></sub> ∼ *G**a<em>(</em>α<em><sub></em>d<em></sub>, </em>β<em><sub></em>d*</sub>);</li>
-<li><code>'local'</code> implies <em>β</em><sub><em>d<strong>j<em></sub> ∼ </em>G</strong>a</em>(<em>α</em><sub><em>d<strong>j<em></sub>, </em>β<em><sub></em>d</strong>j</em></sub>).</li>
-</ul>
-<p>Similar to <code>alphatau</code> and <code>betatau</code>, <code>gammatau</code> and <code>deltatau</code> can also be <em>D</em>-dimensional arrays for component-specific hyperpriors on <em>β</em>.</p>
-<h3 id="global-prior-variances">Global prior variances</h3>
-<p>So far, the parameter <code>global.var</code> has always ben set to <code>FALSE</code>, implying<br />
-<em>w</em><sub><em>j</em>, <em>d</em></sub> ∼ <em>N</em>(0, <em>τ</em><sub><em>j</em>, <em>d</em></sub>).<br />
-Setting <code>global.var = TRUE</code> will modify this formulation, which will switch to<br />
-<em>w</em><sub><em>j</em>, <em>d</em></sub> ∼ <em>N</em>(0, <em>τ</em><sub><em>d</em></sub>)<br />
-that is, component-specific variances (called 'global variances' in <code>vbpca</code>) will be estimated instead:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fixed prior global variances, updated via Type-II maximum likelihood: </span>
-mod7 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'fixed'</span>,
-              <span class="dt">updatetau =</span> <span class="ot">TRUE</span>, <span class="dt">control =</span> ctrl, <span class="dt">verbose =</span> <span class="ot">FALSE</span>, 
-              <span class="dt">global.var =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
-<p><img src="data:image/png;base64,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" alt="Prior variances for the first 3 components." /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod7<span class="op">$</span>muW </code></pre></div>
+## variable 1     1.735068  4883.95439   0.3498320
+## variable 2     1.737956  4896.56336   0.3498312
+## variable 3     1.734465  4881.98803   0.3498046
+## variable 4     1.733223  4881.05886   0.3497852
+## variable 5     1.733528  4884.42780   0.3498147
+## variable 6     1.734107  4913.05908   0.3498008
+## variable 7     1.736710  4838.95652   0.3498308
+## variable 8     1.974312  4527.17251   0.3497740
+## variable 9     1.976205  4440.53154   0.3497924
+## variable 10    1.977395  4665.76589   0.3498030
+## variable 11    1.974916  4459.48648   0.3497789
+## variable 12    1.974487  4457.06148   0.3497771
+## variable 13    1.971541    18.24647   0.3497487
+## variable 14    1.981271  4463.32575   0.3498394
+## variable 15    1.982402  5007.31481   0.3469784
+## variable 16    1.977961  5007.38609   0.3469217
+## variable 17    1.978586  4988.06776   0.3468739
+## variable 18    1.977499  4997.44534   0.3469332
+## variable 19    1.981517  5004.88288   0.3469270
+## variable 20    1.975535  5004.38616   0.3468870</code></pre>
+</div>
+<div id="global-prior-variances" class="section level3">
+<h3>Global prior variances</h3>
+<p>So far, the parameter <code>global.var</code> has always ben set to <code>FALSE</code>, implying <span class="math display">\[ w_{j,d} \sim N(0, \tau_{j,d}^{-1}). \]</span> Setting <code>global.var = TRUE</code> will modify this formulation, which will switch to <span class="math display">\[ w_{j,d} \sim N(0, \tau_{d}{-1}) \]</span> that is, component-specific variances (called ‘global variances’ in <code>vbpca</code>) will be estimated instead:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="co"># Fixed prior global variances, updated via Type-II maximum likelihood:</span></a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">mod5 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">alphatau=</span><span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb24-3" data-line-number="3">              <span class="dt">updatetau =</span> <span class="ot">TRUE</span>,  </a>
+<a class="sourceLine" id="cb24-4" data-line-number="4">              <span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="dv">-1</span>,</a>
+<a class="sourceLine" id="cb24-5" data-line-number="5">              <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb24-6" data-line-number="6">              <span class="dt">verbose =</span> <span class="ot">FALSE</span>, <span class="dt">global.var =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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" alt="Prior precisions for the first 3 components." />
+<p class="caption">Prior precisions for the first 3 components.</p>
+</div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">mod5<span class="op">$</span>muW</a></code></pre></div>
 <pre><code>##              Component 1 Component 2   Component 3
-## variable 1  -0.376586343 -0.04416414  0.0003398280
-## variable 2  -0.373936445 -0.04582246 -0.0111461792
-## variable 3  -0.375145315 -0.04305763 -0.0078812187
-## variable 4  -0.374766738 -0.04473002 -0.0031117179
-## variable 5  -0.376804669 -0.04285697 -0.0100225682
-## variable 6  -0.375110723 -0.04446231 -0.0015008380
-## variable 7  -0.375066004 -0.04363985 -0.0007179347
-## variable 8   0.043915682 -0.37609858 -0.0194939220
-## variable 9   0.044338601 -0.37381868 -0.0224109636
-## variable 10  0.043215853 -0.37318635 -0.0161925187
-## variable 11  0.043432402 -0.37310269 -0.0246469040
-## variable 12  0.045419753 -0.37573441 -0.0200022167
-## variable 13  0.045157688 -0.37615568 -0.0206098160
-## variable 14  0.044605253 -0.37570521 -0.0144801414
-## variable 15  0.002905193  0.02229189 -0.4056448021
-## variable 16  0.003409730  0.02199104 -0.4067867230
-## variable 17  0.003232816  0.02063848 -0.4105969740
-## variable 18  0.002919683  0.02319284 -0.4055773542
-## variable 19  0.002019241  0.02192068 -0.4087004821
-## variable 20  0.001874190  0.02043083 -0.4077291009</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod7<span class="op">$</span>invTau </code></pre></div>
-<pre><code>## [1] 17.32691 17.32734 17.33475</code></pre>
-<p>Notice the plot of the prior variances (inverse precisions) that appears in this case. This is useful when the number of components supported by the data is uncertain (elbow method - see Figure 2):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod8 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">10</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'fixed'</span>,
-              <span class="dt">updatetau =</span> <span class="ot">TRUE</span>, <span class="dt">global.var =</span> <span class="ot">TRUE</span>, 
-              <span class="dt">control =</span> ctrl, <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</code></pre></div>
-<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
-<p><img src="data:image/png;base64,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o7Zev92B01+KE9uTKNp8j1uCaqCXQ/Y3ij3/50t8nUdYri5b23nv868YZ/+oicdCz/vikxdJvtqRhaoGam5103YBEzfOe6+Bmg8o+PwrXg75T8PR249EYj7/a/6iI1erGqgx9sdunPjj3z4DPf3w+ZfLeQ40iT6Lz65NGmy0Az36HEGzYLzugyZvf+w972b73sSbD1ean8SRn7OUDtTTR5+MfEPkNdA43/6ZQc2bCUcr49aXV2m2gyO3hsqBJl6PkfIPqvoNdDNhYBkn3yKddh5/6hcdqNfx02yH/AZapNlx41Pr/B95LnkTH3vePSsvC+gvF/NfzOeh0qShbNwal3uQFHudUC55HUHNhVp8buJNKT7XmCx2msnrntKV33eS8r3e2tVaPAizD7rIifpyi+v1kNP7W52J93dzj57XWI7W8fLe6gQKBAppBAppBAppBAppBAppBAppBAppBAppBAppBAppBAppBAppBAppBAppBAppBAppBAppBAppBAppBAppBAppBAppBAppBAppBAppBAppBDpFca8cO9dzSgJczG8OCHQCc4ndo40rnJlrMeIBgY5XXhz5crAwhhJoCwIdLy7D/LO4Bqa5sOFp98/81h35PeS+0tOP33fl5Q7Lp8/7/OnigsONB/Lv93vpx7kg0NEaN+jIb+6S3zXutCvukPf2M7/kdZbdl7ntS/X0eZ8/Xf4vv5Rs9QAjaAsCHe28v10K1lwoOdl8F9cvLn/5Mhczzgba69PFa7JnzGuTt5+3Bwj0KQIdrR6o2R0tmvwqf1f9xmRbPl10mP1iLohde4BAWxDoaPVNvCkwq6wZ6I/yrhrXp6+BVvcUIdAXCHS86iApib5aRtBmoA8jaFoevRNoOwIdrzbNVNsHbWzii3nSxj7oXY8E+gKBTlBM1Bd3tq8dxTcCrW7eejuKNz2a+yAe68WGuO3ODBDoFOf99a3O6zxoI9B/7Mp7113nQctAi3nQt5+3B47Mgz5FoA75vA/nUhGoQwQ6HYE6RKDTESikESikESikESikESikESikESikESikESikESikESikESikESikESikESikESikESikESikESikESikESik/R8hf5wXW0c+NgAAAABJRU5ErkJggg==" alt="Elbow method for 10 components." /></p>
-<h2 id="stochastic-search-variable-selection">Stochastic Search Variable Selection</h2>
-<p>By requiring <code>SVS = TRUE</code>, the model activates stochastic-search-variable-selection, a method described by George ad McCulloch (1993) for the Gibbs Sampler. The method has been adapted in <em>bayespca</em> for the Variational Bayes algorithm. The assumed 'spike-and-slab' prior for the (<em>j</em>, <em>d</em>)-th element of <em>W</em> becomes:</p>
-<p><em>w</em><sub><em>j</em>, <em>d</em></sub> ∼ <em>N</em>(0, <em>π<strong>τ<em> + (1 − </em>π<em>)</em>τ</strong>v</em><sub>0</sub>)</p>
-<p>where <em>v</em><sub>0</sub> is a scalar which rescales the spike variance to a value close to 0. For this reason, <em>v</em><sub>0</sub> should be a number included in (0, 1), as close as possible to 0. <em>π</em> represents the prior probability of inclusion of the <em>j</em>-th variable in the <em>d</em>-th component of the model. <code>vbpca</code> estimates the posterior probabilities of inclusion, conditional on <em>X</em> and the values in <em>W</em>.</p>
-<p>While <em>v</em><sub>0</sub> should be a small value close to 0, too small values of such parameter will shrink the variances <em>τ</em> too much, and no variable will eventually be included in the model. On the other hand, using a too large value for <em>v</em><sub>0</sub> will not shrink the variances enough, and all posterior inclusion probabilities will be close to 1. <em>v</em><sub>0</sub> should then be set with a grain of salt. Preliminary results from partial simulation studies have shown that values between 0.0001 and 0.005 lead to acceptable results, but adequate values of <em>v</em><sub>0</sub> can be dataset-specific. Preliminary simulation studies have also shown that the method works better when Inverse Gamma priors are specified for <em>τ</em>.</p>
-<p>In <code>vbpca</code>, the parameter <em>v</em><sub>0</sub> is called <code>v0</code> in the control parameters of <code>vbpca_control</code>, while the prior inclusion probability is called <code>priorInclusion</code>. <code>priorInclusion</code> can be fixed, or assigned to a Beta hyperprior:</p>
-<ul>
-<li>among the control parameters of <code>vbpca_control</code>, set <code>beta1pi</code> smaller than or equal to 0 for fixed <em>π</em>;</li>
-<li>last, set <code>beta1pi</code> larger than 0 for Beta specifications.</li>
-</ul>
-<p>When <code>beta1pi</code> is larger than 0, a Beta prior is assumed for <em>π</em>:</p>
-<p><em>π</em> ∼ *B<strong>e</strong>t**a<em>(</em>β<em><sub>1</sub>, </em>β*<sub>2</sub>).</p>
-<p>In <code>vbpca</code>, <em>β</em>1 can be controlled with the <code>beta1pi</code> argument and <em>β</em>2 with the <code>beta2pi</code> argument in <code>vbpca_control</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># SVS, fixed priorInclusion and InverseGamma(5, 1) for tau, v0 = .005</span>
-ctrl5 &lt;-<span class="st"> </span><span class="kw">vbpca_control</span>(<span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="op">-</span><span class="dv">1</span>, 
-                       <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>, 
-                       <span class="dt">alphatau =</span> <span class="dv">5</span>, <span class="dt">betatau =</span> <span class="dv">1</span>,
-                       <span class="dt">beta1pi =</span> <span class="op">-</span><span class="dv">1</span>, <span class="dt">v0 =</span> <span class="fl">5e-03</span>)
-
-<span class="co"># Estimate the model with priorInclusion = 0.5</span>
-mod9 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'invgamma'</span>,
-              <span class="dt">SVS =</span> <span class="ot">TRUE</span>, <span class="dt">priorInclusion =</span> <span class="fl">0.5</span>, <span class="dt">control =</span> ctrl5,
-              <span class="dt">verbose =</span> <span class="ot">FALSE</span> )                    </code></pre></div>
-<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod9<span class="op">$</span>muW </code></pre></div>
+## variable 1  -0.376586376 -0.04416415  0.0003398288
+## variable 2  -0.373936478 -0.04582247 -0.0111462062
+## variable 3  -0.375145347 -0.04305764 -0.0078812377
+## variable 4  -0.374766771 -0.04473003 -0.0031117254
+## variable 5  -0.376804702 -0.04285698 -0.0100225924
+## variable 6  -0.375110756 -0.04446232 -0.0015008417
+## variable 7  -0.375066036 -0.04363986 -0.0007179364
+## variable 8   0.043915686 -0.37609866 -0.0194939691
+## variable 9   0.044338605 -0.37381876 -0.0224110177
+## variable 10  0.043215857 -0.37318643 -0.0161925578
+## variable 11  0.043432406 -0.37310277 -0.0246469635
+## variable 12  0.045419757 -0.37573449 -0.0200022650
+## variable 13  0.045157692 -0.37615576 -0.0206098658
+## variable 14  0.044605257 -0.37570529 -0.0144801764
+## variable 15  0.002905193  0.02229190 -0.4056457820
+## variable 16  0.003409731  0.02199105 -0.4067877056
+## variable 17  0.003232816  0.02063849 -0.4105979658
+## variable 18  0.002919683  0.02319284 -0.4055783339
+## variable 19  0.002019241  0.02192068 -0.4087014694
+## variable 20  0.001874190  0.02043084 -0.4077300859</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">mod5<span class="op">$</span>Tau</a></code></pre></div>
+<pre><code>## [1] 17.34676 17.34719 17.35455</code></pre>
+<p>Notice the plot of the precisions that appears in this case. This is useful when the number of components supported by the data is uncertain (scree-plot - see Figure 2):</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">mod6 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">10</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">alphatau=</span><span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2">              <span class="dt">updatetau =</span> <span class="ot">TRUE</span>,  </a>
+<a class="sourceLine" id="cb29-3" data-line-number="3">              <span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="dv">-1</span>,</a>
+<a class="sourceLine" id="cb29-4" data-line-number="4">              <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb29-5" data-line-number="5">              <span class="dt">verbose =</span> <span class="ot">FALSE</span>, <span class="dt">global.var =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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" alt="Scree-plot for 10 components." />
+<p class="caption">Scree-plot for 10 components.</p>
+</div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">mod6<span class="op">$</span>Tau</a></code></pre></div>
+<pre><code>##  [1] 18.64014 18.64036 18.64422 19.91587 20.21201 20.37469 20.67901
+##  [8] 20.87993 21.03862 21.22528</code></pre>
+</div>
+</div>
+<div id="automatic-relevance-determination" class="section level2">
+<h2>Automatic Relevance Determination</h2>
+<p>When the prior precisions are updated, they can help to perform component-specific variable selection through Automatic Relevance Determination (ARD). In particular, values in the Tau matrix that are extremely large determine the values of the weights that can be set to 0. This is because their inverse (prior variances) are very close to 0, and thus making the elements of <span class="math inline">\(W\)</span> also close to 0 with high probability. We’re going to show an example here, with fixed (updated through Type-II maximum likelihood) precisions (in case of Gamma prior, it is recommended to use hyperparamter values close to 0).</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">mod7 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">alphatau=</span><span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">              <span class="dt">updatetau =</span> <span class="ot">TRUE</span>, <span class="dt">center =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb32-3" data-line-number="3">              <span class="dt">scalecorrection =</span> <span class="dv">-1</span>,</a>
+<a class="sourceLine" id="cb32-4" data-line-number="4">              <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb32-5" data-line-number="5">              <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb32-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb32-7" data-line-number="7">mod7<span class="op">$</span>muW</a></code></pre></div>
+<pre><code>##               Component 1  Component 2  Component 3
+## variable 1  -3.774720e-01 -0.051470102 -0.001822156
+## variable 2  -3.744848e-01 -0.025307896 -0.002337156
+## variable 3  -3.747070e-01 -0.039179989 -0.002345241
+## variable 4  -3.697882e-01 -0.062258504 -0.002242303
+## variable 5  -3.794353e-01 -0.031311390 -0.002225193
+## variable 6  -3.811333e-01 -0.058594825 -0.001901847
+## variable 7  -3.709497e-01 -0.037084346 -0.001895318
+## variable 8   4.572526e-02 -0.388171353 -0.019796029
+## variable 9   4.119102e-02 -0.376636645 -0.023267758
+## variable 10  2.518537e-02 -0.376940208 -0.006967316
+## variable 11  5.297341e-02 -0.374414696 -0.022267903
+## variable 12  4.534880e-02 -0.374381287 -0.013986121
+## variable 13  6.385742e-02 -0.370055099 -0.031673499
+## variable 14  3.111306e-02 -0.364729611 -0.002535536
+## variable 15  1.288107e-05  0.006270320 -0.406011655
+## variable 16  1.305259e-05  0.018689756 -0.407077598
+## variable 17  1.211560e-05  0.009078483 -0.411159927
+## variable 18  1.039548e-05  0.036022360 -0.398788351
+## variable 19  1.331297e-05  0.005889322 -0.410538009
+## variable 20  1.326763e-05  0.035028974 -0.412758321</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">mod7<span class="op">$</span>Tau</a></code></pre></div>
 <pre><code>##              Component 1 Component 2  Component 3
-## variable 1  -0.376750692 -0.04448495 -0.004123683
-## variable 2  -0.372459887 -0.04361185 -0.005752993
-## variable 3  -0.375671975 -0.04356723 -0.004989270
-## variable 4  -0.373836916 -0.04448097 -0.004703139
-## variable 5  -0.377543656 -0.04319604 -0.005454948
-## variable 6  -0.375846023 -0.04472475 -0.004528453
-## variable 7  -0.375420482 -0.04399690 -0.004254785
-## variable 8   0.044408056 -0.37704714 -0.019871878
-## variable 9   0.043996739 -0.37297274 -0.020136604
-## variable 10  0.043266209 -0.37568704 -0.019144528
-## variable 11  0.043855992 -0.37127741 -0.019779142
-## variable 12  0.044744851 -0.37518584 -0.019753061
-## variable 13  0.045169754 -0.37455442 -0.019722877
-## variable 14  0.043743494 -0.37734332 -0.018263649
-## variable 15  0.002622365  0.02125415 -0.405655204
-## variable 16  0.002687542  0.02139614 -0.407985339
-## variable 17  0.002847711  0.02135195 -0.409082736
-## variable 18  0.002536920  0.02132424 -0.406350545
-## variable 19  0.002543555  0.02126640 -0.408688107
-## variable 20  0.002678762  0.02114151 -0.408155324</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># SVS, priorInclusion with Beta(1,1) priors and InverseGamma(5, 1) for tau, v0 = .005</span>
-ctrl6 &lt;-<span class="st"> </span><span class="kw">vbpca_control</span>(<span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="op">-</span><span class="dv">1</span>,
-                       <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>, <span class="dt">alphatau =</span> <span class="dv">5</span>,
-                       <span class="dt">betatau =</span> <span class="dv">1</span>, <span class="dt">beta1pi =</span> <span class="dv">1</span>, <span class="dt">beta2pi =</span> <span class="dv">1</span>, 
-                       <span class="dt">v0 =</span> <span class="fl">5e-03</span>)
-
-                       
-<span class="co"># Estimate the model</span>
-mod10 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'invgamma'</span>, 
-              <span class="dt">SVS =</span> <span class="ot">TRUE</span>, <span class="dt">priorInclusion =</span> <span class="fl">0.5</span>, <span class="dt">control =</span> ctrl6,
-              <span class="dt">verbose =</span> <span class="ot">FALSE</span> ) </code></pre></div>
-<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod10<span class="op">$</span>muW             </code></pre></div>
-<pre><code>##              Component 1 Component 2  Component 3
-## variable 1  -0.376822359 -0.04443398 -0.004109768
-## variable 2  -0.372328083 -0.04358486 -0.005697092
-## variable 3  -0.375718964 -0.04343662 -0.004948000
-## variable 4  -0.373892377 -0.04418091 -0.004672944
-## variable 5  -0.377499109 -0.04329908 -0.005404668
-## variable 6  -0.375807941 -0.04448106 -0.004504394
-## variable 7  -0.375544858 -0.04396978 -0.004237243
-## variable 8   0.044271095 -0.37708802 -0.019690231
-## variable 9   0.043950383 -0.37295019 -0.019941871
-## variable 10  0.043386809 -0.37576101 -0.018993548
-## variable 11  0.043790212 -0.37125654 -0.019594262
-## variable 12  0.044484806 -0.37516461 -0.019574768
-## variable 13  0.044626823 -0.37452381 -0.019541476
-## variable 14  0.043969795 -0.37746756 -0.018158242
-## variable 15  0.002608063  0.02107548 -0.405654813
-## variable 16  0.002664289  0.02120215 -0.407997771
-## variable 17  0.002842474  0.02116027 -0.409084318
-## variable 18  0.002533667  0.02111672 -0.406361538
-## variable 19  0.002532533  0.02108313 -0.408694850
-## variable 20  0.002668084  0.02094053 -0.408182581</code></pre>
-<p>The estimated posterior inclusion probabilities for the two models:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod9<span class="op">$</span>inclusionProbabilities</code></pre></div>
+## variable 1  6.711653e+00  185.292815 30792.083009
+## variable 2  6.811715e+00  435.456531 24282.641765
+## variable 3  6.733579e+00  246.605678 24174.268760
+## variable 4  6.906649e+00  137.269136 25240.818694
+## variable 5  6.630610e+00  334.561356 25606.215195
+## variable 6  6.535962e+00  151.540810 29303.191065
+## variable 7  6.916642e+00  278.901798 29505.931801
+## variable 8  2.000395e+02    6.283433   670.346568
+## variable 9  2.297542e+02    6.662857   568.834746
+## variable 10 4.206301e+02    6.647409  1984.202810
+## variable 11 1.678142e+02    6.740676   596.809053
+## variable 12 2.033657e+02    6.710938   964.165004
+## variable 13 1.294742e+02    6.828244   390.109550
+## variable 14 3.541861e+02    7.207997  5635.426286
+## variable 15 3.077602e+05 2373.138268     5.837005
+## variable 16 3.081676e+05  748.154670     5.771306
+## variable 17 3.180735e+05 1556.626020     5.676298
+## variable 18 3.115912e+05  349.915331     5.997557
+## variable 19 3.116412e+05 2503.322335     5.710167
+## variable 20 3.100489e+05  362.448139     5.591906</code></pre>
+<p>We can also plot an heatmap of the resulting precision matrix; we set a threshold parameter (to establish when the precision elements are too large) equal to 50:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">mat_mod_<span class="dv">7</span> &lt;-<span class="st"> </span><span class="kw">plotheatmap</span>(mod7, <span class="dt">matrix_type=</span><span class="st">&quot;Tau&quot;</span>, <span class="dt">bound_tau=</span><span class="dv">50</span>)</a></code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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" alt="Heatmap of Tau." />
+<p class="caption">Heatmap of Tau.</p>
+</div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">mat_mod_<span class="dv">7</span><span class="op">$</span>W</a></code></pre></div>
 <pre><code>##             Component 1 Component 2 Component 3
-## variable 1   1.00000000   0.2120296  0.09726907
-## variable 2   1.00000000   0.2068326  0.09851144
-## variable 3   1.00000000   0.2084065  0.09897047
-## variable 4   1.00000000   0.2139049  0.09843787
-## variable 5   1.00000000   0.2044355  0.09823061
-## variable 6   1.00000000   0.2146309  0.09848977
-## variable 7   1.00000000   0.2091004  0.09793821
-## variable 8   0.21428441   1.0000000  0.11723947
-## variable 9   0.21111001   1.0000000  0.11752795
-## variable 10  0.20612101   1.0000000  0.11542999
-## variable 11  0.21070545   1.0000000  0.11707616
-## variable 12  0.21594418   1.0000000  0.11702863
-## variable 13  0.21982827   1.0000000  0.11758358
-## variable 14  0.20661409   1.0000000  0.11227938
-## variable 15  0.09660274   0.1179197  1.00000000
-## variable 16  0.09702372   0.1193704  1.00000000
-## variable 17  0.09668529   0.1185038  1.00000000
-## variable 18  0.09705420   0.1192275  1.00000000
-## variable 19  0.09635180   0.1178253  1.00000000
-## variable 20  0.09741905   0.1191173  1.00000000</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod10<span class="op">$</span>inclusionProbabilities</code></pre></div>
+## variable 1   -0.3774720   0.0000000   0.0000000
+## variable 2   -0.3744848   0.0000000   0.0000000
+## variable 3   -0.3747070   0.0000000   0.0000000
+## variable 4   -0.3697882   0.0000000   0.0000000
+## variable 5   -0.3794353   0.0000000   0.0000000
+## variable 6   -0.3811333   0.0000000   0.0000000
+## variable 7   -0.3709497   0.0000000   0.0000000
+## variable 8    0.0000000  -0.3881714   0.0000000
+## variable 9    0.0000000  -0.3766366   0.0000000
+## variable 10   0.0000000  -0.3769402   0.0000000
+## variable 11   0.0000000  -0.3744147   0.0000000
+## variable 12   0.0000000  -0.3743813   0.0000000
+## variable 13   0.0000000  -0.3700551   0.0000000
+## variable 14   0.0000000  -0.3647296   0.0000000
+## variable 15   0.0000000   0.0000000  -0.4060117
+## variable 16   0.0000000   0.0000000  -0.4070776
+## variable 17   0.0000000   0.0000000  -0.4111599
+## variable 18   0.0000000   0.0000000  -0.3987884
+## variable 19   0.0000000   0.0000000  -0.4105380
+## variable 20   0.0000000   0.0000000  -0.4127583</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">mat_mod_<span class="dv">7</span><span class="op">$</span>Tau </a></code></pre></div>
 <pre><code>##             Component 1 Component 2 Component 3
-## variable 1   1.00000000  0.14730263  0.06653994
-## variable 2   1.00000000  0.14364325  0.06737536
-## variable 3   1.00000000  0.14411230  0.06767053
-## variable 4   1.00000000  0.14722150  0.06731669
-## variable 5   1.00000000  0.14251464  0.06718462
-## variable 6   1.00000000  0.14809154  0.06735101
-## variable 7   1.00000000  0.14529510  0.06698563
-## variable 8   0.14821716  1.00000000  0.08020103
-## variable 9   0.14644948  1.00000000  0.08039501
-## variable 10  0.14370665  1.00000000  0.07900339
-## variable 11  0.14603752  1.00000000  0.08008490
-## variable 12  0.14881097  1.00000000  0.08005841
-## variable 13  0.15002809  1.00000000  0.08041359
-## variable 14  0.14479154  1.00000000  0.07692516
-## variable 15  0.06607344  0.08074737  1.00000000
-## variable 16  0.06634741  0.08168749  1.00000000
-## variable 17  0.06612518  0.08111261  1.00000000
-## variable 18  0.06636951  0.08156753  1.00000000
-## variable 19  0.06590500  0.08067578  1.00000000
-## variable 20  0.06660968  0.08148491  1.00000000</code></pre>
-<p>It is also possible to compare the (known) variable inclusion matrix vs. the estimated ones graphically. Let's plot a heatmap of such probabilities for model <code>mod9</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trueInclusions &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, J, <span class="dv">3</span>)
-trueInclusions[<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">1</span>
-trueInclusions[<span class="dv">8</span><span class="op">:</span><span class="dv">14</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">1</span> 
-trueInclusions[<span class="dv">15</span><span class="op">:</span><span class="dv">20</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">1</span>
-
-<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))
-<span class="kw">image</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(trueInclusions), <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(trueInclusions),  
-      <span class="kw">t</span>(trueInclusions[J<span class="op">:</span><span class="dv">1</span>, ]), <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, 
-      <span class="dt">main =</span> <span class="st">&quot;True Inclusions&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,
-      <span class="dt">col =</span>  RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">9</span>, <span class="st">&quot;Blues&quot;</span>))
-<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>, <span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">labels =</span> <span class="kw">paste</span>(<span class="st">&quot;Component &quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span> ))      
-<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">2</span>, <span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">labels =</span> <span class="kw">paste</span>(<span class="st">&quot;Var &quot;</span>, J<span class="op">:</span><span class="dv">1</span> )) 
-
-fields<span class="op">::</span><span class="kw">image.plot</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(trueInclusions), <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(trueInclusions),  
-      <span class="kw">t</span>(mod9<span class="op">$</span>inclusionProbabilities[J<span class="op">:</span><span class="dv">1</span>, ]), <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, 
-      <span class="dt">main =</span> <span class="st">&quot;Estimated Inclusions&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,
-      <span class="dt">col =</span> RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">9</span>, <span class="st">&quot;Blues&quot;</span>))  
-<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>, <span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">labels =</span> <span class="kw">paste</span>(<span class="st">&quot;Component &quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span> ))          </code></pre></div>
-<p><img src="data:image/png;base64,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" alt="True and Estimated inclusion probabilities." /></p>
-<p>We can observe the estimated prior inclusion probabilities for <code>mod10</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod10<span class="op">$</span>priorInclusion</code></pre></div>
-<pre><code>##           [,1]
-## [1,] 0.4025554
-## [2,] 0.4025554
-## [3,] 0.4025554</code></pre>
-<p>Similar to the hyperparameters of the Inverse Gamma priors on <em>τ</em>, <code>priorInclusion</code>, <code>beta1pi</code> and <code>beta2pi</code> can also be specified as <em>D</em>-dimensional arrays. This will allow estimating the inclusion probabilities with different degrees of 'sparsity' for each component. For Beta priors, all elements of <code>beta1pi</code> must be larger than 0. Let us look at one example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Beta priors with different degrees of sparsity for each component </span>
-ctrl7 &lt;-<span class="st"> </span><span class="kw">vbpca_control</span>(<span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="op">-</span><span class="dv">1</span>,
-                       <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>, 
-                       <span class="dt">alphatau =</span> <span class="dv">5</span>, <span class="dt">betatau =</span> <span class="dv">1</span>,
-                       <span class="dt">beta1pi =</span> <span class="kw">c</span>(<span class="fl">0.01</span>, <span class="dv">1</span>, <span class="dv">10</span>), <span class="dt">beta2pi =</span> <span class="dv">1</span>,
-                       <span class="dt">v0 =</span> <span class="fl">5e-03</span>)
-
-                       
-<span class="co"># Estimate the model</span>
-mod11 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'invgamma'</span>, <span class="dt">SVS =</span> <span class="ot">TRUE</span>,
-              <span class="dt">priorInclusion =</span> <span class="kw">rep</span>(<span class="fl">0.5</span>, <span class="dv">3</span>), <span class="dt">control =</span> ctrl7, <span class="dt">verbose =</span> <span class="ot">FALSE</span> )  </code></pre></div>
-<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod11<span class="op">$</span>muW</code></pre></div>
-<pre><code>##              Component 1 Component 2  Component 3
-## variable 1  -0.376823553 -0.04445292 -0.004069605
-## variable 2  -0.372321780 -0.04356864 -0.005750480
-## variable 3  -0.375720588 -0.04342350 -0.004970829
-## variable 4  -0.373891258 -0.04421414 -0.004669279
-## variable 5  -0.377499571 -0.04325604 -0.005447522
-## variable 6  -0.375807748 -0.04451895 -0.004487080
-## variable 7  -0.375547731 -0.04396570 -0.004205898
-## variable 8   0.044271252 -0.37708007 -0.019742308
-## variable 9   0.043952908 -0.37296691 -0.020024420
-## variable 10  0.043394060 -0.37573006 -0.018982397
-## variable 11  0.043792974 -0.37126432 -0.019656898
-## variable 12  0.044483312 -0.37518104 -0.019620517
-## variable 13  0.044621267 -0.37454675 -0.019593263
-## variable 14  0.043976056 -0.37743206 -0.018045949
-## variable 15  0.002608530  0.02110045 -0.405681172
-## variable 16  0.002664620  0.02123110 -0.407991414
-## variable 17  0.002843244  0.02118633 -0.409091995
-## variable 18  0.002534198  0.02114931 -0.406372349
-## variable 19  0.002533170  0.02110874 -0.408700786
-## variable 20  0.002668932  0.02097038 -0.408132057</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod11<span class="op">$</span>priorInclusion</code></pre></div>
-<pre><code>##           [,1]
-## [1,] 0.3999559
-## [2,] 0.4432304
-## [3,] 0.5825461</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod11<span class="op">$</span>inclusionProbabilities    </code></pre></div>
-<pre><code>##             Component 1 Component 2 Component 3
-## variable 1   1.00000000  0.17112197   0.1337330
-## variable 2   1.00000000  0.16672704   0.1354631
-## variable 3   1.00000000  0.16733858   0.1361515
-## variable 4   1.00000000  0.17115717   0.1353939
-## variable 5   1.00000000  0.16530310   0.1350775
-## variable 6   1.00000000  0.17216159   0.1354701
-## variable 7   1.00000000  0.16869081   0.1346833
-## variable 8   0.14487471  1.00000000   0.1602905
-## variable 9   0.14315770  1.00000000   0.1606833
-## variable 10  0.14049548  1.00000000   0.1577618
-## variable 11  0.14275404  1.00000000   0.1600890
-## variable 12  0.14545003  1.00000000   0.1600062
-## variable 13  0.14661853  1.00000000   0.1608249
-## variable 14  0.14156091  1.00000000   0.1533005
-## variable 15  0.06453304  0.09420471   1.0000000
-## variable 16  0.06480003  0.09532060   1.0000000
-## variable 17  0.06458335  0.09463845   1.0000000
-## variable 18  0.06482151  0.09518785   1.0000000
-## variable 19  0.06436869  0.09412224   1.0000000
-## variable 20  0.06505576  0.09509410   1.0000000</code></pre>
-<h2 id="high-posterior-density-intervals">High posterior density intervals</h2>
-<p>It is also possible to require the computation of high probability density intervals for the elements of <em>W</em>, which can then be plotted with the <code>plothpdi</code> function, which internally calls <code>ggplot2</code> functionalities. <em>Note</em>: when normalised weights are require from the corresponding <code>vbpca_control</code> argument, the posterior density interval will still be returned in the original weights scale (thus, no normalisation is performed on the HPDIs).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set hyperparameter values and require 50% probability density intervals </span>
-ctrl8 &lt;-<span class="st"> </span><span class="kw">vbpca_control</span>(<span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="op">-</span><span class="dv">1</span>, 
-                        <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>, 
-                        <span class="dt">alphatau =</span> <span class="dv">2</span>, <span class="dt">betatau =</span> .<span class="dv">5</span>, 
-                        <span class="dt">hpdi =</span> <span class="ot">TRUE</span>, <span class="dt">probHPDI =</span> <span class="fl">0.5</span>)
-
-<span class="co"># Estimate the model </span>
-mod12 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'invgamma'</span>,
-              <span class="dt">control =</span> ctrl8, <span class="dt">verbose =</span> <span class="ot">TRUE</span> )</code></pre></div>
-<pre><code>## Local prior variances : Inverse-Gamma, fixed hyperparameters.
-
-## Warning: unscaled data - ELBO values might be positive.
-
-## Iteration: 1 - ELBO: -2803.52
-## Start # 1 has converged in 2 iterations; lower bound = -2802.98</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot HPD intervals for variables 1:10, component 1 </span>
-<span class="kw">plothpdi</span>(mod12, <span class="dt">d =</span> <span class="dv">1</span>, <span class="dt">vars =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</code></pre></div>
-<p><img src="data:image/png;base64,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" alt="High posterior density intervals." /></p>
-<h2 id="retrieve-principal-components">Retrieve Principal Components</h2>
+## variable 1     6.711653   50.000000   50.000000
+## variable 2     6.811715   50.000000   50.000000
+## variable 3     6.733579   50.000000   50.000000
+## variable 4     6.906649   50.000000   50.000000
+## variable 5     6.630610   50.000000   50.000000
+## variable 6     6.535962   50.000000   50.000000
+## variable 7     6.916642   50.000000   50.000000
+## variable 8    50.000000    6.283433   50.000000
+## variable 9    50.000000    6.662857   50.000000
+## variable 10   50.000000    6.647409   50.000000
+## variable 11   50.000000    6.740676   50.000000
+## variable 12   50.000000    6.710938   50.000000
+## variable 13   50.000000    6.828244   50.000000
+## variable 14   50.000000    7.207997   50.000000
+## variable 15   50.000000   50.000000    5.837005
+## variable 16   50.000000   50.000000    5.771306
+## variable 17   50.000000   50.000000    5.676298
+## variable 18   50.000000   50.000000    5.997557
+## variable 19   50.000000   50.000000    5.710167
+## variable 20   50.000000   50.000000    5.591906</code></pre>
+</div>
+<div id="high-posterior-density-intervals" class="section level2">
+<h2>High posterior density intervals</h2>
+<p>It is also possible to require the computation of high probability density intervals for the elements of <span class="math inline">\(W\)</span>, which can then be plotted with the <code>plothpdi</code> function, which internally calls <code>ggplot2</code> functionalities. <em>Note</em>: when the weights are required in normalised form, the posterior density interval will still be returned in the original weights scale (thus, no normalisation is performed on the HPDIs).</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="co"># Set hyperparameter values and require 90% probability density intervals</span></a>
+<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="co"># Estimate the model</span></a>
+<a class="sourceLine" id="cb41-3" data-line-number="3">mod8 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>,</a>
+<a class="sourceLine" id="cb41-4" data-line-number="4">                <span class="dt">alphatau =</span> <span class="fl">.001</span>, <span class="dt">betatau =</span> <span class="fl">.001</span>,</a>
+<a class="sourceLine" id="cb41-5" data-line-number="5">                <span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="dv">-1</span>,</a>
+<a class="sourceLine" id="cb41-6" data-line-number="6">                <span class="dt">hpdi =</span> <span class="ot">TRUE</span>, <span class="dt">probHPDI =</span> <span class="fl">0.9</span>,</a>
+<a class="sourceLine" id="cb41-7" data-line-number="7">                <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb41-8" data-line-number="8">                <span class="dt">verbose =</span> <span class="ot">TRUE</span> )</a></code></pre></div>
+<pre><code>## Local prior variances : Gamma.</code></pre>
+<pre><code>## Iteration: 1 - ELBO: -3088.1
+## Start # 1 has converged in 4 iterations; lower bound = -3077.58</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="co"># Plot HPD intervals for variables 1:10, component 1</span></a>
+<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="kw">plothpdi</span>(mod8, <span class="dt">d =</span> <span class="dv">1</span>, <span class="dt">vars =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>)</a></code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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" alt="High posterior density intervals." />
+<p class="caption">High posterior density intervals.</p>
+</div>
+</div>
+<div id="retrieve-principal-components" class="section level2">
+<h2>Retrieve Principal Components</h2>
 <p>To compute the estimated components, simpy call:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PCs &lt;-<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span>mod1<span class="op">$</span>muW
-<span class="kw">head</span>(PCs, <span class="dv">15</span>)</code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">PCs &lt;-<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span>mod1<span class="op">$</span>muW </a>
+<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="kw">head</span>(PCs, <span class="dv">15</span>)</a></code></pre></div>
 <pre><code>##       Component 1 Component 2 Component 3
-##  [1,]   -59.19132  -78.592706  31.3401006
-##  [2,]    28.97173 -118.789001 -29.0200757
-##  [3,]   -11.00518   14.227039  -4.8429359
-##  [4,]    92.16140  -33.606390 -28.1184464
-##  [5,]   -41.61482 -212.440556  13.4800625
-##  [6,]   113.51610  -20.107248   5.6778539
-##  [7,]    98.45308  -73.892682  17.2711799
-##  [8,]    42.05467 -142.922656 -68.0937444
-##  [9,]   -57.38540  -66.586046  17.5396890
+##  [1,]   -59.19132  -78.592707  31.3401056
+##  [2,]    28.97173 -118.789002 -29.0200803
+##  [3,]   -11.00518   14.227039  -4.8429367
+##  [4,]    92.16140  -33.606390 -28.1184509
+##  [5,]   -41.61482 -212.440559  13.4800647
+##  [6,]   113.51610  -20.107248   5.6778548
+##  [7,]    98.45308  -73.892683  17.2711826
+##  [8,]    42.05467 -142.922658 -68.0937551
+##  [9,]   -57.38540  -66.586047  17.5396918
 ## [10,]    42.94090   51.286634  -0.2553017
-## [11,]    36.39523  -11.871548  13.9383073
-## [12,]   109.60474   -6.656482  25.3900540
-## [13,]  -196.01791  110.020823  -9.5996904
-## [14,]  -267.42318   71.336728  14.1676674
-## [15,]    38.49334   22.034659 -32.6994037</code></pre>
-<h3 id="references">References</h3>
-<ol>
-<li>C. M. Bishop. 'Variational PCA'. In Proc. Ninth Int. Conf. on Artificial Neural Networks. ICANN, 1999.</li>
-<li>E. I. George, R. E. McCulloch (1993). 'Variable Selection via Gibbs Sampling'. Journal of the American Statistical Association (88), 881-889.</li>
+## [11,]    36.39523  -11.871548  13.9383095
+## [12,]   109.60474   -6.656482  25.3900580
+## [13,]  -196.01791  110.020825  -9.5996919
+## [14,]  -267.42318   71.336729  14.1676697
+## [15,]    38.49334   22.034659 -32.6994089</code></pre>
+<div id="references" class="section level3">
+<h3>References</h3>
+<ol style="list-style-type: decimal">
+<li>C. M. Bishop. ‘Variational PCA’. In Proc. Ninth Int. Conf. on Artificial Neural Networks. ICANN, 1999.</li>
 </ol>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 </body>
 </html>

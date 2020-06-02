@@ -1,37 +1,33 @@
 # bayespca: Regularized Principal Component Analysis via Variational Bayes inference   
-An R package for regularized Principal Component Analysis via Variational Bayes methods. 
+An R package for regularized Principal Component Analysis via Variational Bayes methods.
 
 ## Author
-Davide Vidotto <d.vidotto@uvt.nl> 
+Davide Vidotto <d.vidotto@uvt.nl>
 
 ## Description
 `bayespca` performs Bayesian estimation of weight vectors in PCA.
-    To achieve regularization, the method allows specifying fixed variances
+    To achieve regularization, the method allows specifying fixed precisions
     in the prior distributions of the weights; alternatively, it is possible
-    to implement Jeffrey's and  Inverse Gamma priors on such parameters.
-    In turn, the Inverse Gamma's can have fixed shape hyperparameter; and
-    fixed or random scale hyperparameter. Last, the method allows performing
-    component-specific Stochastic Variable Selection ('spike-and-slab' prior).
-    Check the ```vignettes``` and package documentation for further details. 
+    to implement Gamma priors on such parameters. The method allows
+    for variable selection through Automatic Relevance Determination.
+    Check the ```vignettes``` and package documentation for further details.
 
 ## Functions
 
 * ```vbpca``` for model estimation
 * ```vbpca_control``` for settings of control parameters
 * ```is.vbpca``` for testing the class
+* ```plotheatmap``` for plotting the precision and weights matrices;
 * ```plothpdi``` for plotting high probability density intervals
 
 ## Install
 devtools::install_github("davidevdt/bayespca")
 
 ## Version
-0.1.0
+0.2.0
 
-## Depends 
+## Depends
 R (>= 3.3.3)
 
-## License 
+## License
 GPL-2
-
-
-
