@@ -4,7 +4,13 @@
 \alias{plotheatmap}
 \title{Plot weights/prior precision matrix heatmaps.}
 \usage{
-plotheatmap(obj, matrix_type = "Tau", bound_tau = NULL, limits_heatmap = NULL)
+plotheatmap(
+  obj,
+  matrix_type = "Tau",
+  bound_tau = NULL,
+  limits_heatmap = NULL,
+  return_map = TRUE
+)
 }
 \arguments{
 \item{obj}{list; \cr
@@ -19,8 +25,11 @@ truncating value for the prior precision matrix. This will not only cause trunca
 Tau matrix, but also will make the weights matrix W sparse.}
 
 \item{limits_heatmap}{array_like; \cr
-2-dimensional array containing limits for the scale_fill_gradient2 functionality of ggplo2.
+2-dimensional array containing limits for the scale_fill_gradient2 functionality of ggplot2.
 Meaningful only when \code{matrix_type = 'W'}.}
+
+\item{return_map}{boolean; \cr
+if TRUE, the heatmap of the matrix specified by \code{matrix_type} is plotted.}
 }
 \value{
 the heatmap of the selected matrix, as well as the (truncated) prior precision matrix Tau, and the (sparse)

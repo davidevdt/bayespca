@@ -20,8 +20,10 @@
 #'                  Tau matrix, but also will make the weights matrix W sparse.
 #'
 #' @param limits_heatmap array_like; \cr
-#'                       2-dimensional array containing limits for the scale_fill_gradient2 functionality of ggplo2.
+#'                       2-dimensional array containing limits for the scale_fill_gradient2 functionality of ggplot2.
 #'                       Meaningful only when \code{matrix_type = 'W'}.
+#' @param return_map boolean; \cr
+#'					if TRUE, the heatmap of the matrix specified by \code{matrix_type} is plotted.
 #'
 #' @return the heatmap of the selected matrix, as well as the (truncated) prior precision matrix Tau, and the (sparse)
 #'          weights matrix W.
@@ -50,7 +52,7 @@
 #'
 
 #' @export
-plotheatmap <- function(obj, matrix_type = "Tau", bound_tau = NULL, limits_heatmap = NULL) {
+plotheatmap <- function(obj, matrix_type = "Tau", bound_tau = NULL, limits_heatmap = NULL, return_map=TRUE) {
     
     if (class(obj) != "vbpca") {
         stop("<obj> must be a vbpca object.")
@@ -104,7 +106,10 @@ plotheatmap <- function(obj, matrix_type = "Tau", bound_tau = NULL, limits_heatm
         
     }
     
-	print(p) 
+	if (return_map) {
+		print(p) 
+	}
+	
 	
     return(invisible(list(W_matrix = ret_W, Tau_matrix = ret_Tau)))
     
