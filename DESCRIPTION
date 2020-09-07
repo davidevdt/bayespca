@@ -2,7 +2,6 @@ Package: bayespca
 Title: A Package for Estimating PCA with Variational Bayes Inference
 Version: 0.3.0
 Author: Davide Vidotto 
-=======
 Version: 0.2.0
 Author: Davide Vidotto
 >>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
@@ -21,8 +20,6 @@ LinkingTo: Rcpp,
     RcppArmadillo
 Imports:
     Rcpp,
-    ggplot2
-=======
     ggplot2,
     scales
 RoxygenNote: 7.1.0
