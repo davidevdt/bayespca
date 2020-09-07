@@ -5,11 +5,8 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 #define PI M_PI
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 
 /********************************************************
 * 		Compute SVD Decomposition of a matrix M 		******
@@ -17,7 +14,6 @@
 Rcpp::Function svdExt("svd");
 
 void SVD( const arma::mat&M, arma::mat& U, arma::vec& D, arma::mat& V, int nu, int nv ){
-<<<<<<< HEAD
 
 	Rcpp::List svdList = svdExt(M, Rcpp::Named("nu") = nu, Rcpp::Named("nv") = nv, Rcpp::Named("LINPACK") = false );
 
@@ -28,17 +24,10 @@ void SVD( const arma::mat&M, arma::mat& U, arma::vec& D, arma::mat& V, int nu, i
 
 }
 
-=======
-	Rcpp::List svdList = svdExt(M, Rcpp::Named("nu") = nu, Rcpp::Named("nv") = nv, Rcpp::Named("LINPACK") = false );
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 
-	U = Rcpp::as<arma::mat>(svdList["u"]);
-	D = Rcpp::as<arma::vec>(svdList["d"]);
-	V = Rcpp::as<arma::mat>(svdList["v"]);
-}
 
 /******************************************************
-*		Gamma, logGamma, Digamma, Beta Functions		  		*
+*		Gamma, logGamma, Digamma Functions, Beta	  *
 ******************************************************/
 double gammaFunc( double x, bool logScale ){
 	double ret;
@@ -70,6 +59,8 @@ double betaFunc( double a, double b, bool logScale ){
 	}
 }
 
+
+
 /**************************************************
 *	Sherman - Morrison - Woodbury Inversion 		*
 **************************************************/
@@ -79,6 +70,8 @@ double betaFunc( double a, double b, bool logScale ){
 //	return D - D * X.t() * arma::inv( arma::eye(I, I) + X * D * X.t() ) * X * D;
 // }
 
+
+
 /********************************
 *	Extract trace of X	 	*
 ********************************/
@@ -86,6 +79,8 @@ void funcX( const arma::mat& X, arma::mat &XTX,  double &trXTX ){
 	XTX = X.t() * X;
 	trXTX = arma::trace( XTX );
 }
+
+
 
 /****************
 *	Densities  *
@@ -110,24 +105,20 @@ double invgamh( double a, double b ){
 	return a + log( b * exp( gammaFunc( a, TRUE ) ) ) - (1.0 + a) * diGammaFunc(a);
 }
 
+
 /************************
 *	HPDIs calculation	*
 ************************/
 arma::mat retHPDI( arma::vec mu, arma::vec sigma, double qz, int J ){
-<<<<<<< HEAD
 
 	arma::mat ret(J, 2, arma::fill::zeros);
 
-=======
-	arma::mat ret(J, 2, arma::fill::zeros);
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 	int j;
 
 	for( j = 0; j < J; j++ ){
 		ret( j, 0 ) = mu(j) - (qz * sigma(j));
 		ret( j, 1 ) = mu(j) + (qz * sigma(j));
 	}
-<<<<<<< HEAD
 
 	return ret;
 
@@ -149,10 +140,8 @@ void updateIncProbs( arma::mat &incProbs, int J, int D, arma::vec priorInclusion
 
 	for( d=0; d<D; d++ ){
 		for( j=0; j<J; j++ ){
-
 			p_inc_prop = priorInclusion(d) * exp( - 0.5 * Tau(j, d) * W2(j,d) * invSigma2 );
-			p_exc_prop = ((1.0 - priorInclusion(d)) / sqrt(v0) ) * exp( - 0.5 * Tau(j, d) * W2(j,d) * (1.0 / v0) * invSigma2 );
-			
+			p_exc_prop = ((1.0 - priorInclusion(d)) / sqrt(v0) ) * exp( - 0.5 * Tau(j, d) * W2(j,d) * (1.0 / v0) * invSigma2 );		
 			incProbs(j,d) = p_inc_prop / (p_inc_prop + p_exc_prop);
 		}
 	}
@@ -165,24 +154,12 @@ arma::mat fMat( bool globalvar, std::string priorvar, arma::mat W2, double invsi
                 arma::mat incProbs, double v0, arma::vec gammatau, arma::vec betatau,
                 arma::mat deltataupost, std::string hypertype,
                 int J, int D, arma::vec alphatau, int JD ){
-=======
-
-	return ret;
-}
-
-/************************
-*   FUNCTIONS FOR ELBO	 *
-************************/
-arma::mat fMat( bool globalvar, std::string priorvar, arma::mat W2,
-                arma::vec betatau, int J, int D, arma::vec alphatau, int JD ){
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 
 	arma::mat f;
 
 	if( !globalvar ){
 		if( priorvar == "fixed" ){
 			f.set_size(1,1);
-<<<<<<< HEAD
 		}else if( priorvar == "jeffrey" ){
 			f = W2 * (invsigma / 2.0) ;
 
@@ -219,17 +196,10 @@ arma::mat fMat( bool globalvar, std::string priorvar, arma::mat W2,
 					f = log(f);
 				}
 			}
-=======
-		}else{ 																// priorvar == "gamma"
-			f = W2 / 2.0;
-			f.each_row() += betatau.t();
-			f = log( f );
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 		}
 	}else{    																	// globalvar
 		if( priorvar == "fixed" ){
 			f.set_size(1,1);
-<<<<<<< HEAD
 		}else if( priorvar == "jeffrey" ){
 			f.set_size(1,D);
 			if( !SVS ){
@@ -268,14 +238,6 @@ arma::mat fMat( bool globalvar, std::string priorvar, arma::mat W2,
 				f.each_row() += btmp.t();
 				f = arma::log( f );
 			}
-=======
-		}else{    																// priorvar == "gamma"
-			f.set_size(J,D);
-			f.each_row() = arma::sum( W2, 0 );
-			f = f / 2.0;
-			f.each_row() += betatau.t();
-			f = arma::log(f);
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 		}
 	}
 	return f;
@@ -283,35 +245,24 @@ arma::mat fMat( bool globalvar, std::string priorvar, arma::mat W2,
 
 
 arma::mat logvarMat( bool globalvar, int J, int D, arma::mat f, std::string priorvar,
-<<<<<<< HEAD
 					 arma::mat Tau, std::string hypertype, arma::vec alphatau
                     ){
-=======
-					 					 arma::mat Tau, arma::vec alphatau ){
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 
 	arma::mat logvar(J,D);
 
 	if( !globalvar ){
-<<<<<<< HEAD
 
 		if( priorvar == "fixed" ){
 			logvar = log( Tau );
 		}else if( priorvar == "jeffrey" ){
 			logvar = diGammaFunc( 0.5 ) - f ;
 		}else{
-=======
-		if( priorvar == "fixed" ){
-			logvar = log( Tau );
-		}else{																	// priorvar == "gamma"
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 			int d;
 			logvar = - f;
 			for( d=0; d<D; d++ ){
 			logvar.col(d) += diGammaFunc( alphatau(d) + 0.5 );
 			}
 		}
-<<<<<<< HEAD
 
 	}else{     																 // globalvar = TRUE
 		if( priorvar == "fixed" ){
@@ -323,24 +274,11 @@ arma::mat logvarMat( bool globalvar, int J, int D, arma::mat f, std::string prio
 			logvar = -f;
 			for( d=0; d<D; d++ ){
 				logvar.col(d) += diGammaFunc( alphatau(d) + (double(J)*0.5));
-=======
-	}else{     																 // globalvar
-		if( priorvar == "fixed" ){
-			logvar = arma::log( Tau );
-		}else{  																// priorvar == "gamma"
-			int d;
-			logvar = -f;
-			for( d=0; d<D; d++ ){
-				logvar.col(d) += diGammaFunc( alphatau(d) + (double(J) * 0.5));
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 			}
 		}
 	}
 
 	logvar.elem(find_nonfinite(logvar)).zeros();
-<<<<<<< HEAD
 
-=======
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 	return logvar;
 }

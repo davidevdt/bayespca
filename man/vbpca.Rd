@@ -9,7 +9,6 @@
 \alias{print.summary.vbpca}
 \title{Regularized Variational Bayes Principal Compnent Analysis (vbpca).}
 \usage{
-<<<<<<< HEAD
 vbpca(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = FALSE, tau = 1,
      updatetau = FALSE, priorvar = 'invgamma', SVS = FALSE, priorInclusion = 0.5,
      global.var = FALSE, control = list(), suppressWarnings = FALSE)
@@ -17,21 +16,6 @@ vbpca(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = FALSE, tau = 1,
 \method{vbpca}{default}(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = FALSE, tau = 1,
      updatetau = FALSE, priorvar = 'invgamma', SVS = FALSE, priorInclusion = 0.5,
      global.var = FALSE, control = list(), suppressWarnings = FALSE)
-=======
-vbpca(X, D = 1, nstart = 1, maxIter = 500, tolerance = 1e-05, center = TRUE,
-		 scalecorrection = 1, svdStart = TRUE, verbose = FALSE, 
-		normalise = FALSE, seed = 1, tau = 1, updatetau = FALSE, 
-		alphatau = 0, betatau = 0, plot.lowerbound = TRUE, 
-		hpdi = FALSE, probHPDI = 0.9, global.var = FALSE, 
-		suppressWarnings = FALSE)
-
-\method{vbpca}{default}(X, D = 1, nstart = 1, maxIter = 500, tolerance = 1e-05, center = TRUE,
-		 scalecorrection = 1, svdStart = TRUE, verbose = FALSE, 
-		normalise = FALSE, seed = 1, tau = 1, updatetau = FALSE, 
-		alphatau = 0, betatau = 0, plot.lowerbound = TRUE, 
-		hpdi = FALSE, probHPDI = 0.9, global.var = FALSE, 
-		suppressWarnings = FALSE)
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 
 \method{print}{vbpca}(x, ...)
 
@@ -46,13 +30,6 @@ a real \eqn{(I, J)} data matrix (or data frame) to be reduced.}
 \item{D}{integer; \cr
 the number of components to be computed.}
 
-<<<<<<< HEAD
-=======
-\item{nstart}{integer; \cr
-number of (sequential) estimations of the \code{vbpca} algorithm,
-with differing random starts.}
-
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 \item{maxIter}{integer; \cr
 maximum number of variational algorithm iterations.}
 
@@ -60,28 +37,15 @@ maximum number of variational algorithm iterations.}
 stopping criterion for the variational algorithm
 (relative differences between ELBO values).}
 
-<<<<<<< HEAD
-=======
-\item{center}{bool; \cr
-boolean indicating whether to center the variables of the input data before model estimation.}
-
-\item{scalecorrection}{integer; \cr
-factor used for the scaling of the variables prior to the estimation step.
-When smaller than 0, no scaling will be performed.}
-
-\item{svdStart}{bool; \cr
-boolean indicating whether the values of the SVD decomposition of the input matrix shoul be
-used as starting values.}
-
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 \item{verbose}{bool; \cr
 logical value which indicates whether the estimation process
 information should be printed.}
 
-<<<<<<< HEAD
 \item{tau}{float; \cr
-the starting value that fills the prior precision (inverse prior variance) 
-   matrix of the elements in the weight matrix \eqn{W}.}
+when \code{priorvar = 'fixed'}, the value to be used to fill the matrix of the
+   prior precisions (inverse variances) of the elements \eqn{W}. 
+   When \code{priorvar = 'invgamma'} or \code{priorvar = 'jeffrey'}, \code{tau} 
+   is the starting value of the precisions}
 
 \item{updatetau}{bool; \cr
 when \code{priorvar = 'fixed'}, it specifies whether the prior variances
@@ -106,58 +70,17 @@ When not fixed, the value denotes the starting values
 of the prior probabilities. The argument can be specified as a scalar, or as a
 D-dimensional array, in which case the prior inclusion probabilities
 will be regarded as component-specific.}
-=======
-\item{normalise}{bool; \cr
-logical argument indicating whether the elements of the weight matrix \eqn{W} should be
-normalised (after model estimation).}
-
-\item{seed}{integer; \cr
-seed used for the random initialization of the model (if \code{svdStart=FALSE} or \code{nstart>1}).}
-
-\item{tau}{float; \cr
-when the prior precisions are fixed, this parameter represents the
-values to be used for these priors. When the prior of the precisions are Ingerse-Gamma's,
-or \code{updatetau = TRUE}, \code{tau} is the starting value of the precisions.}
-
-\item{updatetau}{bool; \cr
-when the prior precisions are fixed quantities, this argument specifies whether the
-elements in the precision prior matrix Tau should be updated via Type-II maximum likelihood.}
-
-\item{alphatau}{float or array_like; \cr
-shape parameter for the Gamma hyperpriors. It can be scalar, or \eqn{D} dimensional.
-The Gamma prior is activated whene \code{alphatau>0} (\code{betatau} must also be
-larger than 0.}
-
-\item{betatau}{float or array_like; \cr
-scale parameter for the Gamma hyperprior. It can be scalar, or \eqn{D} dimensional.}
-
-\item{plot.lowerbound}{bool; \cr
-boolean indicating whether the function should plot the traceplot of the ELBO values
-calculated across the Variational Bayes iterations.}
-
-\item{hpdi}{bool; \cr
-boolean denoting whether the high posterior density intervals of \eqn{W} should be computed.}
-
-\item{probHPDI}{float; \cr
-the desired probability level of the HPD intervals.}
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 
 \item{global.var}{bool; \cr
 it specifies whether \code{tau} should be updated globally (component-specific
 updates) or locally (element-specific updates).}
 
-<<<<<<< HEAD
 \item{control}{list; \cr
 other control parameters. See \code{\link{vbpca_control}} for further details.}
 
 \item{suppressWarnings}{bool; \cr
 boolean argument which hides function warnings when \code{TRUE}.}
 
-=======
-\item{suppressWarnings}{bool; \cr
-boolean argument which hides function warnings when set to \code{TRUE}.}
-
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 \item{x, object}{vbpca oject; \cr
 an object of class \code{vbpca}, used as arguments for the \code{print}, \code{is.bayespca} and
 \code{summary} functions.}
@@ -168,14 +91,13 @@ an object of class \code{vbpca}, used as arguments for the \code{print}, \code{i
 a \code{vbpca} returns a `vbpca` object, which is a list containing the following elements:
 \item{muW}{ array_like; \cr
        posterior means of the weight matrix; \eqn{(J, D)} dimensional array.
-<<<<<<< HEAD
 }
 
 \item{P}{ array_like; \cr
      point estimate of the (orthogonal) loading matrix; \eqn{(J, D)} dimensional array.
 }
 
-\item{invTau}{ array_like; \cr
+\item{Tau}{ array_like; \cr
        the point estimates (or posterior means) of the inverse prior variances; depending on the
        specification of \code{tau}, it can be a D-dimensional vector or a \eqn{(J, D)} dimensional array.
 }
@@ -207,44 +129,12 @@ a \code{vbpca} returns a `vbpca` object, which is a list containing the followin
       of the elements of \eqn{W}.
 }
 
-=======
-}
-
-\item{P}{ array_like; \cr
-     point estimate of the (orthogonal) loading matrix; \eqn{(J, D)} dimensional array.
-}
-
-\item{Tau}{ array_like; \cr
-       the estimates of the prior precisions; depending on the
-       values of \code{global.var}, it can be a D-dimensional vector or a \eqn{(J, D)} dimensional array.
-}
-
-\item{sigma2}{ float; \cr
-      point estimate of the variance of the residuals.
-}
-
-\item{HPDI}{ list; \cr
-      a list containing the high posterior density intervals of the elements of \eqn{W}.
-}
-
-\item{priorAlpha}{ array_like; \cr
-        a D-dimensional array (or a scalar) containing the values used for the shape hyperparameters of the
-        Gamma priors.
-}
-
-\item{priorBeta}{ array_like; \cr
-      a \eqn{(J, D)} or \eqn{D} dimensional array (or a scalar), with the values used for the scale hyperparameters
-      of the Gamma priors.
-}
-
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 \item{elbo}{ float; \cr
       evidence lower bound of the model.
 }
 
 \item{converged}{ bool; \cr
       boolean denoting whether the Variational Bayes algorithm converged within the required number of iterations.
-<<<<<<< HEAD
 }
 
 \item{time}{ array_like; \cr
@@ -265,20 +155,6 @@ a \code{vbpca} returns a `vbpca` object, which is a list containing the followin
 
 \item{SVS}{ bool; \cr
       boolean denoting whether stochastic variable selection was activated, as required by the user.
-=======
-}
-
-\item{time}{ array_like; \cr
-      computation time of the algorithm.
-}
-
-\item{priorvar}{ character; \cr
-      type of prior for the precisions (either fixed or Gamma).
-}
-
-\item{global.var}{ bool; \cr
-      \code{global.var} specified as input by the user.
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 }
 
 \item{plot}{
@@ -303,7 +179,6 @@ fixed parameters instead.
 
 In order to regularize the elements of \eqn{W}, a Multivariate Normal (MVN) prior is assumed
 for the columns of \eqn{W}. The multivariate normals have the  0-vector as mean, and diagonal
-<<<<<<< HEAD
 covariance matrix with variance \code{tau}. Different specifications of \code{tau} (either
 fixed, updated via Type-II maximum likelihood, or random with Jeffrey's or Inverse Gamma priors)
 allows achieving different levels of regularization on the elements of \eqn{W}. Furthermore,
@@ -325,18 +200,6 @@ or treated as a random variable with Beta priors. Furthermore, \code{priorInclus
 refer to prior probabilities  of the whole model (across all components) when specified as
 a scalar, or to component-specific
 prior probabilties when specified as a D-dimensional array.
-=======
-precision matrix \code{Tau}. Different specifications of \code{Tau} (either
-fixed, or random with Gamma priors) allow achieving regularization on the elements
-of \eqn{W}. Furthermore, \code{Tau} can be updated with local information, or by sharing
-information with other elements of the same components of the matrix \eqn{W} (\code{global.var = TRUE}).
-The latter option can be useful when deciding how many PCs should be used.
-A fixed \code{Tau} can be updated via Type-II Maximum Likelihood (\code{updatetau=TRUE}).
-Gamma priors can be activated by setting their scale (\code{alphatau}) and their shape
-\code{betatau} hyperparameters with values larger than 0. Both \code{alphatau} and \code{betatau}
-can be scalars (in which case their values are shared across oll PCs), or arrays with component-specific
-values of these hyperparameters.
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 }
 \examples{
 
@@ -349,8 +212,10 @@ X3 <- rnorm(I, 0, 10)
 X <- cbind(X1, X1, X1, X2, X2, X2, X3, X3 )
 X <- X + matrix(rnorm(length(X), 0, 1), ncol = ncol(X), nrow = I )
 
-# Estimate the Bayesian PCA model, with Gamma priors for tau
-mod <- vbpca(X, D = 3, alphatau=1e-3, betatau=1e-3 )
+# Estimate the Bayesian PCA model, with Inverse Gamma priors for tau
+# and SVS with Beta priors for priorInclusion
+ctrl <- vbpca_control( alphatau = 1., betatau = 1e-2, beta1pi = 1., beta2pi = 1.  )
+mod <- vbpca(X, D = 3, priorvar = 'invgamma', SVS = TRUE, control = ctrl )
 summary(mod)
 mod
 
@@ -365,15 +230,14 @@ mod
 \item [1] C. M. Bishop. 'Variational PCA'. In Proc. Ninth Int. Conf. on Artificial Neural Networks.
 ICANN, 1999.
 
-<<<<<<< HEAD
 \item [2] E. I. George, R. E. McCulloch (1993). 'Variable Selection via Gibbs Sampling'.
 Journal of the American Statistical Association (88), 881-889.
 
 
 }
-=======
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 }
+\seealso{
+\code{\link{vbpca_control}}
 }
 \author{
 D. Vidotto <d.vidotto@uvt.nl>

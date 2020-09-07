@@ -1,7 +1,12 @@
 #include <RcppArmadillo.h>
 #include "aux_functions.h"
 
+
 // [[Rcpp::depends(RcppArmadillo)]]
+
+
+
+
 /***********************************************
 *		Observed Data Log-Likelihood	      *
 ***********************************************/
@@ -9,11 +14,12 @@ void loglikelihood( double &loglik, double sigma2, int J, int I, double denomX )
 	loglik = (0.5 * (double(J) * double(I)) * ( -log(2.0 * PI * sigma2) ) ) - ( 0.5 * (1 / sigma2) * denomX );
 }
 
+
+
 /****************************
-*		Prior for W 		 				*
+*		Prior for W 		 *
 ****************************/
 void logPriorW( double &logW, arma::mat Tau, int JD, arma::mat W2, int J,
-<<<<<<< HEAD
 				int D, arma::mat logvar, double invsigma, bool SVS,
 				double v0, arma::mat incProbs ){
 
@@ -22,23 +28,23 @@ void logPriorW( double &logW, arma::mat Tau, int JD, arma::mat W2, int J,
 
 	if( SVS ){
 		logvar += (1.0 - incProbs) * log(1 / v0);
+		//logvar += ( incProbs * log(v0) ) ; 
 		tmpExp = tmpExp % ( ((1.0 - incProbs) * ( 1 / v0 )) + incProbs);
+		//tmpExp = tmpExp % ( (1.0 - incProbs) + (v0 + incProbs) );
 	}
 
 	logvar += log( invsigma );
 
 	logW = arma::accu( (0.5 * logvar) - (0.5 * tmpExp)) - double(JD) * 0.5 * log( 2.0 * PI ) ;
 
-=======
-					      int D, arma::mat logvar ){
-	logW = arma::accu( (0.5 * logvar) - (0.5 * ( W2 % ( Tau ) ) )) - double(JD) * 0.5 * log( 2.0 * PI ) ;
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 }
 
+
+
+
 /********************************
-* 	Prior/Entropy for Tau      	*
+* 	Prior/Entropy for tau      	*
 ********************************/
-<<<<<<< HEAD
 void priorentropyTau( double &logtau, double &hTau, double &priorb, double &hb,
 					  					int J, int D, arma::mat logvar, bool globalvar,
                       std::string priorvar, arma::mat f, arma::mat Tau,
@@ -187,25 +193,6 @@ void priorentropySVS( double &logPriorIncProbs, double &hPriorIncProbs, double &
 				logPriorGlobalProb += (beta1pi(d)-1.0)*(logpg(d)) + (beta2pi(d)-1.0)*(logpinvg(d)) - betaFunc( beta1pi(d), beta2pi(d), TRUE );
 				hPriorIncProbs += betaFunc( betastar1(d), betastar2(d), TRUE ) - (betastar1(d)-1.0)*diGammaFunc( betastar1(d) ) - (betastar2(d)-1.0)*diGammaFunc( betastar2(d) ) + (betastar1(d)+betastar2(d)-2.0)*diGammaFunc( betastar1(d) + betastar2(d) );
 			}
-=======
-void priorentropyTau( double &logtau, double &hTau,
-            		  int J, int D, arma::mat logvar, bool globalvar,
-      				  arma::mat f, arma::mat Tau,
-   					  arma::vec alphatau, arma::vec betatau, int JD ){
-	int d;
-
-	if( !globalvar ){ 															// Local prior variances
-		for( int j=0; j<J; j++ ){
-			for( d=0; d<D; d++ ){
-				logtau += gamd( Tau(j,d), logvar(j,d), alphatau(d), betatau(d) );
-				hTau += gamh( alphatau(d) + 0.5, exp( f( j,d ) ) ) ;
-			}
-		}
-	}else{																		// Global prior variances
-		for( d=0; d<D; d++ ){
-			logtau += gamd( Tau(0,d), logvar(0,d), alphatau(d), betatau(d) );
-			hTau += gamh( alphatau(d)+double(J)*0.5, exp( f( 0,d ) ) ) ;
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 		}
 	}
 }

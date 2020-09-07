@@ -5,7 +5,6 @@
 
 // [[Rcpp::depends(RcppArmadillo)]]
 void vbalgorithm( const arma::mat& X, int D, int I, int J, int maxIter, double tolerance,
-<<<<<<< HEAD
                   bool updatetau, std::string priorvar, arma::vec alphatau,
 				          arma::vec betatau, arma::vec gammatau, arma::vec deltatau,
 				          bool SVS, arma::vec priorInclusion, arma::vec beta1pi,
@@ -26,27 +25,11 @@ void vbalgorithm( const arma::mat& X, int D, int I, int J, int maxIter, double t
 	arma::vec allElbos;
   	arma::vec elboValue = arma::vec( maxIter + 1);
 
-=======
-                  bool updatetau, std::string priorvar, arma::vec alphatau, arma::vec betatau,
-                  int JD, arma::mat Tau, double qz, Rcpp::List hpdis, int &it, double sigma2,
-                  double aPostSigma, double denomX, double normX, double elbo,
-				          double hW, double &finalElbo, bool &converged,
-                  arma::mat muW, arma::mat muP, arma::mat W2, const arma::mat& XTX,
-                  double &globalElbo, arma::mat &globalMuW, arma::mat &globalMuP,
-                  arma::mat &globaltau, double &globalSigma2,
-                  bool &globalconverged, arma::vec &elbovals,
-                  Rcpp::List &globalhpdi, bool globalvar, bool hpdi, bool verbose ){
-
-	finalElbo = 0.0;
-	arma::vec allElbos;
-  arma::vec elboValue = arma::vec( maxIter + 1);
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 
 	elboValue.fill( -(arma::datum::inf) );
 	converged = FALSE;
 
 	for( it = 1; it < (maxIter + 1); it++ ){
-<<<<<<< HEAD
 		updateExpected( muW, W2, sigma2, muP, D, J, I, hW, X, XTX, Tau,
 						hpdi, hpdis, qz, scaleprior, EWtauW, v0, incProbs, SVS,
 						denomX, aPostSigma, normX,
@@ -64,22 +47,6 @@ void vbalgorithm( const arma::mat& X, int D, int I, int J, int maxIter, double t
 
 		elboValue( it ) = elbo;
 
-=======
-
-    updateExpected( muW, W2, sigma2, muP, D, J, I, hW, X, XTX,
-    				Tau, hpdi, hpdis, qz, denomX,
-    				aPostSigma, normX, priorvar,
-    				updatetau, globalvar, JD,  
-					alphatau, betatau );
-
-
-    updateElbo( elbo, sigma2, globalvar, priorvar,
-                W2, betatau, alphatau, J, D,
-                Tau, I, denomX, hW, JD );
-
-		elboValue( it ) = elbo;
-
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 		if( std::abs( (elboValue( it ) - elboValue( it - 1 ))/elboValue( it ) ) <= tolerance ){
 			converged = TRUE;
 			break;
@@ -92,19 +59,13 @@ void vbalgorithm( const arma::mat& X, int D, int I, int J, int maxIter, double t
 		if( verbose & ((it - 1) % 10 == 0) ){
 			Rcpp::Rcout << "Iteration: " << it << " - ELBO: " << elboValue(it) << std::endl;
 		}
-<<<<<<< HEAD
 
-=======
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 	}
 
 	allElbos = elboValue( find( elboValue != -(arma::datum::inf) ) );
 	finalElbo = allElbos( allElbos.size() - 1 );
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 	if( finalElbo > globalElbo ){
 		globalElbo = finalElbo;
 		globalMuW = muW;
@@ -114,7 +75,6 @@ void vbalgorithm( const arma::mat& X, int D, int I, int J, int maxIter, double t
 		globalconverged = converged;
 		globalhpdi = hpdis;
 		elbovals = allElbos;
-<<<<<<< HEAD
 
 
 
@@ -149,7 +109,4 @@ void vbalgorithm( const arma::mat& X, int D, int I, int J, int maxIter, double t
 
 	}
 
-=======
-	}
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 }
