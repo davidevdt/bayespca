@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 # bayespca 0.3.0 
 * previous priors (Jeffrey's, hyperparameters Gamma prior) and SVS functionality have been restored 
 
-=======
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 # bayespca 0.2.0 
 * the package has been heavily revised and modified
 * the SVS (Stochastic Variable Selection) functionality has been removed  (it might be re-implemented in future versions) 
