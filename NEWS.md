@@ -2,7 +2,6 @@
 * the package has been heavily revised and modified
 * the SVS (Stochastic Variable Selection) functionality has been removed  (it might be re-implemented in future versions) 
 * only fixed and Gamma priors for the precision parameters can be used 
-* added plotheatmap function 
 
 # bayespca 0.1.0
 * removed Type-II-Maximum-Likelihood estimation for SVS inclusion probabilities, as it was causing the algorithm to be too unstable 
