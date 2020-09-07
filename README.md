@@ -24,7 +24,7 @@ Davide Vidotto <d.vidotto@uvt.nl>
 devtools::install_github("davidevdt/bayespca")
 
 ## Version
-0.2.0
+0.3.0
 
 ## Depends
 R (>= 3.3.3)
