@@ -20,7 +20,12 @@ X <- X + matrix(rnorm(I * 8, 0, 1), I, 8)
 
 ##################### bayespca vs. Ordinary PCA - With and without scaling 
 pca_mod <- prcomp(X, center = TRUE, scale. = FALSE)
+<<<<<<< HEAD
+vbpca_ctrl <- vbpca_control(center = TRUE, scalecorrection = -1, plot.lowerbound = FALSE)
+vbpca_mod <- vbpca(X, D = 3, tau = 1e-5, priorvar = "fixed", updatetau = FALSE, control = vbpca_ctrl, suppressWarnings = TRUE)
+=======
 vbpca_mod <- vbpca(X, D = 3, tau = 0.0001, center=TRUE, scalecorrection=-1, updatetau = FALSE, plot.lowerbound=FALSE, suppressWarnings = TRUE)
+>>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 
 # Test 1: VBPCA recovers PCA for low regularization (large tau)
 testthat::test_that("Test 1: vbpca vs. pca, no scaling", {
@@ -32,7 +37,12 @@ testthat::test_that("Test 1: vbpca vs. pca, no scaling", {
 
 
 pca_mod <- prcomp(X, center = TRUE, scale. = TRUE)
+<<<<<<< HEAD
+vbpca_ctrl <- vbpca_control(center = TRUE, scalecorrection = 1, plot.lowerbound = FALSE)
+vbpca_mod <- vbpca(X, D = 3, tau = 1e-5, priorvar = "fixed", updatetau = FALSE, control = vbpca_ctrl, suppressWarnings = TRUE)
+=======
 vbpca_mod <- vbpca(X, D = 3, tau = 0.0001, center=TRUE, scalecorrection = 1, plot.lowerbound = FALSE, updatetau = FALSE, suppressWarnings = TRUE)
+>>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 
 # Test 2: VBPCA recovers PCA for low regularization (large tau)
 testthat::test_that("Test 2: vbpca vs. pca, scaling", {

@@ -7,11 +7,31 @@
 void updateWPXsigma( arma::mat &muW, arma::mat &W2, double &sigma2, arma::mat &muP, int D,
                      int J, int I, double &hW, const arma::mat& X, const arma::mat& XTX, arma::mat Tau,
                      std::string priorvar, bool hpdi, Rcpp::List &hpdis, double qz,
+<<<<<<< HEAD
+                     bool scaleprior, double &EWtauW, double v0,
+                     arma::mat incProbs, double SVS, double &denomX,
+                     double aPostSigma, double normX );
+
+// tau
+void updateTau( double sigma2, bool scaleprior, std::string priorvar, bool updatetau,
+                bool SVS, int D, arma::mat &Tau, arma::mat W2, bool globalvar,
+                arma::mat incProbs, double v0, arma::vec gammatau, arma::vec alphatau,
+                arma::vec &betatau, std::string hypertype, arma::mat &deltataupost,
+                arma::vec deltatau, int JD, int J );
+
+
+// SVS
+void updateSVS( arma::mat &incProbs, arma::vec &priorInclusion, arma::vec &betastar1,
+                arma::vec &betastar2, int J, int D, arma::mat W2, double v0,
+                arma::mat Tau, double sigma2, bool scaleprior,
+                bool commonpi, arma::vec beta1pi, arma::vec beta2pi, int JD );
+=======
                      double &denomX, double aPostSigma, double normX );
 
 // tau
 void updateTau( std::string priorvar, bool updatetau,
                 int D, arma::mat &Tau, arma::mat W2, bool globalvar,
                 arma::vec alphatau, arma::vec betatau, int JD, int J );
+>>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 
 #endif

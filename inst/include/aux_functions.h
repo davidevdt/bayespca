@@ -14,7 +14,32 @@ double invgamd( double invx, double logx, double a, double b );
 double gamh( double a, double b );
 double invgamh( double a, double b );
 
+<<<<<<< HEAD
+double gamd( double x, double logx, double a, double b );
+double invgamd( double invx, double logx, double a, double b );
+double gamh( double a, double b );
+double invgamh( double a, double b );
+
+
 arma::mat retHPDI( arma::vec mu, arma::vec sigma, double qz, int J );
+
+void updateIncProbs( arma::mat &incProbs, int J, int D, arma::vec priorInclusion,
+                     arma::mat W2, double v0,
+                     arma::mat Tau, double invSigma2 );
+/*void updateIncProbs( arma::mat &incProbs, int J, int D, arma::vec logpg, 
+                     arma::vec logpinvg, arma::mat W2, double v0, 
+                     arma::mat Tau, double invSigma2 );*/ 
+
+
+arma::mat fMat( bool globalvar, std::string priorvar, arma::mat W2, double invsigma, bool SVS,
+                arma::mat incProbs, double v0, arma::vec gammatau, arma::vec betatau,
+                arma::mat deltataupost, std::string hypertype,
+                int J, int D, arma::vec alphatau, int JD );
+arma::mat logvarMat( bool globalvar, int J, int D, arma::mat f, std::string priorvar,
+                     arma::mat Tau, std::string hypertype, arma::vec alphatau );
+=======
+arma::mat retHPDI( arma::vec mu, arma::vec sigma, double qz, int J );
+>>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 
 arma::mat fMat( bool globalvar, std::string priorvar, arma::mat W2, 
                 arma::vec betatau, int J, int D, arma::vec alphatau, int JD );

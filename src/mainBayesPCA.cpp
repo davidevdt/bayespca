@@ -24,17 +24,33 @@
 
 // [[Rcpp::export]]
 Rcpp::List mainBayesPCA(	const arma::mat& X, int D, int I, int J, int nstart, int maxIter,
+<<<<<<< HEAD
+                        double tolerance, bool svdStart, bool verbose,
+                        bool updatetau, std::string priorvar,
+                        arma::vec alphatau, arma::vec betatau,
+                        arma::vec gammatau, arma::vec deltatau, bool SVS,
+                        arma::vec priorInclusion, arma::vec beta1pi, arma::vec beta2pi,
+                        double v0, bool commonpi,
+                        int JD, arma::mat Tau, double qz, bool scaleprior,
+                        std::string hypertype, bool globalvar, bool hpdi
+						){
+=======
                           double tolerance, bool svdStart, bool verbose,
                           bool updatetau, std::string priorvar,
                           arma::vec alphatau, arma::vec betatau,
                           int JD, arma::mat Tau, double qz, bool globalvar, bool hpdi
               		       ){
+>>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 
 	// arma::arma_rng::set_seed( seed );
 
 	// Initializations : Lists
 	Rcpp::List ret;
 	Rcpp::List hpdis;
+<<<<<<< HEAD
+
+=======
+>>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 
 	if( hpdi ){
 		hpdis = Rcpp::List(D);
@@ -49,26 +65,114 @@ Rcpp::List mainBayesPCA(	const arma::mat& X, int D, int I, int J, int nstart, in
 	// Initializations : Doubles
 	double sigma2 = 1.0 ;
 	double aPostSigma;
+<<<<<<< HEAD
+
 	aPostSigma = ( double(J) * double(I));
+
+	if( scaleprior ){
+		aPostSigma += double(JD);
+	}
+
+=======
+	aPostSigma = ( double(J) * double(I));
+>>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 	double denomX = 0.0;
 	double normX;
 	double elbo = 0.0;
 	double hW = 0.0;
 	double finalElbo = 0.0;
+<<<<<<< HEAD
+	double EWtauW = 0.0;
 
 	// Initializations: Booleans
 	bool converged = FALSE;
+
+	// Initializations: Vectors
+	arma::vec betastar1;
+	arma::vec betastar2;
+=======
+
+	// Initializations: Booleans
+	bool converged = FALSE;
+>>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 
 	// Initializations : Matrices
 	arma::mat muW(J, D);
 	arma::mat muP(J, D);
 	arma::mat W2(J, D);
 	arma::mat XTX(J, J);
+<<<<<<< HEAD
+	arma::mat incProbs;
+
+
+	arma::mat deltataupost;
+
+	if( globalvar == FALSE ){
+		if( (priorvar != "invgamma" ) || (any( gammatau < 0.0 ))  ){
+			deltataupost.set_size(1,1);
+		}else{
+			if( hypertype == "common" ){
+				deltataupost.set_size(1,1);
+			}else if( hypertype == "component" ){
+				deltataupost.set_size(1,D);
+			}else{
+				deltataupost.set_size(J,D);
+			}
+		}
+	}else{
+		if( priorvar == "invgamma" && all( gammatau > 0.0 ) ){
+			deltataupost.set_size(1,D);
+			deltataupost.row(0) = deltatau.t();
+		}else{
+			deltataupost.set_size(1,1);
+		}
+	}
+
+
+	if( SVS ){
+		incProbs.set_size( J,D );
+
+		if( all(beta1pi >= 0.0) ){
+			betastar1.set_size( D );
+			betastar2.set_size( D );
+		}else{
+			betastar1.set_size( 1 );
+			betastar2.set_size( 1 );
+		}
+
+		if( commonpi ){
+			incProbs.fill( priorInclusion(0) );
+
+			if( all(beta1pi > 0.0) ){
+				betastar1.fill( beta1pi(0) + arma::accu( incProbs ) );
+				betastar2.fill( beta2pi(0) + arma::accu( 1.0 - incProbs ) );
+			}
+
+		}else{
+
+			incProbs.each_row() = priorInclusion.t();
+
+			if( all(beta1pi > 0.0) ){
+				betastar1 = beta1pi + arma::sum( incProbs, 0 ).t();
+				betastar2 = beta2pi + arma::sum( 1.0 - incProbs, 0 ).t();
+			}
+		}
+	}else{
+		incProbs.set_size( 1,1 );
+		betastar1.set_size(1);
+		betastar2.set_size(1);
+	}
+
+	// Calculate XTX and norm(X)
+	funcX( X, XTX, normX );
+	// Initializations: muW and muP
+=======
 
 	// Calculate XTX and norm(X)
 	funcX( X, XTX, normX );
 
   // Initializations: muW and muP
+>>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 	if( svdStart ){
 		arma::mat U1(I, D);
 		arma::vec d1(D);
@@ -79,16 +183,30 @@ Rcpp::List mainBayesPCA(	const arma::mat& X, int D, int I, int J, int nstart, in
 		muW = arma::randu(J, D);
 		muP = arma::randu(J, D);
 	}
+<<<<<<< HEAD
+    //Initializations: Outputs
+=======
 
   //Initializations: Outputs
+>>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 	double globalElbo = - ( arma::datum::inf );
 	arma::mat globalMuW( J , D, arma::fill::zeros );
 	arma::mat globalMuP( J, D, arma::fill::zeros );
 	arma::mat globaltau(J, D, arma::fill::zeros);
 	double globalSigma2 = 0.0;
+<<<<<<< HEAD
+	arma::mat globalbetatau;
 	bool globalconverged = FALSE;
 	arma::vec elbovals;
 	Rcpp::List globalhpdi;
+	arma::vec globalPriorInc(D);
+	arma::mat globalIncPr;
+
+=======
+	bool globalconverged = FALSE;
+	arma::vec elbovals;
+	Rcpp::List globalhpdi;
+>>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 
 	// Run the Algorithm
 	for( st = 0; st < nstart; st++ ){
@@ -108,12 +226,23 @@ Rcpp::List mainBayesPCA(	const arma::mat& X, int D, int I, int J, int nstart, in
 		W2 = arma::square( muW );
 
 		vbalgorithm(X, D, I, J, maxIter, tolerance, updatetau,
+<<<<<<< HEAD
+					priorvar, alphatau, betatau, gammatau, deltatau,
+					SVS, priorInclusion, beta1pi, beta2pi, v0,
+					hypertype, commonpi, JD, Tau, qz, scaleprior, hpdis,
+					it, sigma2, aPostSigma, denomX, normX, elbo, hW,
+					finalElbo, EWtauW, converged, betastar1, betastar2, muW, muP, W2, XTX, 	incProbs, deltataupost, globalElbo, globalMuW, globalMuP, globaltau,
+					globalSigma2, globalbetatau, globalconverged, elbovals,
+					globalhpdi, globalPriorInc, globalIncPr,
+					globalvar, hpdi, verbose );
+=======
       					priorvar, alphatau, betatau, JD, Tau, qz, hpdis,
       					it, sigma2, aPostSigma, denomX, normX, elbo, hW,
       					finalElbo, converged, muW, muP, W2, XTX,
                 globalElbo, globalMuW, globalMuP, globaltau,
       					globalSigma2, globalconverged, elbovals,
       					globalhpdi, globalvar, hpdi, verbose );
+>>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 
 
 		if( verbose ){
@@ -134,6 +263,16 @@ Rcpp::List mainBayesPCA(	const arma::mat& X, int D, int I, int J, int nstart, in
 	ret["globalConverged"] = globalconverged;
 	ret["globalHPDIS"] = globalhpdi;
 	ret["elbovals"] = elbovals;
+<<<<<<< HEAD
+	ret["globalbetatau"] = globalbetatau;
+	ret["globalPriorInc"] = globalPriorInc;
+	ret["globalIncPr"] = globalIncPr;
+
 
 	return ret;
+
+=======
+
+	return ret;
+>>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
 }
