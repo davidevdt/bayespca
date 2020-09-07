@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Davide Vidotto d.vidotto@uvt.nl" />
+
+<meta name="date" content="2020-09-07" />
+
+<title>bayespca Package</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">bayespca Package</h1>
+<h4 class="author">Davide Vidotto <a href="mailto:d.vidotto@uvt.nl">d.vidotto@uvt.nl</a></h4>
+<h4 class="date">2020-09-07</h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#bayespca-a-package-for-variational-bayes-pca">bayespca: A package for Variational Bayes PCA</a><ul>
+<li><a href="#theoretical-background">Theoretical background</a></li>
+<li><a href="#the-bayespca-package">The <code>bayespca</code> package</a></li>
+<li><a href="#levels-of-regularization-on-the-w-matrix">Levels of regularization on the W matrix</a><ul>
+<li><a href="#fixed-tau">Fixed <code>tau</code></a></li>
+</ul></li>
+<li><a href="#levels-of-regularization-on-the-w-matrix-1">Levels of regularization on the W matrix</a><ul>
+<li><a href="#fixed-tau-1">Fixed <code>tau</code></a></li>
+<li><a href="#fixed-updatable-tau">Fixed, updatable <code>tau</code></a></li>
+<li><a href="#random-tau-gamma-prior">Random <code>tau</code>: Gamma prior</a></li>
+<li><a href="#random-tau-random-betatau">Random <code>tau</code>, random <code>betatau</code></a></li>
+<li><a href="#global-prior-variances">Global prior variances</a></li>
+</ul></li>
+<li><a href="#stochastic-search-variable-selection">Stochastic Search Variable Selection</a></li>
+<li><a href="#high-posterior-density-intervals">High posterior density intervals</a></li>
+<li><a href="#retrieve-principal-components">Retrieve Principal Components</a><ul>
+<li><a href="#references">References</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="bayespca-a-package-for-variational-bayes-pca" class="section level1">
+<h1>bayespca: A package for Variational Bayes PCA</h1>
+<div id="theoretical-background" class="section level2">
+<h2>Theoretical background</h2>
+<p>Principal Components Analysis (PCA) allows performing dimensionality reduction via matrix factorization. While there are several ways to express a PCA model, in what follows will we consider the formulation <span class="math display">\[ X = X W P^T + E, \]</span> where X is a <span class="math inline">\(I \times J\)</span> data matrix (<span class="math inline">\(I\)</span> is the number of units; <span class="math inline">\(J\)</span> the number of continuous variables); <span class="math inline">\(W\)</span> is a <span class="math inline">\(J \times D\)</span> weight matrix (<span class="math inline">\(D \leq J\)</span> is the rank of the reduced matrix); <span class="math inline">\(P\)</span> is the orthogonal loading matrix, such that <span class="math inline">\(P^T P = I_{D \times D}\)</span>; and <span class="math inline">\(E\)</span> is an <span class="math inline">\(I \times J\)</span> error matrix. The <span class="math inline">\(D\)</span> principal components can be retrieved with <span class="math inline">\(Z = X W\)</span>. In this context, the focus of the inference is typically on <span class="math inline">\(W\)</span>. In particular, when <span class="math inline">\(J\)</span> is large and the main inferential goal is components’ interpretation, it is important for the analyst to obtain simple and interpretable components.</p>
+<p>The <code>bayespca</code> package allows performing the following operations:</p>
+<ol style="list-style-type: decimal">
+<li>estimation of the PCA model, with a Variational Bayes algorithm;<br />
+</li>
+<li>regularization of the elements of <span class="math inline">\(W\)</span> by means of its prior variances;</li>
+<li>variable selection, via automatic relevance determination (ARD).</li>
+</ol>
+<p>The Variational Bayes algorithm sees the columns of <span class="math inline">\(W\)</span> as latent variables, and <span class="math inline">\(P\)</span> as a fixed parameter. Furthermore, the residuals <span class="math inline">\(E\)</span> are assumed to be distributed according to a Normal distribution with mean 0 and variance <span class="math inline">\(\sigma^2\)</span>. The following prior is assumed for the <span class="math inline">\(d\)</span>-th column of <span class="math inline">\(W\)</span>:</p>
+<p><span class="math display">\[ w_d \sim MVN(0, T_d^{-1})  \]</span></p>
+<p>where <span class="math inline">\(MVN()\)</span> denotes the density of the Multivariate Normal Matrix, and <span class="math inline">\(T_d\)</span> denotes the prior (diagonal) precision matrix of the <span class="math inline">\(d\)</span>-th component. The <span class="math inline">\(j\)</span>-th element of the diagonal of <span class="math inline">\(T_d\)</span> will be denoted <span class="math inline">\(\tau_{dj}\)</span>.</p>
+</div>
+<div id="the-bayespca-package" class="section level2">
+<h2>The <code>bayespca</code> package</h2>
+<p>Variational Bayes PCA is implemented through the <code>vbpca</code> function, which takes the following arguments as inputs:</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD * <code>X</code> the input matrix; * <code>D</code> the number of components to be estimated; * <code>maxIter</code> the maximum number of iterations for the Variational Bayes algorithm; * <code>tolerance</code> convergence criterion of the algorithm (relative difference between ELBO values); * <code>verbose</code> logical parameter which prints estimation information on screen when <code>TRUE</code>; * <code>tau</code> value of the prior precisions; starting value when <code>updatetau=TRUE</code> or <code>priorvar!='fixed'</code> * <code>updatetau</code> logical parameter denoting whether the prior variances should be updated when <code>priorvar='fixed'</code>; * <code>priorvar</code> character argument denoting whether the prior variances should be <code>'fixed'</code>, or random with <code>'jeffrey'</code> or <code>'invgamma'</code> priors;<br />
+* <code>SVS</code> logical argument which activates Stochastic Variable Selection when set to <code>TRUE</code>; * <code>priorInclusion</code> prior inclusion probabilities for the elements of <span class="math inline">\(W\)</span> in the model; * <code>global.var</code> logical parameter which activates component-specific prior variances when set to <code>TRUE</code>; * <code>control</code> other control parameters, such as Inverse Gamma hyperparameters (see <code>?vbpca_control</code> for more information).</p>
+<p><code>vbpca</code> returns a vbpca object, which is a list containing various aspect of the model results. See <code>?vbpca</code> for further information. Internally, <code>vbpca</code> calls a C++ function (written with Rcpp) to estimate the model. When <code>nstart</code>&gt;1, the algorithm will autmatically pick (and output) the best run in terms of final ELBO value.</p>
+<p>In what follows, the various estimation modalities allowed by <code>vbpca</code> will be introduced. For presentation purposes, a synthetic data matrix with <span class="math inline">\(I = 100\)</span> rows and <span class="math inline">\(J = 20\)</span> columns genereted from three components will be used:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">141</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">I &lt;-<span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">J &lt;-<span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">V1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(I, <span class="dv">0</span>, <span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">V2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(I, <span class="dv">0</span>, <span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">V3 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(I, <span class="dv">0</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">rep</span>(V1, <span class="dv">7</span>), <span class="kw">rep</span>(V2, <span class="dv">7</span>), <span class="kw">rep</span>(V3, <span class="dv">6</span>)), I, J)</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">X &lt;-<span class="st"> </span>X <span class="op">+</span><span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(I <span class="op">*</span><span class="st"> </span>J, <span class="dv">0</span>, <span class="dv">1</span>), I, J)</a></code></pre></div>
+<p>I will now proceed with the estimation of the PCA model.</p>
+</div>
+<div id="levels-of-regularization-on-the-w-matrix" class="section level2">
+<h2>Levels of regularization on the W matrix</h2>
+<div id="fixed-tau" class="section level3">
+<h3>Fixed <code>tau</code></h3>
+<p>With fixed tau, it is possible to specify the model as follows:</p>
+</div>
+</div>
+<div id="levels-of-regularization-on-the-w-matrix-1" class="section level2">
+<h2>Levels of regularization on the W matrix</h2>
+<div id="fixed-tau-1" class="section level3">
+<h3>Fixed <code>tau</code></h3>
+<p>With fixed tau, it is possible to specify the model as follows:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># Install and load package</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co"># devtools::install_github(&quot;davidevdt/bayespca&quot;)</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">library</span>(bayespca)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co"># De-activate data center and scaling;</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">ctrl &lt;-<span class="st"> </span><span class="kw">vbpca_control</span>(<span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="dv">-1</span>,</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">                        <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co"># Estimate vbpca with fixed prior variances (equal to 1)</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co"># for the elements of W</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">mod1 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'fixed'</span>,</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">                <span class="dt">control =</span> ctrl, <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</a></code></pre></div>
+<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># Test the class of mod1:</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">is.vbpca</span>(mod1)</a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>The estimate posterior means of the <span class="math inline">\(W\)</span> matrix can be viewed with:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">mod1<span class="op">$</span>muW</a></code></pre></div>
+<pre><code>##              Component 1 Component 2   Component 3
+## variable 1  -0.376589698 -0.04416511  0.0003399127
+## variable 2  -0.373939776 -0.04582346 -0.0111489577
+## variable 3  -0.375148656 -0.04305857 -0.0078831833
+## variable 4  -0.374770076 -0.04473100 -0.0031124936
+## variable 5  -0.376808025 -0.04285791 -0.0100250666
+## variable 6  -0.375114064 -0.04446329 -0.0015012122
+## variable 7  -0.375069345 -0.04364081 -0.0007181137
+## variable 8   0.043916073 -0.37610684 -0.0194987814
+## variable 9   0.044338996 -0.37382689 -0.0224165501
+## variable 10  0.043216238 -0.37319455 -0.0161965551
+## variable 11  0.043432789 -0.37311089 -0.0246530479
+## variable 12  0.045420158 -0.37574266 -0.0200072027
+## variable 13  0.045158091 -0.37616395 -0.0206149535
+## variable 14  0.044605650 -0.37571347 -0.0144837510
+## variable 15  0.002905219  0.02229238 -0.4057459196
+## variable 16  0.003409761  0.02199152 -0.4068881251
+## variable 17  0.003232844  0.02063894 -0.4106993259
+## variable 18  0.002919709  0.02319335 -0.4056784549
+## variable 19  0.002019259  0.02192116 -0.4088023613
+## variable 20  0.001874207  0.02043128 -0.4078307380</code></pre>
+<p>and the <span class="math inline">\(P\)</span> matrix:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">mod1<span class="op">$</span>P</a></code></pre></div>
+<pre><code>##              Component 1 Component 2   Component 3
+## variable 1  -0.376589904 -0.04416517  0.0003399179
+## variable 2  -0.373939981 -0.04582353 -0.0111491289
+## variable 3  -0.375148862 -0.04305863 -0.0078833043
+## variable 4  -0.374770282 -0.04473106 -0.0031125414
+## variable 5  -0.376808232 -0.04285797 -0.0100252205
+## variable 6  -0.375114270 -0.04446335 -0.0015012352
+## variable 7  -0.375069551 -0.04364087 -0.0007181247
+## variable 8   0.043916097 -0.37610735 -0.0194990808
+## variable 9   0.044339020 -0.37382740 -0.0224168943
+## variable 10  0.043216262 -0.37319506 -0.0161968038
+## variable 11  0.043432813 -0.37311139 -0.0246534264
+## variable 12  0.045420183 -0.37574317 -0.0200075099
+## variable 13  0.045158115 -0.37616446 -0.0206152700
+## variable 14  0.044605675 -0.37571398 -0.0144839734
+## variable 15  0.002905220  0.02229241 -0.4057521497
+## variable 16  0.003409762  0.02199155 -0.4068943728
+## variable 17  0.003232846  0.02063897 -0.4107056321
+## variable 18  0.002919710  0.02319338 -0.4056846840
+## variable 19  0.002019260  0.02192119 -0.4088086384
+## variable 20  0.001874208  0.02043131 -0.4078370001</code></pre>
+<p>Among other things, the function returns the model evidence lower bound (ELBO) and the estimation time:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">mod1<span class="op">$</span>elbo</a></code></pre></div>
+<pre><code>## [1] -2834.329</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">mod1<span class="op">$</span>time</a></code></pre></div>
+<pre><code>##    user  system elapsed 
+##    0.01    0.00    0.02</code></pre>
+</div>
+<div id="fixed-updatable-tau" class="section level3">
+<h3>Fixed, updatable <code>tau</code></h3>
+<p>The prior precisions <span class="math inline">\(\tau_{dj}\)</span> can also be updated via Type-II Maximum Likelihood (empirical Bayes updates):</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">mod2 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'fixed'</span>,</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">                <span class="dt">updatetau =</span> <span class="ot">TRUE</span>, <span class="dt">control =</span> ctrl, <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</a></code></pre></div>
+<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">mod2<span class="op">$</span>muW</a></code></pre></div>
+<pre><code>##               Component 1  Component 2  Component 3
+## variable 1  -3.770417e-01 -0.051573499 -0.001788633
+## variable 2  -3.747997e-01 -0.025120541 -0.002279085
+## variable 3  -3.749896e-01 -0.039169668 -0.002284711
+## variable 4  -3.695986e-01 -0.062446420 -0.002188222
+## variable 5  -3.798267e-01 -0.031100065 -0.002172447
+## variable 6  -3.809607e-01 -0.058646547 -0.001863930
+## variable 7  -3.707615e-01 -0.037076450 -0.001858450
+## variable 8   4.610643e-02 -0.388243166 -0.019761887
+## variable 9   4.122547e-02 -0.376699340 -0.023207406
+## variable 10  2.542203e-02 -0.376987920 -0.006935656
+## variable 11  5.233439e-02 -0.374340987 -0.022206305
+## variable 12  4.536997e-02 -0.374395905 -0.013879307
+## variable 13  6.378896e-02 -0.370090650 -0.031591876
+## variable 14  3.106493e-02 -0.364598986 -0.002519184
+## variable 15  5.847012e-06  0.006198051 -0.406003865
+## variable 16  6.041405e-06  0.018464891 -0.407039992
+## variable 17  5.235991e-06  0.009013294 -0.411151002
+## variable 18  3.518425e-06  0.036121023 -0.398782724
+## variable 19  6.288835e-06  0.005824170 -0.410563013
+## variable 20  6.214579e-06  0.034945874 -0.412808540</code></pre>
+<p>The matrix of the prior precisions can be called with</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">mod2<span class="op">$</span>Tau</a></code></pre></div>
+<pre><code>##              Component 1 Component 2  Component 3
+## variable 1  6.723601e+00  184.301093 31906.370432
+## variable 2  6.797876e+00  437.595910 25321.510595
+## variable 3  6.720477e+00  245.899700 25234.633844
+## variable 4  6.909797e+00  136.385519 26302.854252
+## variable 5  6.614756e+00  336.071863 26671.584537
+## variable 6  6.538464e+00  150.961175 30414.866204
+## variable 7  6.920149e+00  278.098092 30606.846242
+## variable 8  1.973803e+02    6.278101   670.761526
+## variable 9  2.288287e+02    6.657350   569.759379
+## variable 10 4.149292e+02    6.642324  1989.950540
+## variable 11 1.699204e+02    6.739745   597.851184
+## variable 12 2.026152e+02    6.706750   970.392618
+## variable 13 1.292935e+02    6.822902   390.944657
+## variable 14 3.536290e+02    7.210202  5658.371090
+## variable 15 3.158381e+05 2396.464631     5.835080
+## variable 16 3.162767e+05  757.091273     5.769939
+## variable 17 3.264009e+05 1565.810040     5.674352
+## variable 18 3.196566e+05  348.615143     5.995065
+## variable 19 3.198439e+05 2526.927990     5.707424
+## variable 20 3.182544e+05  363.292432     5.588104</code></pre>
+</div>
+<div id="random-tau-gamma-prior" class="section level3">
+<h3>Random <code>tau</code>: Gamma prior</h3>
+<p>It is possible to specify a gamma prior on <span class="math inline">\(\tau_{d,j}\)</span>:</p>
+<p><span class="math display">\[ \tau_{d,j} \sim G(\alpha, \beta) \]</span></p>
+<p>with <span class="math inline">\(\alpha\)</span> shape parameter and <span class="math inline">\(\beta\)</span> scale parameter. The following code implements an IG(2, .5) prior on the precisions:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># Estimate the model</span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">mod3 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>,</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">                <span class="dt">priorvar =</span> <span class="st">'jeffrey'</span>, <span class="dt">control =</span> ctrl, <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</a></code></pre></div>
+<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
+<pre><code>## Warning: vbpca has not converged. Please re-run by increasing &lt;maxIter&gt; or
+## the convergence criterion &lt;tolerance&gt;.</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">mod3<span class="op">$</span>muW</a></code></pre></div>
+<pre><code>##               Component 1   Component 2   Component 3
+## variable 1  -3.746789e-01 -3.315223e-02 -3.534694e-09
+## variable 2  -3.768326e-01 -3.536543e-02 -1.181706e-08
+## variable 3  -3.768089e-01 -4.255859e-02 -8.316711e-09
+## variable 4  -3.695668e-01 -4.770493e-02 -6.619172e-09
+## variable 5  -3.831106e-01 -2.811557e-02 -1.083801e-08
+## variable 6  -3.804712e-01 -3.519811e-02 -5.851823e-09
+## variable 7  -3.716085e-01 -3.594493e-02 -4.633371e-09
+## variable 8   4.224035e-02 -3.791350e-01 -6.406588e-09
+## variable 9   3.583886e-02 -3.755145e-01 -1.230848e-08
+## variable 10  2.589180e-02 -3.752069e-01  1.958923e-09
+## variable 11  3.789386e-02 -3.760433e-01 -6.036710e-09
+## variable 12  3.927835e-02 -3.760372e-01 -4.825283e-09
+## variable 13  5.345808e-02 -3.776838e-01 -2.914355e-09
+## variable 14  2.322450e-02 -3.734752e-01  1.788685e-08
+## variable 15 -2.156599e-07 -3.678851e-08 -4.063632e-01
+## variable 16 -1.926783e-07 -3.952564e-08 -4.088012e-01
+## variable 17 -2.212218e-07 -4.458842e-09 -4.085228e-01
+## variable 18 -2.969943e-07  2.194196e-08 -4.083154e-01
+## variable 19 -2.114259e-07 -5.940961e-08 -4.093510e-01
+## variable 20 -2.070387e-07 -4.261073e-08 -4.081835e-01</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">mod3<span class="op">$</span>Tau </a></code></pre></div>
+<pre><code>##              Component 1  Component 2  Component 3
+## variable 1  6.809220e+00 3.275482e+02 2.077843e+08
+## variable 2  6.730510e+00 3.036210e+02 2.050578e+08
+## variable 3  6.660826e+00 2.300127e+02 2.061375e+08
+## variable 4  6.915632e+00 1.998200e+02 2.058102e+08
+## variable 5  6.510765e+00 3.927444e+02 2.079856e+08
+## variable 6  6.556520e+00 2.948528e+02 2.060881e+08
+## variable 7  6.891839e+00 2.979022e+02 2.061982e+08
+## variable 8  2.253672e+02 6.572865e+00 5.934440e+07
+## variable 9  2.789532e+02 6.702594e+00 5.886445e+07
+## variable 10 4.130201e+02 6.708845e+00 5.829204e+07
+## variable 11 2.622237e+02 6.697414e+00 5.840853e+07
+## variable 12 2.489328e+02 6.657525e+00 5.934046e+07
+## variable 13 1.672167e+02 6.575873e+00 5.948928e+07
+## variable 14 5.067458e+02 6.893591e+00 5.900699e+07
+## variable 15 8.466188e+06 6.290964e+06 5.827806e+00
+## variable 16 8.523121e+06 6.260477e+06 5.729407e+00
+## variable 17 8.749809e+06 6.438152e+06 5.753097e+00
+## variable 18 8.496264e+06 6.208003e+06 5.738715e+00
+## variable 19 8.576311e+06 6.397079e+06 5.743597e+00
+## variable 20 8.576987e+06 6.326102e+06 5.721094e+00</code></pre>
+<p><code>alphatau</code> and <code>betatau</code> can also be specified as <span class="math inline">\(D\)</span>-dimensional array, in which case the Gamma will have component-specific hyperparameters: <span class="math display">\[ \tau_{d,j} \sim G(\alpha_d, \beta_d) \]</span>.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># Set hyperparameter values </span></a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">ctrl2 &lt;-<span class="st"> </span><span class="kw">vbpca_control</span>(<span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="dv">-1</span>,</a>
+<a class="sourceLine" id="cb27-3" data-line-number="3">                       <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb27-4" data-line-number="4">                       <span class="dt">alphatau =</span> <span class="dv">2</span>, <span class="dt">betatau =</span> <span class="fl">.5</span>)</a>
+<a class="sourceLine" id="cb27-5" data-line-number="5">                       </a>
+<a class="sourceLine" id="cb27-6" data-line-number="6">                       </a>
+<a class="sourceLine" id="cb27-7" data-line-number="7">                       </a>
+<a class="sourceLine" id="cb27-8" data-line-number="8"><span class="co"># Estimate the model </span></a>
+<a class="sourceLine" id="cb27-9" data-line-number="9">mod4 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'invgamma'</span>, </a>
+<a class="sourceLine" id="cb27-10" data-line-number="10">              <span class="dt">control =</span> ctrl2, <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</a></code></pre></div>
+<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">mod4<span class="op">$</span>muW </a></code></pre></div>
+<pre><code>##              Component 1 Component 2   Component 3
+## variable 1  -0.376590647 -0.04416831  0.0002942783
+## variable 2  -0.373916145 -0.04580796 -0.0111136115
+## variable 3  -0.375152371 -0.04306335 -0.0078482119
+## variable 4  -0.374771589 -0.04473679 -0.0031289018
+## variable 5  -0.376819230 -0.04285286 -0.0099901143
+## variable 6  -0.375128398 -0.04445794 -0.0015202569
+## variable 7  -0.375056419 -0.04365149 -0.0007404096
+## variable 8   0.043918311 -0.37612413 -0.0195192789
+## variable 9   0.044336971 -0.37380675 -0.0224249935
+## variable 10  0.043215376 -0.37316095 -0.0162247651
+## variable 11  0.043435543 -0.37309948 -0.0245954650
+## variable 12  0.045416531 -0.37575287 -0.0200104086
+## variable 13  0.045161134 -0.37621159 -0.0206043931
+## variable 14  0.044602975 -0.37569136 -0.0144839228
+## variable 15  0.002901088  0.02228831 -0.4056882953
+## variable 16  0.003405222  0.02198276 -0.4068836318
+## variable 17  0.003228802  0.02064986 -0.4107113728
+## variable 18  0.002920826  0.02319232 -0.4056318015
+## variable 19  0.002018519  0.02191736 -0.4087805942
+## variable 20  0.001885975  0.02043594 -0.4078297610</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">mod4<span class="op">$</span>Tau</a></code></pre></div>
+<pre><code>##             Component 1 Component 2 Component 3
+## variable 1     4.349513    4.952224    4.961845
+## variable 2     4.357094    4.951479    4.961185
+## variable 3     4.348866    4.946652    4.955442
+## variable 4     4.346970    4.942133    4.951918
+## variable 5     4.346201    4.949399    4.957941
+## variable 6     4.348419    4.945415    4.955085
+## variable 7     4.353566    4.952076    4.961437
+## variable 8     4.940075    4.341259    4.947637
+## variable 9     4.943619    4.350731    4.950784
+## variable 10    4.946272    4.354243    4.954138
+## variable 11    4.941374    4.350682    4.947635
+## variable 12    4.939956    4.342697    4.948068
+## variable 13    4.934268    4.336865    4.942105
+## variable 14    4.953804    4.353473    4.962576
+## variable 15    4.963713    4.961313    4.266473
+## variable 16    4.954953    4.952599    4.256391
+## variable 17    4.956272    4.954215    4.246050
+## variable 18    4.953989    4.951371    4.259347
+## variable 19    4.962076    4.959717    4.256072
+## variable 20    4.950147    4.948089    4.249971</code></pre>
+<p><code>alphatau</code> and <code>betatau</code> can also be specified as <span class="math inline">\(D\)</span>-dimensional array, in which case the Inverse Gamma will have component-specific hyperparameters: <span class="math display">\[ \tau_{d,j} \sim IG(\alpha_d, \beta_d) \]</span>.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="co"># Set hyperparameter values </span></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2">ctrl3 &lt;-<span class="st"> </span><span class="kw">vbpca_control</span>(<span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="dv">-1</span>,</a>
+<a class="sourceLine" id="cb33-3" data-line-number="3">                       <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb33-4" data-line-number="4">                       <span class="dt">alphatau =</span> <span class="kw">c</span>(.<span class="dv">5</span>, <span class="dv">50</span>, <span class="dv">3</span>), <span class="dt">betatau =</span> <span class="kw">c</span>(.<span class="dv">5</span>, <span class="fl">.01</span>, <span class="dv">10</span>), </a>
+<a class="sourceLine" id="cb33-5" data-line-number="5">                       <span class="dt">hypertype =</span> <span class="st">'component'</span>)</a>
+<a class="sourceLine" id="cb33-6" data-line-number="6">                       </a>
+<a class="sourceLine" id="cb33-7" data-line-number="7">                       </a>
+<a class="sourceLine" id="cb33-8" data-line-number="8"><span class="co"># Estimate the model </span></a>
+<a class="sourceLine" id="cb33-9" data-line-number="9">mod5 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'invgamma'</span>, </a>
+<a class="sourceLine" id="cb33-10" data-line-number="10">              <span class="dt">control =</span> ctrl3, <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</a></code></pre></div>
+<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">mod5<span class="op">$</span>muW </a></code></pre></div>
+<pre><code>##              Component 1  Component 2   Component 3
+## variable 1  -0.378543478 -0.022403852  0.0025386295
+## variable 2  -0.376019722 -0.021196983 -0.0088612115
+## variable 3  -0.377066494 -0.022557126 -0.0057270031
+## variable 4  -0.376774699 -0.022650241 -0.0008814042
+## variable 5  -0.378720012 -0.022357681 -0.0078768015
+## variable 6  -0.377102619 -0.019528818  0.0007032582
+## variable 7  -0.376989874 -0.026248142  0.0014710887
+## variable 8   0.021470521 -0.045359009 -0.0012343390
+## variable 9   0.022018693 -0.049787441 -0.0042453561
+## variable 10  0.020952041 -0.037610876  0.0018996414
+## variable 11  0.021150966 -0.048838642 -0.0065159768
+## variable 12  0.022990213 -0.048959831 -0.0017490218
+## variable 13  0.022694280 -2.350959262 -0.0024775177
+## variable 14  0.022197501 -0.048663411  0.0037657268
+## variable 15  0.002988814  0.002048412 -0.4063509956
+## variable 16  0.003472519 -0.001954198 -0.4074615231
+## variable 17  0.003201167  0.008962963 -0.4112475488
+## variable 18  0.003059452  0.006509927 -0.4063451138
+## variable 19  0.002074293  0.003760222 -0.4093932228
+## variable 20  0.001853458 -0.003935007 -0.4083201342</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">mod5<span class="op">$</span>Tau </a></code></pre></div>
+<pre><code>##             Component 1 Component 2 Component 3
+## variable 1     1.734909  4885.51101   0.3498302
+## variable 2     1.737796  4897.91867   0.3498294
+## variable 3     1.734283  4883.57903   0.3498025
+## variable 4     1.733024  4882.65984   0.3497829
+## variable 5     1.733356  4885.97064   0.3498127
+## variable 6     1.733921  4914.16337   0.3497986
+## variable 7     1.736550  4841.25146   0.3498290
+## variable 8     1.974069  4535.17321   0.3497716
+## variable 9     1.975981  4450.34973   0.3497902
+## variable 10    1.977182  4671.07826   0.3498009
+## variable 11    1.974679  4468.90214   0.3497765
+## variable 12    1.974249  4466.51594   0.3497748
+## variable 13    1.971273    18.20417   0.3497460
+## variable 14    1.981100  4472.66011   0.3498376
+## variable 15    1.982219  5007.34354   0.3469767
+## variable 16    1.977733  5007.36672   0.3469196
+## variable 17    1.978365  4988.53185   0.3468718
+## variable 18    1.977266  4997.70264   0.3469310
+## variable 19    1.981324  5004.97797   0.3469253
+## variable 20    1.975283  5004.39805   0.3468847</code></pre>
+<p>Notice the different level of regularization obtained across the different components. In order to activate these ‘component-specific’ hyperpriors, <code>hypertype = 'component'</code> was specified.</p>
+</div>
+<div id="random-tau-random-betatau" class="section level3">
+<h3>Random <code>tau</code>, random <code>betatau</code></h3>
+<p>It is also possible to specify a Gamma hyperprior on <span class="math inline">\(\beta\)</span> (while <span class="math inline">\(\alpha\)</span> remains fixed): <span class="math display">\[ \beta \sim Ga(\gamma, \delta). \]</span> This is achievable by setting <code>gammatau</code> (and <code>deltatau</code>) larger than 0 in the control parameters:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="co"># Specify component-specific Gamma(.01, 10) hyperpriors on betatau </span></a>
+<a class="sourceLine" id="cb39-2" data-line-number="2">ctrl4 &lt;-<span class="st"> </span><span class="kw">vbpca_control</span>(<span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="dv">-1</span>, </a>
+<a class="sourceLine" id="cb39-3" data-line-number="3">                       <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb39-4" data-line-number="4">                       <span class="dt">alphatau =</span> <span class="dv">1</span>, <span class="dt">betatau =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb39-5" data-line-number="5">                       <span class="dt">gammatau =</span> <span class="fl">.01</span>, <span class="dt">deltatau =</span> <span class="dv">10</span>, </a>
+<a class="sourceLine" id="cb39-6" data-line-number="6">                       <span class="dt">hypertype =</span> <span class="st">'component'</span>)</a>
+<a class="sourceLine" id="cb39-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb39-8" data-line-number="8">                       </a>
+<a class="sourceLine" id="cb39-9" data-line-number="9"><span class="co"># Estimate the model </span></a>
+<a class="sourceLine" id="cb39-10" data-line-number="10">mod6 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'invgamma'</span>, </a>
+<a class="sourceLine" id="cb39-11" data-line-number="11">              <span class="dt">control =</span> ctrl4, <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</a></code></pre></div>
+<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">mod6<span class="op">$</span>muW </a></code></pre></div>
+<pre><code>##              Component 1 Component 2  Component 3
+## variable 1  -0.376611438 -0.04414830 -0.001252671
+## variable 2  -0.373522305 -0.04527018 -0.009487805
+## variable 3  -0.375303126 -0.04330237 -0.006687095
+## variable 4  -0.374545174 -0.04476030 -0.003779739
+## variable 5  -0.377135323 -0.04290004 -0.008530456
+## variable 6  -0.375471472 -0.04449078 -0.002519439
+## variable 7  -0.374841518 -0.04378470 -0.001756540
+## variable 8   0.044091734 -0.37646021 -0.020075478
+## variable 9   0.044279171 -0.37340282 -0.022181983
+## variable 10  0.043230863 -0.37275698 -0.017353060
+## variable 11  0.043633682 -0.37285414 -0.022657108
+## variable 12  0.045225592 -0.37597481 -0.020153766
+## variable 13  0.045217385 -0.37690958 -0.020321214
+## variable 14  0.044311525 -0.37546975 -0.014960798
+## variable 15  0.002829728  0.02204140 -0.405116611
+## variable 16  0.003208895  0.02187057 -0.407344521
+## variable 17  0.003155312  0.02095411 -0.410909109
+## variable 18  0.002824576  0.02288662 -0.405229626
+## variable 19  0.002136107  0.02174443 -0.408747297
+## variable 20  0.002177548  0.02077097 -0.407952211</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">mod6<span class="op">$</span>Tau </a></code></pre></div>
+<pre><code>##             Component 1 Component 2 Component 3
+## variable 1     14.89847    49.95597    64.79114
+## variable 2     15.06380    49.85157    64.48104
+## variable 3     14.87935    49.45351    63.73992
+## variable 4     14.89953    49.19672    63.74737
+## variable 5     14.83146    49.84022    64.32954
+## variable 6     14.87624    49.45017    63.91513
+## variable 7     14.97986    49.94842    64.56200
+## variable 8     48.95314    14.77489    62.76748
+## variable 9     49.16960    14.97374    62.96668
+## variable 10    49.41724    15.02556    63.45826
+## variable 11    49.04970    14.98706    62.69018
+## variable 12    48.92027    14.79264    62.77075
+## variable 13    48.53974    14.68576    62.16584
+## variable 14    50.07132    15.00763    64.71429
+## variable 15    51.73889    51.41043    14.14011
+## variable 16    51.12230    50.69433    13.94199
+## variable 17    51.27494    50.94174    13.77126
+## variable 18    51.01890    50.58728    14.03940
+## variable 19    51.71281    51.34808    13.93690
+## variable 20    50.73849    50.38297    13.85877</code></pre>
+<p>The posterior means of <span class="math inline">\(\beta\)</span> can be accessed via</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">mod6<span class="op">$</span>priorBeta </a></code></pre></div>
+<pre><code>##            [,1]       [,2]       [,3]
+## [1,] 0.02643281 0.02638618 0.02076472
+## attr(,&quot;names&quot;)
+## [1] &quot;beta 1&quot; &quot;beta 2&quot; &quot;beta 3&quot;</code></pre>
+<p><code>hypertype</code> specify the type of hyperprior for <code>beta</code>:</p>
+<ul>
+<li><code>'common'</code> implies <span class="math inline">\(\beta \sim Ga(\alpha, \beta)\)</span>;</li>
+<li><code>'component'</code> implies <span class="math inline">\(\beta_d \sim Ga(\alpha_d, \beta_d)\)</span>;</li>
+<li><code>'local'</code> implies <span class="math inline">\(\beta_{dj} \sim Ga(\alpha_{dj}, \beta_{dj})\)</span>.</li>
+</ul>
+<p>Similar to <code>alphatau</code> and <code>betatau</code>, <code>gammatau</code> and <code>deltatau</code> can also be <span class="math inline">\(D\)</span>-dimensional arrays for component-specific hyperpriors on <span class="math inline">\(\beta\)</span>.</p>
+</div>
+<div id="global-prior-variances" class="section level3">
+<h3>Global prior variances</h3>
+<p>So far, the parameter <code>global.var</code> has always ben set to <code>FALSE</code>, implying <span class="math display">\[ w_{j,d} \sim N(0, \tau_{j,d}). \]</span> Setting <code>global.var = TRUE</code> will modify this formulation, which will switch to <span class="math display">\[ w_{j,d} \sim N(0, \tau_{d}) \]</span> that is, component-specific variances (called ‘global variances’ in <code>vbpca</code>) will be estimated instead:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="co"># Fixed prior global variances, updated via Type-II maximum likelihood: </span></a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">mod7 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'fixed'</span>,</a>
+<a class="sourceLine" id="cb47-3" data-line-number="3">              <span class="dt">updatetau =</span> <span class="ot">TRUE</span>, <span class="dt">control =</span> ctrl, <span class="dt">verbose =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb47-4" data-line-number="4">              <span class="dt">global.var =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
+<div class="figure">
+<img src="data:image/png;base64,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uTxfuM1c2Xc65r5eocvBSYOetAdy8I+p5/xbzOnFzNY6e6bq5mv93OyxmNaL8dMccquHzqwHo7luMaM1MQWlXb1mqkBRXbgMN0pbNK+V2xfDU61LmQjWrCJvMtcrZrLW7nE4ua7oZhWIAAERICACBESAgAgQEAECIkBABAiIAAERICACBESAgAgQEAECIkBABAiIAAERICACBESAgAgQEAECIkBABAiIAAERIKBpAYkcXrh6pZMqlzUzAjQpIJn6tHfNI7DJ5RWNQZoSkMpnajLjojRLQM2bA/4Sb26V+amH9fdb/vKONU9WObz+Za1SL9Xu45bvli8h0jfw8mmaal8TAuosRsTX3eHvPjmsReb8i3c8RY5d9k6uyNPsPm75bvWPJ081G+ZYg/RlGWXyV3X3KDLG1I+dTB9jFa3dLY5he9SqqS/enTfMG5B0R4LJTn1qPkhsarfgwH7IBDptwxwB6U1MEmBX2QX0WiU0t7tbQGqptlkDap10VewMNagL6KIG1ar3misgrZvXfFCniYk4qeODejxmDUgGimLGl9aLdQDxfN1uL7ZTy+/zg/Y6sai3OZg17a2G9u7bNg7qAPpmrdJ62zhIARJxEAsG2g37+cVBWOZZF9cTAQIiQEBZA8pBBAiIAAERICACBESAgAgQEAECIkBABAiIAAERICACBESAgAgQEAECIkBABAiIAAERICACBPR/QT+aNaT4GzkAAAAASUVORK5CYII=" alt="Prior variances for the first 3 components." />
+<p class="caption">Prior variances for the first 3 components.</p>
+</div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">mod7<span class="op">$</span>muW </a></code></pre></div>
+<pre><code>##              Component 1 Component 2   Component 3
+## variable 1  -0.376586344 -0.04416414  0.0003398280
+## variable 2  -0.373936445 -0.04582246 -0.0111461792
+## variable 3  -0.375145315 -0.04305763 -0.0078812187
+## variable 4  -0.374766738 -0.04473002 -0.0031117179
+## variable 5  -0.376804669 -0.04285697 -0.0100225682
+## variable 6  -0.375110723 -0.04446231 -0.0015008380
+## variable 7  -0.375066004 -0.04363985 -0.0007179347
+## variable 8   0.043915682 -0.37609858 -0.0194939220
+## variable 9   0.044338601 -0.37381868 -0.0224109636
+## variable 10  0.043215853 -0.37318635 -0.0161925187
+## variable 11  0.043432402 -0.37310269 -0.0246469040
+## variable 12  0.045419753 -0.37573441 -0.0200022167
+## variable 13  0.045157688 -0.37615568 -0.0206098160
+## variable 14  0.044605253 -0.37570521 -0.0144801414
+## variable 15  0.002905193  0.02229189 -0.4056448021
+## variable 16  0.003409730  0.02199104 -0.4067867230
+## variable 17  0.003232816  0.02063848 -0.4105969740
+## variable 18  0.002919683  0.02319284 -0.4055773542
+## variable 19  0.002019241  0.02192068 -0.4087004821
+## variable 20  0.001874190  0.02043083 -0.4077291009</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">mod7<span class="op">$</span>Tau </a></code></pre></div>
+<pre><code>## [1] 17.32691 17.32734 17.33475</code></pre>
+<p>Notice the plot of the precisions that appears in this case. This is useful when the number of components supported by the data is uncertain (scree-plot - see Figure 2):</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">mod8 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">10</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'fixed'</span>,</a>
+<a class="sourceLine" id="cb53-2" data-line-number="2">                <span class="dt">updatetau =</span> <span class="ot">TRUE</span>, <span class="dt">global.var =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb53-3" data-line-number="3">                <span class="dt">control =</span> ctrl, <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</a></code></pre></div>
+<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
+<div class="figure">
+<img src="data:image/png;base64,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" alt="Scree-plot for 10 components." />
+<p class="caption">Scree-plot for 10 components.</p>
+</div>
+</div>
+</div>
+<div id="stochastic-search-variable-selection" class="section level2">
+<h2>Stochastic Search Variable Selection</h2>
+<p>By requiring <code>SVS = TRUE</code>, the model activates stochastic-search-variable-selection, a method described by George ad McCulloch (1993) for the Gibbs Sampler. The method has been adapted in <em>bayespca</em> for the Variational Bayes algorithm. The assumed ‘spike-and-slab’ prior for the <span class="math inline">\((j,d)\)</span>-th element of <span class="math inline">\(W\)</span> becomes:</p>
+<p><span class="math display">\[ w_{j,d} \sim N(0, \pi \tau + (1 - \pi) \tau v_0)  \]</span></p>
+<p>where <span class="math inline">\(v_0\)</span> is a scalar which rescales the spike variance to a value close to 0. For this reason, <span class="math inline">\(v_0\)</span> should be a number included in <span class="math inline">\((0, 1)\)</span>, as close as possible to 0. <span class="math inline">\(\pi\)</span> represents the prior probability of inclusion of the <span class="math inline">\(j\)</span>-th variable in the <span class="math inline">\(d\)</span>-th component of the model. <code>vbpca</code> estimates the posterior probabilities of inclusion, conditional on <span class="math inline">\(X\)</span> and the values in <span class="math inline">\(W\)</span>.</p>
+<p>While <span class="math inline">\(v_0\)</span> should be a small value close to 0, too small values of such parameter will shrink the variances <span class="math inline">\(\tau\)</span> too much, and no variable will eventually be included in the model. On the other hand, using a too large value for <span class="math inline">\(v_0\)</span> will not shrink the variances enough, and all posterior inclusion probabilities will be close to 1. <span class="math inline">\(v_0\)</span> should then be set with a grain of salt. Preliminary results from partial simulation studies have shown that values between 0.0001 and 0.005 lead to acceptable results, but adequate values of <span class="math inline">\(v_0\)</span> can be dataset-specific. Simulation studies have also shown that the method works better when Gamma priors are specified for <span class="math inline">\(\tau\)</span>.</p>
+<p>In <code>vbpca</code>, the parameter <span class="math inline">\(v_0\)</span> is called <code>v0</code> in the control parameters of <code>vbpca_control</code>, while the prior inclusion probability is called <code>priorInclusion</code>. <code>priorInclusion</code> can be fixed, or assigned to a Beta hyperprior:</p>
+<ul>
+<li>among the control parameters of <code>vbpca_control</code>, set <code>beta1pi</code> smaller than or equal to 0 for fixed <span class="math inline">\(\pi\)</span>;</li>
+<li>last, set <code>beta1pi</code> larger than 0 for Beta specifications.</li>
+</ul>
+<p>When <code>beta1pi</code> is larger than 0, a Beta prior is assumed for <span class="math inline">\(\pi\)</span>:</p>
+<p><span class="math display">\[ \pi \sim Beta(\beta_1, \beta_2).\]</span></p>
+<p>In <code>vbpca</code>, <span class="math inline">\(\beta1\)</span> can be controlled with the <code>beta1pi</code> argument and <span class="math inline">\(\beta2\)</span> with the <code>beta2pi</code> argument in <code>vbpca_control</code>.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="co"># SVS, fixed priorInclusion and InverseGamma(5, 1) for tau, v0 = .005</span></a>
+<a class="sourceLine" id="cb55-2" data-line-number="2">ctrl5 &lt;-<span class="st"> </span><span class="kw">vbpca_control</span>(<span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="dv">-1</span>,</a>
+<a class="sourceLine" id="cb55-3" data-line-number="3">                        <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb55-4" data-line-number="4">                        <span class="dt">alphatau =</span> <span class="dv">5</span>, <span class="dt">betatau =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb55-5" data-line-number="5">                        <span class="dt">beta1pi =</span> <span class="dv">-1</span>, <span class="dt">v0 =</span> <span class="fl">5e-03</span>)</a>
+<a class="sourceLine" id="cb55-6" data-line-number="6"><span class="co"># Estimate the model with priorInclusion = 0.5</span></a>
+<a class="sourceLine" id="cb55-7" data-line-number="7">mod9 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'invgamma'</span>,</a>
+<a class="sourceLine" id="cb55-8" data-line-number="8">                <span class="dt">SVS =</span> <span class="ot">TRUE</span>, <span class="dt">priorInclusion =</span> <span class="fl">0.5</span>, <span class="dt">control =</span> ctrl5,</a>
+<a class="sourceLine" id="cb55-9" data-line-number="9">                <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</a></code></pre></div>
+<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">mod9<span class="op">$</span>muW</a></code></pre></div>
+<pre><code>##              Component 1 Component 2  Component 3
+## variable 1  -0.376750692 -0.04448495 -0.004123683
+## variable 2  -0.372459887 -0.04361185 -0.005752993
+## variable 3  -0.375671975 -0.04356723 -0.004989270
+## variable 4  -0.373836916 -0.04448097 -0.004703139
+## variable 5  -0.377543656 -0.04319604 -0.005454948
+## variable 6  -0.375846023 -0.04472475 -0.004528453
+## variable 7  -0.375420482 -0.04399690 -0.004254785
+## variable 8   0.044408056 -0.37704714 -0.019871878
+## variable 9   0.043996739 -0.37297274 -0.020136604
+## variable 10  0.043266209 -0.37568704 -0.019144528
+## variable 11  0.043855992 -0.37127741 -0.019779142
+## variable 12  0.044744851 -0.37518584 -0.019753061
+## variable 13  0.045169754 -0.37455442 -0.019722877
+## variable 14  0.043743494 -0.37734332 -0.018263649
+## variable 15  0.002622365  0.02125415 -0.405655204
+## variable 16  0.002687542  0.02139614 -0.407985339
+## variable 17  0.002847711  0.02135195 -0.409082736
+## variable 18  0.002536920  0.02132424 -0.406350545
+## variable 19  0.002543555  0.02126640 -0.408688107
+## variable 20  0.002678762  0.02114151 -0.408155324</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="co"># SVS, priorInclusion with Beta(1,1) priors and InverseGamma(5, 1) for tau, v0 = .005</span></a>
+<a class="sourceLine" id="cb59-2" data-line-number="2">ctrl6 &lt;-<span class="st"> </span><span class="kw">vbpca_control</span>(<span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="dv">-1</span>,</a>
+<a class="sourceLine" id="cb59-3" data-line-number="3">                        <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>, <span class="dt">alphatau =</span> <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb59-4" data-line-number="4">                        <span class="dt">betatau =</span> <span class="dv">1</span>, <span class="dt">beta1pi =</span> <span class="dv">1</span>, <span class="dt">beta2pi =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb59-5" data-line-number="5">                        <span class="dt">v0 =</span> <span class="fl">5e-03</span>)</a>
+<a class="sourceLine" id="cb59-6" data-line-number="6">                        </a>
+<a class="sourceLine" id="cb59-7" data-line-number="7"><span class="co"># Estimate the model</span></a>
+<a class="sourceLine" id="cb59-8" data-line-number="8">mod10 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'invgamma'</span>,</a>
+<a class="sourceLine" id="cb59-9" data-line-number="9">                <span class="dt">SVS =</span> <span class="ot">TRUE</span>, <span class="dt">priorInclusion =</span> <span class="fl">0.5</span>, <span class="dt">control =</span> ctrl6,</a>
+<a class="sourceLine" id="cb59-10" data-line-number="10">                <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</a></code></pre></div>
+<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">mod10<span class="op">$</span>muW</a></code></pre></div>
+<pre><code>##              Component 1 Component 2  Component 3
+## variable 1  -0.376821881 -0.04443487 -0.004109436
+## variable 2  -0.372330173 -0.04358419 -0.005697493
+## variable 3  -0.375718284 -0.04343594 -0.004948158
+## variable 4  -0.373892738 -0.04418224 -0.004672895
+## variable 5  -0.377498804 -0.04329720 -0.005404988
+## variable 6  -0.375807899 -0.04448271 -0.004504242
+## variable 7  -0.375543840 -0.04396962 -0.004236982
+## variable 8   0.044271834 -0.37708761 -0.019690504
+## variable 9   0.043950285 -0.37295109 -0.019942379
+## variable 10  0.043385056 -0.37575936 -0.018993345
+## variable 11  0.043789968 -0.37125713 -0.019594610
+## variable 12  0.044486008 -0.37516550 -0.019574991
+## variable 13  0.044629057 -0.37452510 -0.019541734
+## variable 14  0.043968445 -0.37746585 -0.018157271
+## variable 15  0.002608161  0.02107559 -0.405655041
+## variable 16  0.002664430  0.02120244 -0.407997729
+## variable 17  0.002842477  0.02116040 -0.409084353
+## variable 18  0.002533751  0.02111718 -0.406361686
+## variable 19  0.002532574  0.02108326 -0.408694905
+## variable 20  0.002668043  0.02094085 -0.408182161</code></pre>
+<p>The estimated posterior inclusion probabilities for the two models:</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">mod9<span class="op">$</span>inclusionProbabilities</a></code></pre></div>
+<pre><code>##             Component 1 Component 2 Component 3
+## variable 1   1.00000000   0.2120296  0.09726907
+## variable 2   1.00000000   0.2068326  0.09851144
+## variable 3   1.00000000   0.2084065  0.09897047
+## variable 4   1.00000000   0.2139049  0.09843787
+## variable 5   1.00000000   0.2044355  0.09823061
+## variable 6   1.00000000   0.2146309  0.09848977
+## variable 7   1.00000000   0.2091004  0.09793821
+## variable 8   0.21428441   1.0000000  0.11723947
+## variable 9   0.21111001   1.0000000  0.11752795
+## variable 10  0.20612101   1.0000000  0.11542999
+## variable 11  0.21070545   1.0000000  0.11707616
+## variable 12  0.21594418   1.0000000  0.11702863
+## variable 13  0.21982827   1.0000000  0.11758358
+## variable 14  0.20661409   1.0000000  0.11227938
+## variable 15  0.09660274   0.1179197  1.00000000
+## variable 16  0.09702372   0.1193704  1.00000000
+## variable 17  0.09668529   0.1185038  1.00000000
+## variable 18  0.09705420   0.1192275  1.00000000
+## variable 19  0.09635180   0.1178253  1.00000000
+## variable 20  0.09741905   0.1191173  1.00000000</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">mod10<span class="op">$</span>inclusionProbabilities</a></code></pre></div>
+<pre><code>##             Component 1 Component 2 Component 3
+## variable 1   1.00000000  0.14850584  0.06710159
+## variable 2   1.00000000  0.14481111  0.06794426
+## variable 3   1.00000000  0.14528607  0.06824230
+## variable 4   1.00000000  0.14842819  0.06788528
+## variable 5   1.00000000  0.14366894  0.06775190
+## variable 6   1.00000000  0.14930551  0.06791993
+## variable 7   1.00000000  0.14647800  0.06755126
+## variable 8   0.14943035  1.00000000  0.08087388
+## variable 9   0.14764427  1.00000000  0.08106952
+## variable 10  0.14487228  1.00000000  0.07966569
+## variable 11  0.14722900  1.00000000  0.08075690
+## variable 12  0.15003021  1.00000000  0.08073007
+## variable 13  0.15126284  1.00000000  0.08108863
+## variable 14  0.14596444  1.00000000  0.07756885
+## variable 15  0.06663148  0.08142293  1.00000000
+## variable 16  0.06690799  0.08237169  1.00000000
+## variable 17  0.06668375  0.08179149  1.00000000
+## variable 18  0.06693031  0.08225103  1.00000000
+## variable 19  0.06646156  0.08135076  1.00000000
+## variable 20  0.06717262  0.08216783  1.00000000</code></pre>
+<p>It is also possible to compare the (known) variable inclusion matrix vs. the estimated ones graphically. Let’s plot a heatmap of such probabilities for model mod9:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">trueInclusions &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, J, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb67-2" data-line-number="2">trueInclusions[<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb67-3" data-line-number="3">trueInclusions[<span class="dv">8</span><span class="op">:</span><span class="dv">14</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb67-4" data-line-number="4">trueInclusions[<span class="dv">15</span><span class="op">:</span><span class="dv">20</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb67-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb67-6" data-line-number="6"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb67-7" data-line-number="7"><span class="kw">image</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(trueInclusions), <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(trueInclusions),</a>
+<a class="sourceLine" id="cb67-8" data-line-number="8">        <span class="kw">t</span>(trueInclusions[J<span class="op">:</span><span class="dv">1</span>, ]), <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb67-9" data-line-number="9">        <span class="dt">main =</span> <span class="st">&quot;True Inclusions&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb67-10" data-line-number="10">        <span class="dt">col =</span> RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">9</span>, <span class="st">&quot;Blues&quot;</span>))</a>
+<a class="sourceLine" id="cb67-11" data-line-number="11"><span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>, <span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">labels =</span> <span class="kw">paste</span>(<span class="st">&quot;Component &quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span> ))</a>
+<a class="sourceLine" id="cb67-12" data-line-number="12"><span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">2</span>, <span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">labels =</span> <span class="kw">paste</span>(<span class="st">&quot;Var &quot;</span>, J<span class="op">:</span><span class="dv">1</span> ))</a>
+<a class="sourceLine" id="cb67-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb67-14" data-line-number="14">fields<span class="op">::</span><span class="kw">image.plot</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(trueInclusions), <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(trueInclusions),</a>
+<a class="sourceLine" id="cb67-15" data-line-number="15">                    <span class="kw">t</span>(mod9<span class="op">$</span>inclusionProbabilities[J<span class="op">:</span><span class="dv">1</span>, ]), <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb67-16" data-line-number="16">                    <span class="dt">main =</span> <span class="st">&quot;Estimated Inclusions&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb67-17" data-line-number="17">                    <span class="dt">col =</span> RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">9</span>, <span class="st">&quot;Blues&quot;</span>))</a>
+<a class="sourceLine" id="cb67-18" data-line-number="18"><span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>, <span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">labels =</span> <span class="kw">paste</span>(<span class="st">&quot;Component &quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span> ))</a></code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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" alt="True and Estimated inclusion probabilities." />
+<p class="caption">True and Estimated inclusion probabilities.</p>
+</div>
+<p>We can observe the estimated prior inclusion probabilities for mod10:</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1">mod10<span class="op">$</span>priorInclusion</a></code></pre></div>
+<pre><code>##          [,1]
+## [1,] 0.403084
+## [2,] 0.403084
+## [3,] 0.403084</code></pre>
+<p>Similar to the hyperparameters of the Inverse Gamma priors on  , priorInclusion, beta1pi and beta2pi can also be specified as D-dimensional arrays. This will allow estimating the inclusion probabilities with different degrees of ‘sparsity’ for each component. For Beta priors, all elements of beta1pi must be larger than 0. Let us look at one example:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="co"># Beta priors with different degrees of sparsity for each component</span></a>
+<a class="sourceLine" id="cb70-2" data-line-number="2">ctrl7 &lt;-<span class="st"> </span><span class="kw">vbpca_control</span>(<span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="dv">-1</span>,</a>
+<a class="sourceLine" id="cb70-3" data-line-number="3">                        <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb70-4" data-line-number="4">                        <span class="dt">alphatau =</span> <span class="dv">5</span>, <span class="dt">betatau =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb70-5" data-line-number="5">                        <span class="dt">beta1pi =</span> <span class="kw">c</span>(<span class="fl">0.01</span>, <span class="dv">1</span>, <span class="dv">10</span>), <span class="dt">beta2pi =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb70-6" data-line-number="6">                        <span class="dt">v0 =</span> <span class="fl">5e-03</span>)</a>
+<a class="sourceLine" id="cb70-7" data-line-number="7"><span class="co"># Estimate the model</span></a>
+<a class="sourceLine" id="cb70-8" data-line-number="8">mod11 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'invgamma'</span>, <span class="dt">SVS =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb70-9" data-line-number="9">                <span class="dt">priorInclusion =</span> <span class="kw">rep</span>(<span class="fl">0.5</span>, <span class="dv">3</span>), <span class="dt">control =</span> ctrl7, <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</a></code></pre></div>
+<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1">mod11<span class="op">$</span>muW</a></code></pre></div>
+<pre><code>##              Component 1 Component 2  Component 3
+## variable 1  -0.376821889 -0.04445558 -0.004069637
+## variable 2  -0.372328317 -0.04356824 -0.005747755
+## variable 3  -0.375718432 -0.04342297 -0.004969024
+## variable 4  -0.373892106 -0.04421774 -0.004668224
+## variable 5  -0.377498784 -0.04325308 -0.005445156
+## variable 6  -0.375807735 -0.04452319 -0.004486450
+## variable 7  -0.375544189 -0.04396607 -0.004205692
+## variable 8   0.044274077 -0.37707952 -0.019733044
+## variable 9   0.043952934 -0.37296945 -0.020014261
+## variable 10  0.043388589 -0.37572640 -0.018975238
+## variable 11  0.043792754 -0.37126675 -0.019647359
+## variable 12  0.044488033 -0.37518311 -0.019611465
+## variable 13  0.044630711 -0.37454998 -0.019583937
+## variable 14  0.043971729 -0.37742821 -0.018041956
+## variable 15  0.002608500  0.02109164 -0.405680986
+## variable 16  0.002664754  0.02122263 -0.407992055
+## variable 17  0.002842888  0.02117744 -0.409091854
+## variable 18  0.002534089  0.02114126 -0.406373044
+## variable 19  0.002532960  0.02109991 -0.408701060
+## variable 20  0.002668495  0.02096197 -0.408133648</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1">mod11<span class="op">$</span>priorInclusion</a></code></pre></div>
+<pre><code>##           [,1]
+## [1,] 0.4016964
+## [2,] 0.4443481
+## [3,] 0.5816448</code></pre>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1">mod11<span class="op">$</span>inclusionProbabilities</a></code></pre></div>
+<pre><code>##             Component 1 Component 2 Component 3
+## variable 1   1.00000000  0.17351540   0.1319171
+## variable 2   1.00000000  0.16904717   0.1336219
+## variable 3   1.00000000  0.16967154   0.1342983
+## variable 4   1.00000000  0.17356094   0.1335524
+## variable 5   1.00000000  0.16759290   0.1332418
+## variable 6   1.00000000  0.17457980   0.1336274
+## variable 7   1.00000000  0.17104055   0.1328529
+## variable 8   0.14865160  1.00000000   0.1581165
+## variable 9   0.14687665  1.00000000   0.1585037
+## variable 10  0.14412244  1.00000000   0.1556274
+## variable 11  0.14646367  1.00000000   0.1579171
+## variable 12  0.14924803  1.00000000   0.1578362
+## variable 13  0.15047223  1.00000000   0.1586403
+## variable 14  0.14521005  1.00000000   0.1512370
+## variable 15  0.06626748  0.09554240   1.0000000
+## variable 16  0.06654233  0.09667582   1.0000000
+## variable 17  0.06631940  0.09598264   1.0000000
+## variable 18  0.06656449  0.09654206   1.0000000
+## variable 19  0.06609852  0.09545868   1.0000000
+## variable 20  0.06680541  0.09644723   1.0000000</code></pre>
+</div>
+<div id="high-posterior-density-intervals" class="section level2">
+<h2>High posterior density intervals</h2>
+<p>It is also possible to require the computation of high probability density intervals for the elements of <span class="math inline">\(W\)</span>, which can then be plotted with the <code>plothpdi</code> function, which internally calls <code>ggplot2</code> functionalities. <em>Note</em>: when normalised weights are require from the corresponding <code>vbpca_control</code> argument, the posterior density interval will still be returned in the original weights scale (thus, no normalisation is performed on the HPDIs).</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1"><span class="co"># Set hyperparameter values and require 50% probability density intervals </span></a>
+<a class="sourceLine" id="cb78-2" data-line-number="2">ctrl8 &lt;-<span class="st"> </span><span class="kw">vbpca_control</span>(<span class="dt">center =</span> <span class="ot">FALSE</span>, <span class="dt">scalecorrection =</span> <span class="dv">-1</span>, </a>
+<a class="sourceLine" id="cb78-3" data-line-number="3">                        <span class="dt">plot.lowerbound =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb78-4" data-line-number="4">                        <span class="dt">alphatau =</span> <span class="dv">2</span>, <span class="dt">betatau =</span> <span class="fl">.5</span>, </a>
+<a class="sourceLine" id="cb78-5" data-line-number="5">                        <span class="dt">hpdi =</span> <span class="ot">TRUE</span>, <span class="dt">probHPDI =</span> <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb78-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb78-7" data-line-number="7"><span class="co"># Estimate the model </span></a>
+<a class="sourceLine" id="cb78-8" data-line-number="8">mod12 &lt;-<span class="st"> </span><span class="kw">vbpca</span>(X, <span class="dt">D =</span> <span class="dv">3</span>, <span class="dt">maxIter =</span> <span class="fl">1e+03</span>, <span class="dt">priorvar =</span> <span class="st">'invgamma'</span>,</a>
+<a class="sourceLine" id="cb78-9" data-line-number="9">              <span class="dt">control =</span> ctrl8, <span class="dt">verbose =</span> <span class="ot">TRUE</span> )</a></code></pre></div>
+<pre><code>## Local prior variances : Inverse-Gamma, fixed hyperparameters.</code></pre>
+<pre><code>## Warning: unscaled data - ELBO values might be positive.</code></pre>
+<pre><code>## Iteration: 1 - ELBO: -2803.52
+## Start # 1 has converged in 2 iterations; lower bound = -2802.98</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="co"># Plot HPD intervals for variables 1:10, component 1 </span></a>
+<a class="sourceLine" id="cb82-2" data-line-number="2"><span class="kw">plothpdi</span>(mod12, <span class="dt">d =</span> <span class="dv">1</span>, <span class="dt">vars =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a></code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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" alt="High posterior density intervals." />
+<p class="caption">High posterior density intervals.</p>
+</div>
+</div>
+<div id="retrieve-principal-components" class="section level2">
+<h2>Retrieve Principal Components</h2>
+<p>To compute the estimated components, simpy call:</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1">PCs &lt;-<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span>mod1<span class="op">$</span>muW </a>
+<a class="sourceLine" id="cb83-2" data-line-number="2"><span class="kw">head</span>(PCs, <span class="dv">15</span>)</a></code></pre></div>
+<pre><code>##       Component 1 Component 2 Component 3
+##  [1,]   -59.19132  -78.592706  31.3401006
+##  [2,]    28.97173 -118.789001 -29.0200757
+##  [3,]   -11.00518   14.227039  -4.8429359
+##  [4,]    92.16140  -33.606390 -28.1184464
+##  [5,]   -41.61482 -212.440556  13.4800625
+##  [6,]   113.51610  -20.107248   5.6778539
+##  [7,]    98.45308  -73.892682  17.2711799
+##  [8,]    42.05467 -142.922656 -68.0937444
+##  [9,]   -57.38540  -66.586046  17.5396890
+## [10,]    42.94090   51.286634  -0.2553017
+## [11,]    36.39523  -11.871548  13.9383073
+## [12,]   109.60474   -6.656482  25.3900540
+## [13,]  -196.01791  110.020823  -9.5996904
+## [14,]  -267.42318   71.336728  14.1676674
+## [15,]    38.49334   22.034659 -32.6994037</code></pre>
+<div id="references" class="section level3">
+<h3>References</h3>
+<ol style="list-style-type: decimal">
+<li>C. M. Bishop. ‘Variational PCA’. In Proc. Ninth Int. Conf. on Artificial Neural Networks. ICANN, 1999.</li>
+<li>E. I. George, R. E. McCulloch (1993). ‘Variable Selection via Gibbs Sampling’. Journal of the American Statistical Association (88), 881-889.</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
