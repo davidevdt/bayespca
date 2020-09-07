@@ -7,13 +7,9 @@
 using namespace Rcpp;
 
 // mainBayesPCA
-<<<<<<< HEAD
 Rcpp::List mainBayesPCA(const arma::mat& X, int D, int I, int J, int nstart, int maxIter, double tolerance, bool svdStart, bool verbose, bool updatetau, std::string priorvar, arma::vec alphatau, arma::vec betatau, arma::vec gammatau, arma::vec deltatau, bool SVS, arma::vec priorInclusion, arma::vec beta1pi, arma::vec beta2pi, double v0, bool commonpi, int JD, arma::mat Tau, double qz, bool scaleprior, std::string hypertype, bool globalvar, bool hpdi);
 RcppExport SEXP _bayespca_mainBayesPCA(SEXP XSEXP, SEXP DSEXP, SEXP ISEXP, SEXP JSEXP, SEXP nstartSEXP, SEXP maxIterSEXP, SEXP toleranceSEXP, SEXP svdStartSEXP, SEXP verboseSEXP, SEXP updatetauSEXP, SEXP priorvarSEXP, SEXP alphatauSEXP, SEXP betatauSEXP, SEXP gammatauSEXP, SEXP deltatauSEXP, SEXP SVSSEXP, SEXP priorInclusionSEXP, SEXP beta1piSEXP, SEXP beta2piSEXP, SEXP v0SEXP, SEXP commonpiSEXP, SEXP JDSEXP, SEXP TauSEXP, SEXP qzSEXP, SEXP scalepriorSEXP, SEXP hypertypeSEXP, SEXP globalvarSEXP, SEXP hpdiSEXP) {
-=======
-Rcpp::List mainBayesPCA(const arma::mat& X, int D, int I, int J, int nstart, int maxIter, double tolerance, bool svdStart, bool verbose, bool updatetau, std::string priorvar, arma::vec alphatau, arma::vec betatau, int JD, arma::mat Tau, double qz, bool globalvar, bool hpdi);
-RcppExport SEXP _bayespca_mainBayesPCA(SEXP XSEXP, SEXP DSEXP, SEXP ISEXP, SEXP JSEXP, SEXP nstartSEXP, SEXP maxIterSEXP, SEXP toleranceSEXP, SEXP svdStartSEXP, SEXP verboseSEXP, SEXP updatetauSEXP, SEXP priorvarSEXP, SEXP alphatauSEXP, SEXP betatauSEXP, SEXP JDSEXP, SEXP TauSEXP, SEXP qzSEXP, SEXP globalvarSEXP, SEXP hpdiSEXP) {
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
+
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -35,11 +31,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type qz(qzSEXP);
     Rcpp::traits::input_parameter< bool >::type globalvar(globalvarSEXP);
     Rcpp::traits::input_parameter< bool >::type hpdi(hpdiSEXP);
-<<<<<<< HEAD
     rcpp_result_gen = Rcpp::wrap(mainBayesPCA(X, D, I, J, nstart, maxIter, tolerance, svdStart, verbose, updatetau, priorvar, alphatau, betatau, gammatau, deltatau, SVS, priorInclusion, beta1pi, beta2pi, v0, commonpi, JD, Tau, qz, scaleprior, hypertype, globalvar, hpdi));
-=======
-    rcpp_result_gen = Rcpp::wrap(mainBayesPCA(X, D, I, J, nstart, maxIter, tolerance, svdStart, verbose, updatetau, priorvar, alphatau, betatau, JD, Tau, qz, globalvar, hpdi));
->>>>>>> 50009e97c685ef8e94bbfdb6fc3a466f64df3285
     return rcpp_result_gen;
 END_RCPP
 }
