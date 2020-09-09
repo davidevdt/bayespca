@@ -3,7 +3,7 @@ title: "bayespca Package"
 author: "Davide Vidotto <d.vidotto@uvt.nl>"
 date: "`r Sys.Date()`"
 output:
-  pdf_document:
+  html_document:
     toc: true
 vignette: >
   %\VignetteIndexEntry{bayespca Package}
@@ -39,7 +39,6 @@ where $MVN()$ denotes the density of the Multivariate Normal Matrix, and $T_d$ d
 ## The `bayespca` package
 Variational Bayes PCA is implemented through the ```vbpca``` function, which takes the following arguments as inputs:
 
-<<<<<<< HEAD
 * ```X``` the input matrix; 
 * ```D``` the number of components to be estimated; 
 * ```maxIter``` the maximum number of iterations for the Variational Bayes algorithm; 
@@ -71,10 +70,6 @@ X <- X + matrix(rnorm(I * J, 0, 1), I, J)
 
 I will now proceed with the estimation of the PCA model. 
 
-
-## Levels of regularization on the W matrix 
-### Fixed ```tau``` 
-With fixed tau, it is possible to specify the model as follows: 
 
 ## Levels of regularization on the W matrix
 ### Fixed ```tau```
