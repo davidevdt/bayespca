@@ -164,8 +164,7 @@ arma::mat fMat( bool globalvar, std::string priorvar, arma::mat W2, double invsi
 			f = W2 * (invsigma / 2.0) ;
 
 			if( SVS ){
-				// f = f % (((1.0-incProbs)*(1/v0)) + incProbs);
-				f = f % ((1.0-incProbs) + (v0 * incProbs));
+				f = f % (((1.0-incProbs)*(1/v0)) + incProbs);
 			}
 
 			f = arma::log(f);
@@ -174,7 +173,6 @@ arma::mat fMat( bool globalvar, std::string priorvar, arma::mat W2, double invsi
 
 			if( SVS ){
 				f = f % (((1.0-incProbs)*(1/v0)) + incProbs);
-				// f = f % ((1.0-incProbs) + (v0 * incProbs));
 			}
 
 			if( any( gammatau <= 0.0 ) ){
@@ -208,7 +206,6 @@ arma::mat fMat( bool globalvar, std::string priorvar, arma::mat W2, double invsi
 				f = arma::log(f);
 			}else{
 				f.each_row() = arma::sum( W2 % ( ((1.0-incProbs)*(1.0/v0)) + incProbs), 0 );
-				// f.each_row() = arma::sum( W2 % ((1.0-incProbs) + (v0 * incProbs)), 0 );
 				f *= invsigma / 2.0;
 				f = arma::log(f);
 			}
@@ -220,7 +217,6 @@ arma::mat fMat( bool globalvar, std::string priorvar, arma::mat W2, double invsi
 					f *= invsigma / 2.0;
 				}else{
 					f.each_row() = arma::sum( W2 % ( ((1.0-incProbs)*(1.0/v0)) + incProbs ), 0 );
-					// f.each_row() = arma::sum( W2 % ((1.0-incProbs) + (v0 * incProbs)), 0 );
 					f *= invsigma / 2.0;
 				}
 				f.each_row() += betatau.t();
@@ -232,7 +228,6 @@ arma::mat fMat( bool globalvar, std::string priorvar, arma::mat W2, double invsi
 					f *= invsigma / 2.0;
 				}else{
 					f.each_row() = arma::sum( W2 % ( ((1.0-incProbs)*(1.0/v0)) + incProbs ), 0 );
-					// 	f.each_row() = arma::sum( W2 % ((1.0-incProbs) + (v0 * incProbs)), 0 );
 					f *= invsigma / 2.0;
 				}
 				f.each_row() += btmp.t();
