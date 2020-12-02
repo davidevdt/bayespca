@@ -15,7 +15,8 @@ Rcpp::Function svdExt("svd");
 
 void SVD( const arma::mat&M, arma::mat& U, arma::vec& D, arma::mat& V, int nu, int nv ){
 
-	Rcpp::List svdList = svdExt(M, Rcpp::Named("nu") = nu, Rcpp::Named("nv") = nv, Rcpp::Named("LINPACK") = false );
+	// Rcpp::List svdList = svdExt(M, Rcpp::Named("nu") = nu, Rcpp::Named("nv") = nv, Rcpp::Named("LINPACK") = false);
+	Rcpp::List svdList = svdExt(M, Rcpp::Named("nu") = nu, Rcpp::Named("nv") = nv );
 
 	U = Rcpp::as<arma::mat>(svdList["u"]);
 	D = Rcpp::as<arma::vec>(svdList["d"]);
