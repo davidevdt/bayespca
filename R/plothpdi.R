@@ -47,7 +47,7 @@
 #' @export 
 plothpdi <- function(obj, d = 1, vars = NULL) {
     
-    if (class(obj) != "vbpca") {
+    if (!inherits(obj, "vbpca")) {
         stop("<obj> must be a vbpca object.")
     }
     

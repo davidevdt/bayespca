@@ -2,6 +2,7 @@
 % Please edit documentation in R/bayespca.R
 \docType{package}
 \name{bayespca}
+\alias{bayespca-package}
 \alias{bayespca}
 \title{bayespca: Regularized Principal Component Analysis via Variational Bayes inference.}
 \description{
@@ -37,6 +38,14 @@ Journal of the American Statistical Association (88), 881-889.
 
 
 }
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{http://github.com/davidevdt/bayespca}
+  \item Report bugs at \url{http://github.com/davidevdt/bayespca/issues}
+}
+
 }
 \author{
 D. Vidotto <d.vidotto@uvt.nl>

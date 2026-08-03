@@ -1,6 +1,15 @@
 #ifndef AUX_FUNCTIONS_H
 #define AUX_FUNCTIONS_H
 
+// Make the mathematical constant PI available to every translation unit that
+// includes this header. It used to be defined only inside aux_functions.cpp,
+// so the other sources failed to compile ("'PI' was not declared") on modern
+// compilers/toolchains.
+#include <cmath>
+#ifndef PI
+#define PI M_PI
+#endif
+
 void SVD( const arma::mat&M, arma::mat& U, arma::vec& D, arma::mat &V, int nu, int nv );
 
 double gammaFunc( double x, bool logScale );

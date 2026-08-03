@@ -17,17 +17,20 @@ Davide Vidotto <d.vidotto@uvt.nl>
 * ```vbpca``` for model estimation
 * ```vbpca_control``` for settings of control parameters
 * ```is.vbpca``` for testing the class
-* ```plotheatmap``` for plotting the precision and weights matrices;
 * ```plothpdi``` for plotting high probability density intervals
 
 ## Install
+
+```r
+# install.packages("devtools")
 devtools::install_github("davidevdt/bayespca")
+```
 
 ## Version
 0.3.0
 
 ## Depends
-R (>= 3.3.3)
+R (>= 3.5.0)
 
 ## License
 GPL-2

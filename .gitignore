@@ -5,3 +5,10 @@ bayespca.Rproj
 inst/doc
 doc
 Meta
+
+# compiled objects (never commit)
+*.o
+*.so
+*.dll
+*.rds
+symbols.rds

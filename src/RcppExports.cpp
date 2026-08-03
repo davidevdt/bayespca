@@ -6,6 +6,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // mainBayesPCA
 Rcpp::List mainBayesPCA(const arma::mat& X, int D, int I, int J, int nstart, int maxIter, double tolerance, bool svdStart, bool verbose, bool updatetau, std::string priorvar, arma::vec alphatau, arma::vec betatau, arma::vec gammatau, arma::vec deltatau, bool SVS, arma::vec priorInclusion, arma::vec beta1pi, arma::vec beta2pi, double v0, bool commonpi, int JD, arma::mat Tau, double qz, bool scaleprior, std::string hypertype, bool globalvar, bool hpdi);
 RcppExport SEXP _bayespca_mainBayesPCA(SEXP XSEXP, SEXP DSEXP, SEXP ISEXP, SEXP JSEXP, SEXP nstartSEXP, SEXP maxIterSEXP, SEXP toleranceSEXP, SEXP svdStartSEXP, SEXP verboseSEXP, SEXP updatetauSEXP, SEXP priorvarSEXP, SEXP alphatauSEXP, SEXP betatauSEXP, SEXP gammatauSEXP, SEXP deltatauSEXP, SEXP SVSSEXP, SEXP priorInclusionSEXP, SEXP beta1piSEXP, SEXP beta2piSEXP, SEXP v0SEXP, SEXP commonpiSEXP, SEXP JDSEXP, SEXP TauSEXP, SEXP qzSEXP, SEXP scalepriorSEXP, SEXP hypertypeSEXP, SEXP globalvarSEXP, SEXP hpdiSEXP) {

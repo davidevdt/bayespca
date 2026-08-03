@@ -257,7 +257,7 @@ vbpca <- function(X, D = 1, maxIter = 500, tolerance = 1e-05, verbose = FALSE, t
 #' @export
 is.vbpca <- function(object) {
     
-    class(object) == "vbpca"
+    inherits(object, "vbpca")
     
 }
 
@@ -281,7 +281,7 @@ print.vbpca <- function(x, ...) {
 #' @export
 summary.vbpca <- function(object, ...) {
     
-    if (is.null(object) || class(object) != "vbpca") {
+    if (is.null(object) || !inherits(object, "vbpca")) {
         stop("<object> must be a vbpca object.")
     }
     
